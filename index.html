@@ -150,9 +150,15 @@ section:nth-child(even){background:var(--card-bg)}
 #partners{background:var(--card-bg)!important}
 .partners-intro{font-size:1rem;color:var(--text-light);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
 .partners-intro .big-stat{font-family:var(--font-mono);font-size:3rem;font-weight:700;color:var(--navy);line-height:1}
-.partners-grid{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
-.partner-logo{background:#fff;border:1px solid var(--border);padding:.8rem 1.5rem;font-family:var(--font-heading);font-size:.9rem;font-weight:700;color:var(--navy);transition:all .3s;white-space:nowrap}
-.partner-logo:hover{border-color:var(--gold);box-shadow:0 2px 12px rgba(0,0,0,.06);transform:translateY(-2px)}
+.marquee-wrap{overflow:hidden;position:relative;width:100%;padding:1rem 0}
+.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.marquee-wrap::before{left:0;background:linear-gradient(90deg,var(--card-bg),transparent)}
+.marquee-wrap::after{right:0;background:linear-gradient(270deg,var(--card-bg),transparent)}
+.marquee-track{display:flex;gap:3rem;align-items:center;animation:marquee 30s linear infinite;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-track img{height:50px;width:auto;object-fit:contain;opacity:.7;transition:opacity .3s;filter:grayscale(20%)}
+.marquee-track img:hover{opacity:1;filter:grayscale(0%)}
 
 /* MARKET */
 #market{background:#fff!important}
@@ -595,19 +601,32 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       <div class="big-stat">100+</div>
       <div>Strong hiring partner network: IPC graduates are hired by leading companies, supporting strong employment outcomes</div>
     </div>
-    <div class="partners-grid reveal reveal-delay-3">
-      <div class="partner-logo">JobMaster</div>
-      <div class="partner-logo">Pelephone</div>
-      <div class="partner-logo">Wolt</div>
-      <div class="partner-logo">Rafael</div>
-      <div class="partner-logo">Hilan</div>
-      <div class="partner-logo">H&amp;M</div>
-      <div class="partner-logo">Afikim</div>
-      <div class="partner-logo">Ytaron</div>
-      <div class="partner-logo">Manpower</div>
-      <div class="partner-logo">Match</div>
-      <div class="partner-logo">MAX</div>
-      <div class="partner-logo">Castro</div>
+    <div class="marquee-wrap reveal reveal-delay-3">
+      <div class="marquee-track">
+        <img src="images/logos/logo_7.png" alt="JobMaster">
+        <img src="images/logos/logo_1.png" alt="Pelephone">
+        <img src="images/logos/logo_10.png" alt="Wolt">
+        <img src="images/logos/logo_11.png" alt="Rafael">
+        <img src="images/logos/logo_6.png" alt="H&M">
+        <img src="images/logos/logo_5.png" alt="Afikim">
+        <img src="images/logos/logo_2.png" alt="Ytaron">
+        <img src="images/logos/logo_3.png" alt="Manpower">
+        <img src="images/logos/logo_8.png" alt="Match">
+        <img src="images/logos/logo_4.png" alt="MAX">
+        <img src="images/logos/logo_9.png" alt="Castro">
+        <!-- Duplicate for seamless loop -->
+        <img src="images/logos/logo_7.png" alt="JobMaster">
+        <img src="images/logos/logo_1.png" alt="Pelephone">
+        <img src="images/logos/logo_10.png" alt="Wolt">
+        <img src="images/logos/logo_11.png" alt="Rafael">
+        <img src="images/logos/logo_6.png" alt="H&M">
+        <img src="images/logos/logo_5.png" alt="Afikim">
+        <img src="images/logos/logo_2.png" alt="Ytaron">
+        <img src="images/logos/logo_3.png" alt="Manpower">
+        <img src="images/logos/logo_8.png" alt="Match">
+        <img src="images/logos/logo_4.png" alt="MAX">
+        <img src="images/logos/logo_9.png" alt="Castro">
+      </div>
     </div>
   </div>
 </section>
