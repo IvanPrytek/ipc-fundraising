@@ -212,8 +212,9 @@ section:nth-child(even){background:var(--card-bg)}
 .tri-node.active{border-color:var(--gold);border-style:solid;background:var(--navy);color:#fff}
 .tri-node.active h4{color:var(--gold)}
 .tri-node.active p{color:rgba(255,255,255,.7)}
-.tri-node h4{font-family:var(--font-heading);font-size:.9rem;color:var(--navy);margin-bottom:.2rem;transition:color .3s}
-.tri-node p{font-size:.75rem;color:var(--text-light);line-height:1.4;transition:color .3s}
+.tri-node h4{font-family:var(--font-heading);font-size:.85rem;color:var(--navy);margin-bottom:.15rem;transition:color .3s;font-weight:700}
+.tri-node p{font-size:.75rem;color:var(--text-light);line-height:1.3;transition:color .3s;font-family:var(--font-body)}
+.mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.08)}
 .tri-node-top{top:0;left:50%;transform:translateX(-50%)}
 .tri-node-bl{bottom:0;left:0}
 .tri-node-br{bottom:0;right:0}
@@ -428,7 +429,9 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         <!-- Israel flag -->
         <rect x="127" y="88" width="24" height="16" fill="#fff" stroke="#e5e7eb" stroke-width=".5" rx="2"/>
         <rect x="127" y="91" width="24" height="2.5" fill="#0038b8"/><rect x="127" y="101" width="24" height="2.5" fill="#0038b8"/>
-        <polygon points="139,94.5 140.5,97.5 143.5,97.5 141,99.5 142,102.5 139,100.5 136,102.5 137,99.5 134.5,97.5 137.5,97.5" fill="#0038b8" stroke="none"/>
+        <!-- Star of David: two overlapping triangles -->
+        <polygon points="139,93 142,98.2 136,98.2" fill="none" stroke="#0038b8" stroke-width="1"/>
+        <polygon points="139,101 136,95.8 142,95.8" fill="none" stroke="#0038b8" stroke-width="1"/>
         <text x="150" y="210" fill="var(--navy)" font-family="var(--font-heading)" font-size="12" font-weight="700" text-anchor="middle">ISRAEL</text>
         <text x="150" y="224" fill="var(--text-light)" font-family="var(--font-mono)" font-size="8" text-anchor="middle">HQ &middot; $1.1B EdTech Market</text>
         <!-- Arrow -->
@@ -510,9 +513,9 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     <div class="products-layout">
       <div>
         <div class="verticals-grid">
-          <div class="vertical-card reveal reveal-delay-1"><span class="v-icon">&#128187;</span><h4>Hi-Tech &amp; Digital</h4><div class="v-courses">Cybersecurity, QA, Data Analytics, Web Dev, Digital Marketing, Graphic Design, SEO</div><div class="v-pct">51% of enrollment</div></div>
-          <div class="vertical-card reveal reveal-delay-2"><span class="v-icon">&#128176;</span><h4>Finance &amp; Business</h4><div class="v-courses">Bookkeeping, Tax Consulting, Crypto &amp; Capital Markets, Mortgage, Real Estate</div><div class="v-pct">30% of enrollment</div></div>
-          <div class="vertical-card reveal reveal-delay-3"><span class="v-icon">&#128218;</span><h4>Professional Skills</h4><div class="v-courses">Excel, English, Priority ERP, Management &amp; Leadership</div><div class="v-pct">19% of enrollment</div></div>
+          <div class="vertical-card reveal reveal-delay-1"><img src="images/hitech.jpg" alt="Hi-Tech" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>Hi-Tech &amp; Digital</h4><div class="v-courses">Cybersecurity, QA, Data Analytics, Web Dev, Digital Marketing, Graphic Design, SEO</div><div class="v-pct">51% of enrollment</div></div>
+          <div class="vertical-card reveal reveal-delay-2"><img src="images/finance.jpg" alt="Finance" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>Finance &amp; Business</h4><div class="v-courses">Bookkeeping, Tax Consulting, Crypto &amp; Capital Markets, Mortgage, Real Estate</div><div class="v-pct">30% of enrollment</div></div>
+          <div class="vertical-card reveal reveal-delay-3"><img src="images/professional.jpg" alt="Professional" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>Professional Skills</h4><div class="v-courses">Excel, English, Priority ERP, Management &amp; Leadership</div><div class="v-pct">19% of enrollment</div></div>
         </div>
         <ul class="product-bullets reveal">
           <li><strong>External accreditations</strong> (ISTQB, CCNA, Israeli CPA Council, Ministry of Labor) drive employer trust and premium pricing</li>
@@ -688,7 +691,19 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         <p>Click on any node to explore how each segment feeds into the full-cycle platform</p>
       </div>
 
-      <div class="mna-phases" style="margin-top:2rem">
+      <!-- Group Financial Targets -->
+      <div style="display:flex;gap:2rem;justify-content:center;margin:2rem 0;flex-wrap:wrap" class="reveal">
+        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px">
+          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">110M</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.6)">NIS 2030 Group Revenue</div>
+        </div>
+        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px">
+          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">23M</div>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.6)">NIS 2030 Group EBITDA</div>
+        </div>
+      </div>
+
+      <div class="mna-phases" style="margin-top:1.5rem">
         <div class="mna-phase reveal reveal-delay-1"><span class="phase-badge">Phase 1</span><div><h4>K12 / Undergraduate Education</h4><p>Tech training and test preparation companies create a full student pipeline</p></div><span class="phase-metrics">10M NIS Rev | 10% EBITDA</span></div>
         <div class="mna-phase reveal reveal-delay-2"><span class="phase-badge">Phase 2</span><div><h4>B2B Trainings</h4><p>B2B corporate education company with strong partnerships. Adds B2B channel and international reach.</p></div><span class="phase-metrics">12.4M NIS | 55% GP | 13% EBITDA</span></div>
         <div class="mna-phase reveal reveal-delay-3"><span class="phase-badge">Phase 3</span><div><h4>Further Bolt-ons</h4><p>Talent placement, additional fragmented players. Building a full Human Capital Value Chain.</p></div><span class="phase-metrics">Full-cycle platform</span></div>
@@ -859,7 +874,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         <p>We welcome inquiries from qualified investors interested in joining IPC's growth story. Whether you have questions about the opportunity, want to review additional materials, or are ready to discuss terms, we'd love to hear from you.</p>
         <p>All inquiries are treated as strictly confidential.</p>
       </div>
-      <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="return submitContact(event)" action="https://formspree.io/f/invest@prytek.com" method="POST">
+      <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="return submitContact(event)" action="https://formspree.io/invest@prytek.com" method="POST">
         <div class="form-row">
           <input type="text" name="name" placeholder="Full Name" required>
           <input type="text" name="company" placeholder="Company / Fund">
@@ -958,17 +973,24 @@ function calcInvest(){
 }
 calcInvest();
 
-// TRIANGLE DIAGRAM
+// TRIANGLE DIAGRAM - nodes linked to M&A phases
+// idx 0 = Reskilling (top) -> Phase 2 (B2B Trainings)
+// idx 1 = Undergraduate (bottom-left) -> Phase 1 (K12)
+// idx 2 = Talent Placement (bottom-right) -> Phase 3 (Bolt-ons)
 const triDetails=[
-  {title:'Reskilling / B2B / B2G / White-labeling',text:'Corporate upskilling programs delivered via <strong>B2B and B2G channels</strong>. White-label partnerships allow rapid scaling without building new brands. Students continuously return for reskilling as industries evolve.'},
-  {title:'Undergraduate Assessment (K12)',text:'<strong>K12 and test preparation</strong> companies feed the top of the funnel. Students enter the ecosystem early through graduation prep, then flow naturally into professional training and vocational courses.'},
-  {title:'Assessment and Talent Placement',text:'Licensed <strong>placement agency</strong> (Ministry of Labor #3142) closes the loop. Graduates are assessed, matched with 100+ hiring partners, and placed into careers \u2014 driving employer satisfaction and referral pipeline back into the system.'}
+  {title:'Reskilling / B2B / B2G / White-labeling',text:'Corporate upskilling programs delivered via <strong>B2B and B2G channels</strong>. White-label partnerships allow rapid scaling without building new brands. Students continuously return for reskilling as industries evolve.',phase:1},
+  {title:'Undergraduate Assessment (K12)',text:'<strong>K12 and test preparation</strong> companies feed the top of the funnel. Students enter the ecosystem early through graduation prep, then flow naturally into professional training and vocational courses.',phase:0},
+  {title:'Assessment and Talent Placement',text:'Licensed <strong>placement agency</strong> (Ministry of Labor #3142) closes the loop. Graduates are assessed, matched with 100+ hiring partners, and placed into careers \u2014 driving employer satisfaction and referral pipeline back into the system.',phase:2}
 ];
 function showTriDetail(idx){
   document.querySelectorAll('.tri-node').forEach(n=>n.classList.remove('active'));
   document.querySelectorAll('.tri-node')[idx].classList.add('active');
   const d=triDetails[idx];
   document.getElementById('triDetail').innerHTML='<p><strong style="color:var(--gold)">'+d.title+'</strong><br>'+d.text+'</p>';
+  // Highlight matching M&A phase
+  document.querySelectorAll('.mna-phase').forEach((p,i)=>{
+    p.classList.toggle('phase-highlight',i===d.phase);
+  });
 }
 // Animate SVG lines on scroll
 const triObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)document.getElementById('triSvg').classList.add('animated')})},{threshold:.3});
@@ -981,7 +1003,7 @@ function submitContact(e){
   const f=document.getElementById('contactForm');
   const btn=f.querySelector('button');
   btn.textContent='Sending...';btn.disabled=true;
-  fetch('https://formspree.io/f/invest@prytek.com',{
+  fetch('https://formspree.io/invest@prytek.com',{
     method:'POST',
     body:new FormData(f),
     headers:{'Accept':'application/json'}
