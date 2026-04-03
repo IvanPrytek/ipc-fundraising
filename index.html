@@ -301,7 +301,8 @@ section:nth-child(even){background:var(--card-bg)}
 @media(max-width:900px){.ai-growth-cards,.gcc-layout{grid-template-columns:1fr}.mna-phase{grid-template-columns:1fr}.mna-targets{flex-direction:column}}
 
 /* PLATFORM TRIANGLE */
-.triangle-wrap{position:relative;width:100%;max-width:650px;margin:2rem auto 2.5rem;height:420px}
+.triangle-wrap{position:relative;width:100%;max-width:650px;margin:2rem auto 2.5rem;height:440px}
+.tri-phase-tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;display:block}
 .tri-svg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .tri-svg line,.tri-svg path{stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease}
 .tri-svg.animated line,.tri-svg.animated path{stroke-dashoffset:0}
@@ -317,7 +318,7 @@ section:nth-child(even){background:var(--card-bg)}
 .tri-node h4{font-family:var(--font-heading);font-size:.85rem;color:var(--navy);margin-bottom:.15rem;transition:color .3s;font-weight:700}
 .tri-node p{font-size:.75rem;color:var(--text-light);line-height:1.3;transition:color .3s;font-family:var(--font-body)}
 .mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.08)}
-.tri-node-top{top:0;left:50%;transform:translateX(-50%)}
+.tri-node-top{top:10px;left:50%;transform:translateX(-50%)}
 .tri-node-bl{bottom:0;left:0}
 .tri-node-br{bottom:0;right:0}
 .tri-center{
@@ -882,9 +883,9 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
           <path d="M480,365 C400,400 250,400 170,365" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
           <defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="var(--navy)" opacity=".5"/></marker></defs>
         </svg>
-        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0"><h4>Reskilling / B2B / B2G</h4><p>White-labeling</p></div>
-        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1"><h4>Undergraduate</h4><p>Assessment (K12)</p></div>
-        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2"><h4>Assessment and</h4><p>Talent Placement</p></div>
+        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0"><h4>Reskilling / B2B / B2G</h4><p>White-labeling</p><span class="tri-phase-tag">&#8594; Phase 2</span></div>
+        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1"><h4>Undergraduate</h4><p>Assessment (K12)</p><span class="tri-phase-tag">&#8594; Phase 1</span></div>
+        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2"><h4>Assessment and</h4><p>Talent Placement</p><span class="tri-phase-tag">&#8594; Phase 3</span></div>
         <div class="tri-center"><span>Lifelong<br>reskilling</span></div>
       </div>
       <div class="tri-detail" id="triDetail"><p>Click on any node to explore how each segment feeds into the full-cycle platform</p></div>
@@ -939,12 +940,12 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
           </div></div></div>
         </div>
         <div class="fin-kpis">
+          <div class="fin-kpi reveal" style="border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05)"><div class="fk-val" style="font-size:1rem;color:var(--gold);min-width:auto"><span style="font-size:1.4rem">&#9650;</span></div><div class="fk-label" style="color:rgba(255,255,255,.75)">Organic growth driven by expanding AI-powered course offerings and penetrating new Arab-speaking markets</div></div>
           <div class="fin-kpi reveal reveal-delay-1"><div class="fk-val" data-count="12" data-suffix="%">0</div><div class="fk-label">Revenue CAGR (2025-2030)</div></div>
           <div class="fin-kpi reveal reveal-delay-2"><div class="fk-val" data-count="36" data-suffix="%">0</div><div class="fk-label">Gross Margin 2025</div></div>
           <div class="fin-kpi reveal reveal-delay-3"><div class="fk-val" data-count="26" data-suffix="%">0</div><div class="fk-label">EBIT Margin by 2030</div></div>
           <div class="fin-kpi reveal reveal-delay-4"><div class="fk-val" data-count="29" data-suffix="%">0</div><div class="fk-label">YoY Revenue Growth 2025</div></div>
           <div class="fin-kpi reveal reveal-delay-5"><div class="fk-val">Debt-free</div><div class="fk-label">Balance Sheet by 2030</div></div>
-          <div class="fin-kpi reveal reveal-delay-5" style="border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05)"><div class="fk-val" style="font-size:1rem;color:var(--gold);min-width:auto"><span style="font-size:1.4rem">&#9650;</span></div><div class="fk-label" style="color:rgba(255,255,255,.75)">Organic growth driven by expanding AI-powered course offerings and penetrating new Arab-speaking markets</div></div>
         </div>
       </div>
     </div>
@@ -986,11 +987,11 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
           </div>
         </div>
         <div class="fin-kpis">
+          <div class="fin-kpi" style="border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05)"><div class="fk-val" style="font-size:1rem;color:var(--gold);min-width:auto"><span style="font-size:1.4rem">&#9650;</span></div><div class="fk-label" style="color:rgba(255,255,255,.75)">Post-M&A growth powered by life-long upsell across the combined student base &mdash; every acquisition feeds the engine</div></div>
           <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">110M</div><div class="fk-label">NIS Revenue by 2030</div></div>
           <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">23M</div><div class="fk-label">NIS EBIT by 2030</div></div>
           <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">12%</div><div class="fk-label">Revenue CAGR</div></div>
           <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">21%</div><div class="fk-label">EBIT Margin by 2030</div></div>
-          <div class="fin-kpi" style="border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05)"><div class="fk-val" style="font-size:1rem;color:var(--gold);min-width:auto"><span style="font-size:1.4rem">&#9650;</span></div><div class="fk-label" style="color:rgba(255,255,255,.75)">Post-M&A growth powered by life-long upsell across the combined student base &mdash; every acquisition feeds the engine</div></div>
         </div>
       </div>
     </div>
