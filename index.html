@@ -101,8 +101,10 @@ body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:h
 .whynow-card .wn-stat{font-family:var(--font-mono);font-size:.8rem;color:var(--gold);margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--border)}
 @media(max-width:768px){.whynow-grid{grid-template-columns:1fr}}
 
-/* NAV - offset for urgency bar */
-nav{position:fixed;top:28px;left:0;right:0;z-index:100;padding:.8rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+/* NAV */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100}
+nav{padding:.6rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.site-header.scrolled nav{border-bottom-color:var(--border)}
 nav.scrolled{border-bottom-color:var(--border)}
 nav .container{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:var(--font-heading);font-weight:800;font-size:1.4rem;color:var(--navy);text-decoration:none}
@@ -290,7 +292,7 @@ section:nth-child(even){background:var(--card-bg)}
 .gcc-info li::before{content:'\2022';position:absolute;left:0;color:var(--gold)}
 .mna-phases{display:flex;flex-direction:column;gap:1.2rem}
 .mna-phase{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;background:#fff;padding:1.2rem 1.5rem;border-left:3px solid var(--gold);align-items:center;transition:all .3s}
-.mna-phase:hover{transform:translateX(3px);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.mna-phase:hover{box-shadow:0 2px 12px rgba(0,0,0,.05)}
 .mna-phase .phase-badge{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--navy);padding:.3rem .7rem;color:var(--gold);white-space:nowrap}
 .mna-phase h4{font-family:var(--font-heading);font-size:.9rem;color:var(--navy);margin-bottom:.2rem}
 .mna-phase p{font-size:.8rem;color:var(--text-light)}
@@ -311,13 +313,13 @@ section:nth-child(even){background:var(--card-bg)}
   padding:1rem 1.5rem;text-align:center;z-index:2;cursor:pointer;
   transition:all .4s;min-width:180px;
 }
-.tri-node:hover{border-color:var(--gold);border-style:solid;box-shadow:0 6px 24px rgba(0,0,0,.08);transform:scale(1.04)}
+.tri-node:hover{border-color:var(--gold);border-style:solid;box-shadow:0 6px 24px rgba(0,0,0,.08)}
 .tri-node.active{border-color:var(--gold);border-style:solid;background:var(--navy);color:#fff}
 .tri-node.active h4{color:var(--gold)}
 .tri-node.active p{color:rgba(255,255,255,.7)}
 .tri-node h4{font-family:var(--font-heading);font-size:.85rem;color:var(--navy);margin-bottom:.15rem;transition:color .3s;font-weight:700}
 .tri-node p{font-size:.75rem;color:var(--text-light);line-height:1.3;transition:color .3s;font-family:var(--font-body)}
-.mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);box-shadow:0 4px 20px rgba(0,0,0,.08)}
 .tri-node-top{top:10px;left:50%;transform:translateX(-50%)}
 .tri-node-bl{bottom:0;left:0}
 .tri-node-br{bottom:0;right:0}
@@ -460,13 +462,13 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 </head>
 <body>
 
-<!-- URGENCY TICKER -->
-<div class="urgency-bar" style="position:relative"><span class="ub-dot"></span>ROUND CLOSING MAY 2026 &mdash; LIMITED ALLOCATION<div class="lang-switch"><a href="index.html" class="active">EN</a><a href="he.html">HE</a></div></div>
-
 <!-- FLOATING CTA -->
 <a href="#contact" class="floating-cta" id="floatingCta">Request Access</a>
 
-<nav id="navbar">
+<!-- SITE HEADER: urgency + nav together -->
+<div class="site-header" id="siteHeader">
+  <div class="urgency-bar" style="position:relative"><span class="ub-dot"></span>ROUND CLOSING MAY 2026 &mdash; LIMITED ALLOCATION<div class="lang-switch"><a href="index.html" class="active">EN</a><a href="he.html">HE</a></div></div>
+  <nav>
   <div class="container">
     <a href="#hero" class="nav-logo">ipc<span>.</span></a>
     <ul class="nav-links">
@@ -481,7 +483,8 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     </ul>
     <a href="#contact" class="nav-cta">Contact Us</a>
   </div>
-</nav>
+  </nav>
+</div><!-- /site-header -->
 
 <!-- HERO -->
 <section id="hero">
@@ -492,7 +495,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     <h1 class="hero-title reveal reveal-delay-2">The AI Reskilling Wave Is Here.<br><em>We're Already Profitable<br>and Biggest on the Market.</em></h1>
     <p class="hero-sub reveal reveal-delay-3">Israel's #1 vocational platform. NIS 41M revenue. 25% EBIT margin. 92% of students recommend us. Now taking this machine to the $4.5B Arab-speaking market.</p>
     <div class="hero-kpis reveal reveal-delay-4">
-      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">Revenue 2025A <span class="hero-sparkline" id="heroSparkline"></span></div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">Revenue 2025A</div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="10.2" data-suffix="M NIS" data-decimals="1">0</div><div class="hero-kpi-label">EBIT 2025A</div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="hero-kpi-label">Students per Year</div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="25" data-suffix="+">0</div><div class="hero-kpi-label">Programs</div></div>
@@ -500,6 +503,18 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
   </div>
   <div class="hero-scroll">Scroll to explore &darr;</div>
 </section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+  <div class="container testimonial-inner reveal">
+    <div class="testimonial-photo"><img src="images/shay_piron.png" alt="Rabbi Shay Moshe Piron"></div>
+    <blockquote>&ldquo;IPC College is more than an academic institution &mdash; it is a new path in the world of employment and professional training in Israel. We don't just teach &mdash; we unlock each student's potential and create equal opportunities for all.&rdquo;</blockquote>
+    <cite>
+      <span class="cite-name">Rabbi Shay Moshe Piron</span>
+      <span class="cite-role">President of IPC College &amp; Former Minister of Education of Israel</span>
+    </cite>
+  </div>
+</div>
 
 <!-- EXECUTIVE SUMMARY -->
 <section id="summary">
@@ -535,18 +550,6 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     </div>
   </div>
 </section>
-
-<!-- TESTIMONIAL -->
-<div class="testimonial">
-  <div class="container testimonial-inner reveal">
-    <div class="testimonial-photo"><img src="images/shay_piron.png" alt="Rabbi Shay Moshe Piron"></div>
-    <blockquote>&ldquo;IPC College is more than an academic institution &mdash; it is a new path in the world of employment and professional training in Israel. We don't just teach &mdash; we unlock each student's potential and create equal opportunities for all.&rdquo;</blockquote>
-    <cite>
-      <span class="cite-name">Rabbi Shay Moshe Piron</span>
-      <span class="cite-role">President of IPC College &amp; Former Minister of Education of Israel</span>
-    </cite>
-  </div>
-</div>
 
 <!-- VISION -->
 <section id="vision">
@@ -1124,7 +1127,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // NAV + FLOATING CTA
 window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>50);
   const cta=document.getElementById('floatingCta');
   cta.classList.toggle('visible',window.scrollY>window.innerHeight);
 });
