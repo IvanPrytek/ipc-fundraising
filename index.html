@@ -347,7 +347,13 @@ section:nth-child(even){background:var(--card-bg)}
 .fin-toggle-btn.active{background:var(--gold);color:var(--navy);font-weight:700}
 .fin-toggle-btn:hover:not(.active){background:rgba(201,168,76,.1)}
 .fin-view{display:none}.fin-view.active{display:block}
-.financials-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start}
+.financials-layout{display:flex;flex-direction:column;gap:1.5rem}
+.fin-thesis{border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.fin-thesis .ft-icon{font-size:1.4rem;color:var(--gold)}
+.fin-thesis .ft-text{font-size:.9rem;color:rgba(255,255,255,.75)}
+.fin-kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+.fin-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.fin-charts-row{grid-template-columns:1fr}}
 .chart-container{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:1.5rem}
 .chart-container h3{font-family:var(--font-heading);font-size:.9rem;color:#fff;margin-bottom:1.2rem}
 .chart-area{position:relative;height:280px;padding-bottom:25px}
@@ -965,7 +971,21 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     <!-- STANDALONE -->
     <div class="fin-view active" id="fin-standalone">
       <div class="financials-layout">
-        <div>
+        <!-- 1. Growth thesis - full width -->
+        <div class="fin-thesis reveal">
+          <span class="ft-icon">&#9650;</span>
+          <span class="ft-text">Organic growth driven by expanding AI-powered course offerings and penetrating new Arab-speaking markets</span>
+        </div>
+        <!-- 2. Key KPIs - row -->
+        <div class="fin-kpi-row">
+          <div class="fin-kpi reveal reveal-delay-1"><div class="fk-val" data-count="12" data-suffix="%">0</div><div class="fk-label">Revenue CAGR (2025-2030)</div></div>
+          <div class="fin-kpi reveal reveal-delay-2"><div class="fk-val" data-count="26" data-suffix="%">0</div><div class="fk-label">EBIT Margin by 2030</div></div>
+          <div class="fin-kpi reveal reveal-delay-3"><div class="fk-val" data-count="29" data-suffix="%">0</div><div class="fk-label">YoY Revenue Growth 2025</div></div>
+          <div class="fin-kpi reveal reveal-delay-4"><div class="fk-val" data-count="36" data-suffix="%">0</div><div class="fk-label">Gross Margin 2025</div></div>
+          <div class="fin-kpi reveal reveal-delay-5"><div class="fk-val">Debt-free</div><div class="fk-label">Balance Sheet by 2030</div></div>
+        </div>
+        <!-- 3. Charts side by side -->
+        <div class="fin-charts-row">
           <div class="chart-container reveal"><h3>Revenue (NIS K)</h3><div class="chart-area"><div class="chart-bars">
             <div class="chart-bar-group"><div class="chart-bar" data-height="29%" style="height:0;background:var(--gold-dim)"><span class="chart-bar-value">23,386</span></div><div class="chart-bar-label">2023A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="40%" style="height:0;background:var(--gold-dim)"><span class="chart-bar-value">31,920</span></div><div class="chart-bar-label">2024A</div></div>
@@ -976,7 +996,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
             <div class="chart-bar-group"><div class="chart-bar" data-height="78%" style="height:0;background:repeating-linear-gradient(45deg,var(--gold-dim),var(--gold-dim) 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">62,425</span></div><div class="chart-bar-label">2029F</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="90%" style="height:0;background:var(--gold)"><span class="chart-bar-value" style="color:var(--gold)">71,789</span></div><div class="chart-bar-label" style="color:var(--gold)">2030F</div></div>
           </div></div></div>
-          <div class="chart-container chart-ebit reveal" style="margin-top:1.5rem"><h3>EBIT (NIS K)</h3><div class="chart-area"><div class="chart-bars">
+          <div class="chart-container chart-ebit reveal"><h3>EBIT (NIS K)</h3><div class="chart-area"><div class="chart-bars">
             <div class="chart-bar-group"><div class="chart-bar" data-height="26%" style="height:0;background:var(--teal)"><span class="chart-bar-value">4,850</span></div><div class="chart-bar-label">2023A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="27%" style="height:0;background:var(--teal)"><span class="chart-bar-value">5,055</span></div><div class="chart-bar-label">2024A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="54%" style="height:0;background:var(--teal)"><span class="chart-bar-value">10,168</span></div><div class="chart-bar-label">2025A</div></div>
@@ -987,20 +1007,25 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
             <div class="chart-bar-group"><div class="chart-bar" data-height="100%" style="height:0;background:var(--teal)"><span class="chart-bar-value" style="color:var(--teal)">18,658</span></div><div class="chart-bar-label" style="color:var(--teal)">2030F</div></div>
           </div></div></div>
         </div>
-        <div class="fin-kpis">
-          <div class="fin-kpi reveal" style="border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05)"><div class="fk-val" style="font-size:1rem;color:var(--gold);min-width:auto"><span style="font-size:1.4rem">&#9650;</span></div><div class="fk-label" style="color:rgba(255,255,255,.75)">Organic growth driven by expanding AI-powered course offerings and penetrating new Arab-speaking markets</div></div>
-          <div class="fin-kpi reveal reveal-delay-1"><div class="fk-val" data-count="12" data-suffix="%">0</div><div class="fk-label">Revenue CAGR (2025-2030)</div></div>
-          <div class="fin-kpi reveal reveal-delay-2"><div class="fk-val" data-count="36" data-suffix="%">0</div><div class="fk-label">Gross Margin 2025</div></div>
-          <div class="fin-kpi reveal reveal-delay-3"><div class="fk-val" data-count="26" data-suffix="%">0</div><div class="fk-label">EBIT Margin by 2030</div></div>
-          <div class="fin-kpi reveal reveal-delay-4"><div class="fk-val" data-count="29" data-suffix="%">0</div><div class="fk-label">YoY Revenue Growth 2025</div></div>
-          <div class="fin-kpi reveal reveal-delay-5"><div class="fk-val">Debt-free</div><div class="fk-label">Balance Sheet by 2030</div></div>
-        </div>
       </div>
     </div>
     <!-- CONSOLIDATED -->
     <div class="fin-view" id="fin-consolidated">
       <div class="financials-layout">
-        <div>
+        <!-- 1. Growth thesis - full width -->
+        <div class="fin-thesis">
+          <span class="ft-icon">&#9650;</span>
+          <span class="ft-text">Post-M&A growth powered by life-long upsell across the combined student base &mdash; every acquisition feeds the engine</span>
+        </div>
+        <!-- 2. Key KPIs - row -->
+        <div class="fin-kpi-row">
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">110M</div><div class="fk-label">NIS Revenue by 2030</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">23M</div><div class="fk-label">NIS EBIT by 2030</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">12%</div><div class="fk-label">Revenue CAGR</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">21%</div><div class="fk-label">EBIT Margin by 2030</div></div>
+        </div>
+        <!-- 3. Charts side by side -->
+        <div class="fin-charts-row">
           <div class="chart-container">
             <h3>Group Revenue (NIS K)</h3>
             <div class="chart-area"><div class="chart-bars">
@@ -1017,7 +1042,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
               <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4)"></div>B2B</div>
             </div>
           </div>
-          <div class="chart-container chart-ebit" style="margin-top:1.5rem">
+          <div class="chart-container chart-ebit">
             <h3>Group EBIT (NIS K)</h3>
             <div class="chart-area"><div class="chart-bars">
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="52%" style="height:0"><span class="stack-value">12,000</span><div class="chart-bar-seg" style="height:13%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:12%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:75%;background:var(--teal)"></div></div><div class="chart-bar-label">2025A</div></div>
@@ -1033,13 +1058,6 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
               <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4)"></div>B2B</div>
             </div>
           </div>
-        </div>
-        <div class="fin-kpis">
-          <div class="fin-kpi" style="border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05)"><div class="fk-val" style="font-size:1rem;color:var(--gold);min-width:auto"><span style="font-size:1.4rem">&#9650;</span></div><div class="fk-label" style="color:rgba(255,255,255,.75)">Post-M&A growth powered by life-long upsell across the combined student base &mdash; every acquisition feeds the engine</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">110M</div><div class="fk-label">NIS Revenue by 2030</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">23M</div><div class="fk-label">NIS EBIT by 2030</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">12%</div><div class="fk-label">Revenue CAGR</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">21%</div><div class="fk-label">EBIT Margin by 2030</div></div>
         </div>
       </div>
     </div>
