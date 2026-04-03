@@ -34,8 +34,55 @@ body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:h
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}.reveal-delay-5{transition-delay:.5s}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.8rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+/* URGENCY TICKER */
+.urgency-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--navy);padding:.45rem 0;text-align:center;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--gold);
+}
+.urgency-bar .ub-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e74c3c;margin-right:.5rem;animation:urgPulse 1.5s ease infinite}
+@keyframes urgPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+
+/* FLOATING CTA */
+.floating-cta{
+  position:fixed;bottom:2rem;right:2rem;z-index:150;
+  background:var(--gold);color:var(--navy);padding:.7rem 1.5rem;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(201,168,76,.4);
+  transition:all .3s;opacity:0;transform:translateY(20px);pointer-events:none;
+}
+.floating-cta.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.floating-cta:hover{background:var(--navy);color:var(--gold);box-shadow:0 6px 28px rgba(0,0,0,.2)}
+.floating-cta::before{content:'';position:absolute;inset:-3px;border:1px solid var(--gold);opacity:0;animation:ctaPulse 2.5s ease infinite}
+@keyframes ctaPulse{0%,100%{opacity:0;inset:-3px}50%{opacity:.5;inset:-8px}}
+
+/* TESTIMONIAL */
+.testimonial{background:var(--navy);padding:4rem 0;position:relative;overflow:hidden}
+.testimonial::before{content:'\201C';position:absolute;top:-20px;left:5%;font-family:var(--font-display);font-size:15rem;color:rgba(201,168,76,.06);line-height:1}
+.testimonial-inner{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.testimonial blockquote{font-family:var(--font-display);font-size:clamp(1.2rem,2.5vw,1.7rem);color:#fff;line-height:1.5;font-style:italic;margin-bottom:1.5rem}
+.testimonial cite{display:block;font-style:normal}
+.testimonial .cite-name{font-family:var(--font-heading);font-size:.95rem;color:var(--gold);font-weight:700}
+.testimonial .cite-role{font-family:var(--font-mono);font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.05em;margin-top:.2rem}
+
+/* WHY NOW */
+#whynow{background:#fff!important;padding:6rem 0}
+.whynow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.whynow-card{padding:2rem;border:1px solid var(--border);background:#fff;position:relative;overflow:hidden;transition:all .4s}
+.whynow-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.06)}
+.whynow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transition:background .3s}
+.whynow-card:nth-child(1)::before{background:var(--gold)}
+.whynow-card:nth-child(2)::before{background:var(--teal)}
+.whynow-card:nth-child(3)::before{background:var(--red)}
+.whynow-card .wn-num{font-family:var(--font-mono);font-size:3rem;font-weight:700;color:var(--card-bg);position:absolute;top:.5rem;right:1rem;line-height:1}
+.whynow-card .wn-icon{font-size:2rem;margin-bottom:1rem}
+.whynow-card h4{font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:.6rem;font-weight:700}
+.whynow-card p{font-size:.88rem;color:var(--text-light);line-height:1.6}
+.whynow-card .wn-stat{font-family:var(--font-mono);font-size:.8rem;color:var(--gold);margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--border)}
+@media(max-width:768px){.whynow-grid{grid-template-columns:1fr}}
+
+/* NAV - offset for urgency bar */
+nav{position:fixed;top:28px;left:0;right:0;z-index:100;padding:.8rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
 nav.scrolled{border-bottom-color:var(--border)}
 nav .container{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:var(--font-heading);font-weight:800;font-size:1.4rem;color:var(--navy);text-decoration:none}
@@ -48,7 +95,7 @@ nav .container{display:flex;align-items:center;justify-content:space-between}
 @media(max-width:900px){.nav-links{display:none}}
 
 /* HERO - dark navy like slide 1 */
-#hero{min-height:100vh;display:flex;align-items:center;background:var(--navy);color:#fff;position:relative;overflow:hidden;padding-top:4rem}
+#hero{min-height:100vh;display:flex;align-items:center;background:var(--navy);color:#fff;position:relative;overflow:hidden;padding-top:5.5rem}
 #hero-canvas{position:absolute;inset:0;z-index:0}
 .hero-content{position:relative;z-index:1}
 .hero-badge{display:inline-block;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:.35rem 1rem;margin-bottom:2rem}
@@ -392,6 +439,12 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 </head>
 <body>
 
+<!-- URGENCY TICKER -->
+<div class="urgency-bar"><span class="ub-dot"></span>ROUND CLOSING MAY 2026 &mdash; LIMITED ALLOCATION</div>
+
+<!-- FLOATING CTA -->
+<a href="#contact" class="floating-cta" id="floatingCta">Request Access</a>
+
 <nav id="navbar">
   <div class="container">
     <a href="#hero" class="nav-logo">ipc<span>.</span></a>
@@ -414,8 +467,8 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
   <canvas id="hero-canvas"></canvas>
   <div class="container hero-content">
     <div class="hero-badge reveal">CONFIDENTIAL &middot; MARCH 2026</div>
-    <h1 class="hero-title reveal reveal-delay-1">Israel Professional College<br><em>Investment Opportunity</em></h1>
-    <p class="hero-sub reveal reveal-delay-2">Israel's #1 vocational education player &mdash; proven scale, proven profits. AI-driven reskilling for the future of work.</p>
+    <h1 class="hero-title reveal reveal-delay-1">The AI Reskilling Wave Is Here.<br><em>We're Already Profitable.</em></h1>
+    <p class="hero-sub reveal reveal-delay-2">Israel's #1 and largest vocational education platform. 25% EBIT margin. 92% recommendation rate. Now scaling to the $4.5B Arab-speaking market.</p>
     <div class="hero-kpis reveal reveal-delay-3">
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">Revenue 2025A</div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="10.2" data-suffix="M NIS" data-decimals="1">0</div><div class="hero-kpi-label">EBIT 2025A</div></div>
@@ -460,6 +513,17 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     </div>
   </div>
 </section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+  <div class="container testimonial-inner reveal">
+    <blockquote>&ldquo;IPC College is more than an academic institution &mdash; it is a new path in the world of employment and professional training in Israel. We don't just teach &mdash; we unlock each student's potential and create equal opportunities for all.&rdquo;</blockquote>
+    <cite>
+      <span class="cite-name">Rabbi Shay Moshe Piron</span>
+      <span class="cite-role">President of IPC College &amp; Former Minister of Education of Israel</span>
+    </cite>
+  </div>
+</div>
 
 <!-- VISION -->
 <section id="vision">
@@ -689,6 +753,38 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
   </div>
 </section>
 
+<!-- WHY NOW -->
+<section id="whynow">
+  <div class="container">
+    <span class="section-label reveal">Timing</span>
+    <h2 class="section-title reveal reveal-delay-1">Why Now?</h2>
+    <p class="section-sub reveal reveal-delay-2">Three forces are converging to create a once-in-a-decade entry point</p>
+    <div class="whynow-grid">
+      <div class="whynow-card reveal reveal-delay-1">
+        <span class="wn-num">01</span>
+        <div class="wn-icon">&#129302;</div>
+        <h4>AI Is Rewriting the Job Market</h4>
+        <p>40-60% of workers need reskilling by 2030. Everyone is selling AI courses. We're the only ones with a <strong>proven sales machine that actually converts at scale</strong> &mdash; 46% upsell rate, 7,200+ students, profitable since day one.</p>
+        <div class="wn-stat">WEF: 1.4B workers need reskilling by 2030</div>
+      </div>
+      <div class="whynow-card reveal reveal-delay-2">
+        <span class="wn-num">02</span>
+        <div class="wn-icon">&#127757;</div>
+        <h4>Arab-Speaking Market Is Wide Open</h4>
+        <p>$4.5B GCC EdTech TAM. 50%+ of population under 30. Abraham Accords unlocking Israeli partnerships. <strong>Our courses are already localized in Arabic.</strong> First-mover window is closing fast.</p>
+        <div class="wn-stat">15.5M potential students &middot; 6 GCC countries</div>
+      </div>
+      <div class="whynow-card reveal reveal-delay-3">
+        <span class="wn-num">03</span>
+        <div class="wn-icon">&#128737;</div>
+        <h4>Consolidation Window Is Open</h4>
+        <p>Israeli vocational education has <strong>no market leader</strong>. We've identified 3 acquisition targets with approved 19M NIS funding. The roll-up playbook is proven. The pipeline is live. First-mover advantage is everything.</p>
+        <div class="wn-stat">3 targets identified &middot; 19M NIS approved</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GROWTH DRIVERS -->
 <section id="growth">
   <div class="container">
@@ -894,8 +990,9 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 <!-- INVESTMENT -->
 <section id="investment">
   <div class="container">
-    <span class="section-label reveal">Exit Opportunity</span>
-    <h2 class="section-title reveal reveal-delay-1">Investment Opportunity</h2>
+    <span class="section-label reveal">Deal Terms</span>
+    <h2 class="section-title reveal reveal-delay-1">Join the Round</h2>
+    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-mono);font-size:.85rem;color:var(--red)">Round closing May 2026 &mdash; Limited allocation available</p>
     <div class="invest-dashboard reveal reveal-delay-2">
       <div class="invest-inputs">
         <h3>Scenario Builder</h3>
@@ -987,8 +1084,12 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');animateCounters(e.target);animateBars(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// NAV
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
+// NAV + FLOATING CTA
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+  const cta=document.getElementById('floatingCta');
+  cta.classList.toggle('visible',window.scrollY>window.innerHeight);
+});
 
 // COUNTERS
 const counted=new Set();
