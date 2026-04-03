@@ -89,28 +89,41 @@ section:nth-child(even){background:var(--card-bg)}
 
 /* VISION */
 #vision{background:#fff!important}
-.vision-intro{font-family:var(--font-display);font-size:clamp(1.3rem,3vw,2rem);color:var(--navy);text-align:center;max-width:750px;margin:0 auto 1rem;line-height:1.3}
-.vision-intro em{color:var(--gold);font-style:italic}
-.vision-funding{text-align:center;font-size:1rem;color:var(--text-light);margin-bottom:3rem}
+.vision-funding{font-size:1rem;color:var(--text-light);margin-bottom:2.5rem}
 .vision-funding strong{color:var(--gold);font-family:var(--font-mono)}
-.units-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
-.unit-card{border:1px solid var(--border);padding:2rem 1.5rem;position:relative;background:#fff;transition:all .3s}
-.unit-card:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.unit-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
-.unit-card:hover::after{transform:scaleX(1)}
-.unit-card h3{font-family:var(--font-heading);font-size:1.1rem;color:var(--navy);margin-bottom:.8rem}
-.unit-card ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.unit-card li{font-size:.82rem;color:var(--text-light);padding-left:.8rem;position:relative}
-.unit-card li::before{content:'\2192';position:absolute;left:0;color:var(--gold);font-size:.7rem}
-.unit-stats{display:flex;gap:1.2rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border)}
-.unit-stat-val{font-family:var(--font-mono);font-size:1.2rem;color:var(--navy);font-weight:700}
-.unit-stat-label{font-size:.65rem;color:var(--text-light)}
-.expansion-map{max-width:700px;margin:3rem auto 0;text-align:center}
-.expansion-map svg{width:100%;max-width:600px}
-.expansion-map svg path{transition:all .3s}
-.expansion-map svg path:hover{filter:brightness(.85)}
-.map-caption{font-size:.8rem;color:var(--text-light);margin-top:1rem;font-style:italic}
-@media(max-width:900px){.units-grid{grid-template-columns:1fr}}
+.vision-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.vision-map-panel{position:sticky;top:6rem}
+.vision-map-panel svg{width:100%}
+.map-caption{font-size:.75rem;color:var(--text-light);margin-top:.8rem;font-style:italic;text-align:center}
+/* Unit tabs */
+.unit-tabs{display:flex;gap:0;margin-bottom:0;border-bottom:2px solid var(--border)}
+.unit-tab{
+  flex:1;padding:.8rem 1rem;font-family:var(--font-heading);font-size:.8rem;font-weight:600;
+  color:var(--text-light);background:transparent;border:none;cursor:pointer;
+  text-align:center;transition:all .3s;position:relative;letter-spacing:.02em;
+}
+.unit-tab::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform .3s;
+}
+.unit-tab:hover{color:var(--navy)}
+.unit-tab.active{color:var(--gold)}
+.unit-tab.active::after{transform:scaleX(1)}
+.unit-panel{display:none;padding:1.5rem 0;animation:fadeUp .4s ease}
+.unit-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.unit-panel h3{font-family:var(--font-heading);font-size:1.2rem;color:var(--navy);margin-bottom:1rem}
+.unit-panel ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}
+.unit-panel li{font-size:.88rem;color:var(--text-light);padding-left:1rem;position:relative;line-height:1.5}
+.unit-panel li::before{content:'';position:absolute;left:0;top:.55rem;width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+.unit-panel li strong{color:var(--navy)}
+.unit-panel-stats{display:flex;gap:2rem;padding-top:1rem;border-top:1px solid var(--border)}
+.unit-panel-stat .ups-val{font-family:var(--font-mono);font-size:1.5rem;color:var(--gold);font-weight:700}
+.unit-panel-stat .ups-label{font-size:.7rem;color:var(--text-light)}
+@media(max-width:900px){
+  .vision-split{grid-template-columns:1fr}
+  .vision-map-panel{position:relative;top:auto}
+}
 
 /* PRODUCTS */
 #products{background:var(--card-bg)!important}
@@ -439,85 +452,94 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     <h2 class="section-title reveal reveal-delay-1">Build the <em style="font-family:var(--font-display);color:var(--gold)">Largest Education Company</em> in the Middle East</h2>
     <p class="vision-funding reveal reveal-delay-2">To execute this vision, we have already identified 3 entities in Israel. Approved funding: <strong>19M NIS</strong> for this pipeline.</p>
 
-    <!-- Expansion Map -->
-    <div class="expansion-map reveal reveal-delay-2">
-      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-        <!-- Israel -->
-        <ellipse cx="150" cy="150" rx="35" ry="45" fill="var(--gold)" opacity=".15" stroke="var(--gold)" stroke-width="1.5"/>
-        <circle cx="150" cy="145" r="8" fill="var(--gold)"><animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
-        <!-- Israel flag -->
-        <rect x="127" y="88" width="24" height="16" fill="#fff" stroke="#e5e7eb" stroke-width=".5" rx="2"/>
-        <rect x="127" y="91" width="24" height="2.5" fill="#0038b8"/><rect x="127" y="101" width="24" height="2.5" fill="#0038b8"/>
-        <!-- Star of David: two overlapping triangles -->
-        <polygon points="139,93 142,98.2 136,98.2" fill="none" stroke="#0038b8" stroke-width="1"/>
-        <polygon points="139,101 136,95.8 142,95.8" fill="none" stroke="#0038b8" stroke-width="1"/>
-        <text x="150" y="210" fill="var(--navy)" font-family="var(--font-heading)" font-size="12" font-weight="700" text-anchor="middle">ISRAEL</text>
-        <text x="150" y="224" fill="var(--text-light)" font-family="var(--font-mono)" font-size="8" text-anchor="middle">HQ &middot; $1.1B EdTech Market</text>
-        <!-- Arrow -->
-        <line x1="195" y1="148" x2="345" y2="148" stroke="var(--gold)" stroke-width="2" stroke-dasharray="8,5"/>
-        <polygon points="345,143 358,148 345,153" fill="var(--gold)"/>
-        <text x="270" y="138" fill="var(--gold)" font-family="var(--font-mono)" font-size="9" text-anchor="middle">EXPAND</text>
-        <!-- Arab Speaking Markets -->
-        <ellipse cx="440" cy="150" rx="75" ry="95" fill="var(--navy)" opacity=".06" stroke="var(--navy)" stroke-width="1" stroke-dasharray="4,3"/>
-        <text x="440" y="68" fill="var(--navy)" font-family="var(--font-heading)" font-size="11" font-weight="700" text-anchor="middle">ARAB-SPEAKING MARKETS</text>
-        <!-- UAE flag + label -->
-        <rect x="397" y="88" width="18" height="12" rx="1.5" stroke="#e5e7eb" stroke-width=".3"/>
-        <rect x="397" y="88" width="18" height="4" fill="#00732f"/><rect x="397" y="92" width="18" height="4" fill="#fff"/><rect x="397" y="96" width="18" height="4" fill="#000"/><rect x="397" y="88" width="5" height="12" fill="#ce1126"/>
-        <text x="426" y="97" fill="var(--navy)" font-family="var(--font-heading)" font-size="9" font-weight="600">UAE</text>
-        <!-- Bahrain flag + label -->
-        <rect x="397" y="108" width="18" height="12" rx="1.5" stroke="#e5e7eb" stroke-width=".3"/>
-        <rect x="397" y="108" width="7" height="12" fill="#fff"/><rect x="404" y="108" width="11" height="12" fill="#ce1126"/>
-        <text x="426" y="117" fill="var(--navy)" font-family="var(--font-heading)" font-size="9" font-weight="600">Bahrain</text>
-        <!-- Qatar flag + label -->
-        <rect x="397" y="128" width="18" height="12" rx="1.5" stroke="#e5e7eb" stroke-width=".3"/>
-        <rect x="397" y="128" width="7" height="12" fill="#fff"/><rect x="404" y="128" width="11" height="12" fill="#8a1538"/>
-        <text x="426" y="137" fill="var(--navy)" font-family="var(--font-heading)" font-size="9" font-weight="600">Qatar</text>
-        <!-- Oman flag + label -->
-        <rect x="397" y="148" width="18" height="12" rx="1.5" stroke="#e5e7eb" stroke-width=".3"/>
-        <rect x="397" y="148" width="18" height="4" fill="#fff"/><rect x="397" y="152" width="18" height="4" fill="#ce1126"/><rect x="397" y="156" width="18" height="4" fill="#00732f"/><rect x="397" y="148" width="5" height="12" fill="#ce1126"/>
-        <text x="426" y="157" fill="var(--navy)" font-family="var(--font-heading)" font-size="9" font-weight="600">Oman</text>
-        <!-- Kuwait flag + label -->
-        <rect x="397" y="168" width="18" height="12" rx="1.5" stroke="#e5e7eb" stroke-width=".3"/>
-        <rect x="397" y="168" width="18" height="4" fill="#00732f"/><rect x="397" y="172" width="18" height="4" fill="#fff"/><rect x="397" y="176" width="18" height="4" fill="#ce1126"/><polygon points="397,168 404,172 397,176" fill="#000"/>
-        <text x="426" y="177" fill="var(--navy)" font-family="var(--font-heading)" font-size="9" font-weight="600">Kuwait</text>
-        <!-- Saudi Arabia flag + label -->
-        <rect x="397" y="192" width="18" height="12" rx="1.5" fill="#006c35" stroke="#e5e7eb" stroke-width=".3"/>
-        <text x="406" y="200" fill="#fff" font-family="Arial" font-size="4" text-anchor="middle">&#9776;</text>
-        <text x="426" y="201" fill="var(--navy)" font-family="var(--font-heading)" font-size="9" font-weight="600">Saudi Arabia</text>
-        <!-- TAM -->
-        <text x="440" y="230" fill="var(--gold)" font-family="var(--font-mono)" font-size="14" font-weight="700" text-anchor="middle">$4.5B TAM</text>
-        <text x="440" y="245" fill="var(--text-light)" font-family="var(--font-mono)" font-size="8" text-anchor="middle">15.5M potential students</text>
-      </svg>
-      <p class="map-caption">AI-driven localization scales courses into the massive Arab-speaking market at near-zero marginal cost</p>
-    </div>
+    <div class="vision-split reveal reveal-delay-2">
+      <!-- LEFT: Map (sticky) -->
+      <div class="vision-map-panel">
+        <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="120" cy="150" rx="30" ry="40" fill="var(--gold)" opacity=".15" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="120" cy="145" r="6" fill="var(--gold)"><animate attributeName="r" values="6;10;6" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+          <!-- Israel flag -->
+          <rect x="100" y="90" width="22" height="14" fill="#fff" stroke="#e5e7eb" stroke-width=".5" rx="2"/>
+          <rect x="100" y="93" width="22" height="2" fill="#0038b8"/><rect x="100" y="100" width="22" height="2" fill="#0038b8"/>
+          <polygon points="111,94.5 113.5,98.5 108.5,98.5" fill="none" stroke="#0038b8" stroke-width=".8"/>
+          <polygon points="111,100.5 108.5,96.5 113.5,96.5" fill="none" stroke="#0038b8" stroke-width=".8"/>
+          <text x="120" y="205" fill="var(--navy)" font-family="Syne,sans-serif" font-size="11" font-weight="700" text-anchor="middle">ISRAEL</text>
+          <text x="120" y="218" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">HQ &middot; $1.1B Market</text>
+          <!-- Arrow -->
+          <line x1="158" y1="148" x2="275" y2="148" stroke="var(--gold)" stroke-width="2" stroke-dasharray="7,4"/>
+          <polygon points="275,143 287,148 275,153" fill="var(--gold)"/>
+          <text x="218" y="140" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">EXPAND</text>
+          <!-- Arab Markets bubble -->
+          <ellipse cx="370" cy="150" rx="68" ry="88" fill="#1a1f36" opacity=".04" stroke="#1a1f36" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="370" y="68" fill="#1a1f36" font-family="Syne,sans-serif" font-size="9" font-weight="700" text-anchor="middle">ARAB-SPEAKING MARKETS</text>
+          <!-- Flags + labels -->
+          <rect x="330" y="88" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="88" width="16" height="3.3" fill="#00732f"/><rect x="330" y="91.3" width="16" height="3.4" fill="#fff"/><rect x="330" y="94.7" width="16" height="3.3" fill="#000"/><rect x="330" y="88" width="4.5" height="10" fill="#ce1126"/>
+          <text x="354" y="96" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">UAE</text>
+          <rect x="330" y="106" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="106" width="6" height="10" fill="#fff"/><rect x="336" y="106" width="10" height="10" fill="#ce1126"/>
+          <text x="354" y="114" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Bahrain</text>
+          <rect x="330" y="124" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="124" width="6" height="10" fill="#fff"/><rect x="336" y="124" width="10" height="10" fill="#8a1538"/>
+          <text x="354" y="132" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Qatar</text>
+          <rect x="330" y="142" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="142" width="16" height="3.3" fill="#fff"/><rect x="330" y="145.3" width="16" height="3.4" fill="#ce1126"/><rect x="330" y="148.7" width="16" height="3.3" fill="#00732f"/><rect x="330" y="142" width="4.5" height="10" fill="#ce1126"/>
+          <text x="354" y="150" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Oman</text>
+          <rect x="330" y="160" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="160" width="16" height="3.3" fill="#00732f"/><rect x="330" y="163.3" width="16" height="3.4" fill="#fff"/><rect x="330" y="166.7" width="16" height="3.3" fill="#ce1126"/><polygon points="330,160 336,163.5 330,167" fill="#000"/>
+          <text x="354" y="168" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Kuwait</text>
+          <rect x="330" y="180" width="16" height="10" rx="1" fill="#006c35" stroke="#e5e7eb" stroke-width=".3"/>
+          <text x="354" y="188" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Saudi Arabia</text>
+          <!-- TAM -->
+          <text x="370" y="215" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">$4.5B TAM</text>
+          <text x="370" y="228" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">15.5M potential students</text>
+        </svg>
+        <p class="map-caption">AI-driven localization at near-zero marginal cost</p>
+      </div>
 
-    <div class="units-grid" style="margin-top:3rem">
-      <div class="unit-card reveal reveal-delay-1">
-        <h3>B2C Unit</h3>
-        <ul>
-          <li>Battle-tested and proven sales machine shared with new acquisitions and markets</li>
-          <li>Unlocking 15.5M potential students in the Arab-speaking market</li>
-          <li>Acquiring K12 / Graduation Preparation Company to ensure lifelong education</li>
-        </ul>
-        <div class="unit-stats"><div><div class="unit-stat-val" data-count="50" data-suffix="K">0</div><div class="unit-stat-label">Students / Year</div></div><div><div class="unit-stat-val" data-count="45" data-suffix="+">0</div><div class="unit-stat-label">Courses</div></div></div>
-      </div>
-      <div class="unit-card reveal reveal-delay-2">
-        <h3>B2B Unit</h3>
-        <ul>
-          <li>Trusted brand with upsell engine across existing client base</li>
-          <li>End-to-end: assess, train &amp; upskill</li>
-          <li>Target corporate L&D budgets</li>
-        </ul>
-        <div class="unit-stats"><div><div class="unit-stat-val">12.4M</div><div class="unit-stat-label">NIS Revenue</div></div><div><div class="unit-stat-val">13%</div><div class="unit-stat-label">EBITDA Margin</div></div></div>
-      </div>
-      <div class="unit-card reveal reveal-delay-3">
-        <h3>B2G Unit</h3>
-        <ul>
-          <li>Leverage B2B playbook to win government contracts</li>
-          <li>Pipeline into large-scale tenders &amp; intl. projects</li>
-          <li>Massive TAM: reskilling entire public-sector workforces</li>
-        </ul>
-        <div class="unit-stats"><div><div class="unit-stat-val" style="color:var(--gold)">GOV</div><div class="unit-stat-label">Sector Target</div></div><div><div class="unit-stat-val" style="color:var(--gold)">B2G</div><div class="unit-stat-label">Channel</div></div></div>
+      <!-- RIGHT: Tabbed unit cards -->
+      <div>
+        <div class="unit-tabs">
+          <button class="unit-tab active" onclick="showUnit(0,this)">B2C Unit</button>
+          <button class="unit-tab" onclick="showUnit(1,this)">B2B Unit</button>
+          <button class="unit-tab" onclick="showUnit(2,this)">B2G Unit</button>
+        </div>
+        <div class="unit-panel active" id="unit-0">
+          <h3>B2C Unit</h3>
+          <ul>
+            <li><strong>Battle-tested and proven sales machine</strong> shared with new acquisitions and new markets</li>
+            <li>Unlocking <strong>15.5M potential students</strong> in the Arab-speaking market</li>
+            <li>Acquiring K12 / Graduation Preparation Company to ensure <strong>lifelong education</strong></li>
+          </ul>
+          <div class="unit-panel-stats">
+            <div class="unit-panel-stat"><div class="ups-val" data-count="50" data-suffix="K">0</div><div class="ups-label">Students / Year</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" data-count="45" data-suffix="+">0</div><div class="ups-label">Courses</div></div>
+          </div>
+        </div>
+        <div class="unit-panel" id="unit-1">
+          <h3>B2B Unit</h3>
+          <ul>
+            <li><strong>Trusted brand</strong> with upsell engine across existing client base</li>
+            <li><strong>End-to-end:</strong> assess, train &amp; upskill corporate workforces</li>
+            <li>Target corporate <strong>L&D budgets</strong> with scalable digital delivery</li>
+          </ul>
+          <div class="unit-panel-stats">
+            <div class="unit-panel-stat"><div class="ups-val">12.4M</div><div class="ups-label">NIS Revenue</div></div>
+            <div class="unit-panel-stat"><div class="ups-val">13%</div><div class="ups-label">EBITDA Margin</div></div>
+          </div>
+        </div>
+        <div class="unit-panel" id="unit-2">
+          <h3>B2G Unit</h3>
+          <ul>
+            <li>Leverage <strong>B2B playbook</strong> to win government contracts</li>
+            <li>Pipeline into <strong>large-scale tenders</strong> &amp; international projects</li>
+            <li><strong>Massive TAM:</strong> reskilling entire public-sector workforces</li>
+          </ul>
+          <div class="unit-panel-stats">
+            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">GOV</div><div class="ups-label">Sector Target</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">B2G</div><div class="ups-label">Channel</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1006,6 +1028,16 @@ function calcInvest(){
   document.getElementById('out-coc').textContent=coc.toFixed(1)+'x';
 }
 calcInvest();
+
+// VISION UNIT TABS
+function showUnit(idx,btn){
+  document.querySelectorAll('.unit-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.unit-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('unit-'+idx).classList.add('active');
+  // Animate counters in newly visible panel
+  animateCounters(document.getElementById('unit-'+idx));
+}
 
 // TRIANGLE DIAGRAM - nodes linked to M&A phases
 // idx 0 = Reskilling (top) -> Phase 2 (B2B Trainings)
