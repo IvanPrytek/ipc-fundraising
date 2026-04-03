@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IPC | מכללת ישראל המקצועית — הזדמנות השקעה</title>
+<title>IPC | Israel Professional College — Investment Opportunity</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -101,8 +101,10 @@ body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:h
 .whynow-card .wn-stat{font-family:var(--font-mono);font-size:.8rem;color:var(--gold);margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--border)}
 @media(max-width:768px){.whynow-grid{grid-template-columns:1fr}}
 
-/* NAV - offset for urgency bar */
-nav{position:fixed;top:28px;left:0;right:0;z-index:100;padding:.8rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+/* NAV */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100}
+nav{padding:.6rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.site-header.scrolled nav{border-bottom-color:var(--border)}
 nav.scrolled{border-bottom-color:var(--border)}
 nav .container{display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:var(--font-heading);font-weight:800;font-size:1.4rem;color:var(--navy);text-decoration:none}
@@ -290,7 +292,7 @@ section:nth-child(even){background:var(--card-bg)}
 .gcc-info li::before{content:'\2022';position:absolute;left:0;color:var(--gold)}
 .mna-phases{display:flex;flex-direction:column;gap:1.2rem}
 .mna-phase{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;background:#fff;padding:1.2rem 1.5rem;border-left:3px solid var(--gold);align-items:center;transition:all .3s}
-.mna-phase:hover{transform:translateX(3px);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.mna-phase:hover{box-shadow:0 2px 12px rgba(0,0,0,.05)}
 .mna-phase .phase-badge{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--navy);padding:.3rem .7rem;color:var(--gold);white-space:nowrap}
 .mna-phase h4{font-family:var(--font-heading);font-size:.9rem;color:var(--navy);margin-bottom:.2rem}
 .mna-phase p{font-size:.8rem;color:var(--text-light)}
@@ -301,7 +303,8 @@ section:nth-child(even){background:var(--card-bg)}
 @media(max-width:900px){.ai-growth-cards,.gcc-layout{grid-template-columns:1fr}.mna-phase{grid-template-columns:1fr}.mna-targets{flex-direction:column}}
 
 /* PLATFORM TRIANGLE */
-.triangle-wrap{position:relative;width:100%;max-width:650px;margin:2rem auto 2.5rem;height:420px}
+.triangle-wrap{position:relative;width:100%;max-width:650px;margin:2rem auto 2.5rem;height:440px}
+.tri-phase-tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;display:block}
 .tri-svg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .tri-svg line,.tri-svg path{stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease}
 .tri-svg.animated line,.tri-svg.animated path{stroke-dashoffset:0}
@@ -310,14 +313,14 @@ section:nth-child(even){background:var(--card-bg)}
   padding:1rem 1.5rem;text-align:center;z-index:2;cursor:pointer;
   transition:all .4s;min-width:180px;
 }
-.tri-node:hover{border-color:var(--gold);border-style:solid;box-shadow:0 6px 24px rgba(0,0,0,.08);transform:scale(1.04)}
+.tri-node:hover{border-color:var(--gold);border-style:solid;box-shadow:0 6px 24px rgba(0,0,0,.08)}
 .tri-node.active{border-color:var(--gold);border-style:solid;background:var(--navy);color:#fff}
 .tri-node.active h4{color:var(--gold)}
 .tri-node.active p{color:rgba(255,255,255,.7)}
 .tri-node h4{font-family:var(--font-heading);font-size:.85rem;color:var(--navy);margin-bottom:.15rem;transition:color .3s;font-weight:700}
 .tri-node p{font-size:.75rem;color:var(--text-light);line-height:1.3;transition:color .3s;font-family:var(--font-body)}
-.mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.08)}
-.tri-node-top{top:0;left:50%;transform:translateX(-50%)}
+.mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.tri-node-top{top:10px;left:50%;transform:translateX(-50%)}
 .tri-node-bl{bottom:0;left:0}
 .tri-node-br{bottom:0;right:0}
 .tri-center{
@@ -344,7 +347,13 @@ section:nth-child(even){background:var(--card-bg)}
 .fin-toggle-btn.active{background:var(--gold);color:var(--navy);font-weight:700}
 .fin-toggle-btn:hover:not(.active){background:rgba(201,168,76,.1)}
 .fin-view{display:none}.fin-view.active{display:block}
-.financials-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start}
+.financials-layout{display:flex;flex-direction:column;gap:1.5rem}
+.fin-thesis{border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.fin-thesis .ft-icon{font-size:1.4rem;color:var(--gold)}
+.fin-thesis .ft-text{font-size:.9rem;color:rgba(255,255,255,.75)}
+.fin-kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+.fin-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.fin-charts-row{grid-template-columns:1fr}}
 .chart-container{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:1.5rem}
 .chart-container h3{font-family:var(--font-heading);font-size:.9rem;color:#fff;margin-bottom:1.2rem}
 .chart-area{position:relative;height:280px;padding-bottom:25px}
@@ -423,6 +432,51 @@ section:nth-child(even){background:var(--card-bg)}
 .invest-benefit p{font-size:.8rem;color:var(--text-light)}
 @media(max-width:768px){.invest-dashboard,.invest-benefits{grid-template-columns:1fr}}
 
+/* VALUATION / PEERS */
+#valuation{background:#fff!important}
+.peers-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:2rem}
+.peers-table th{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;
+  background:var(--navy);color:#fff;padding:.7rem 1rem;text-align:right;cursor:pointer;
+  position:relative;transition:background .2s;user-select:none;
+}
+.peers-table th:first-child{text-align:left}
+.peers-table th:hover{background:#232942}
+.peers-table th .sort-arrow{margin-left:.3rem;font-size:.6rem;opacity:.4}
+.peers-table th.sorted .sort-arrow{opacity:1;color:var(--gold)}
+.peers-table td{padding:.6rem 1rem;border-bottom:1px solid var(--border);text-align:right;font-family:var(--font-mono);font-size:.8rem;color:var(--text);transition:background .2s}
+.peers-table td:first-child{text-align:left;font-family:var(--font-body);font-weight:500}
+.peers-table tr:hover td{background:rgba(201,168,76,.04)}
+.peers-table tr.peer-highest td{color:var(--gold);font-weight:600}
+.peers-table tr.peer-lowest td{color:var(--text-light)}
+.peers-table tr.peer-avg td{background:var(--card-bg);font-weight:600;color:var(--navy)}
+.peers-table tr.peer-median td{background:var(--card-bg);font-weight:700;color:var(--navy)}
+.peers-table tr.peer-ipc td{background:var(--navy);color:var(--gold);font-weight:700;font-size:.85rem}
+.peers-table tr.peer-ipc td:first-child{color:var(--gold)}
+
+.discount-visual{display:flex;align-items:center;gap:1.5rem;margin:2.5rem 0;padding:2rem;background:var(--card-bg);border:1px solid var(--border)}
+.discount-bar-wrap{flex:1}
+.discount-bar-label{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);margin-bottom:.4rem}
+.discount-bar-track{height:32px;background:var(--border);border-radius:4px;position:relative;overflow:visible}
+.discount-bar-ipc{height:100%;background:var(--gold);border-radius:4px;position:relative;transition:width 1.5s ease}
+.discount-bar-median{position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--navy);border-radius:2px}
+.discount-bar-median::after{content:'9.5x';position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.65rem;color:var(--navy);white-space:nowrap;font-weight:700}
+.discount-bar-ipc::after{content:'5.0x';position:absolute;bottom:-22px;right:0;font-family:var(--font-mono);font-size:.65rem;color:var(--gold);font-weight:700}
+.discount-gap{position:absolute;top:0;bottom:0;background:rgba(201,168,76,.1)}
+.discount-gap-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:var(--gold);white-space:nowrap;background:rgba(255,255,255,.9);padding:.1rem .5rem;border-radius:2px}
+.discount-stat{text-align:center;min-width:120px}
+.discount-stat .ds-val{font-family:var(--font-mono);font-size:2.5rem;font-weight:700;color:var(--gold)}
+.discount-stat .ds-label{font-size:.75rem;color:var(--text-light)}
+
+.upside-drivers{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem}
+.upside-card{padding:1.2rem;border-top:3px solid var(--gold);background:var(--card-bg);transition:all .3s}
+.upside-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.upside-card .uc-icon{font-size:1.5rem;margin-bottom:.5rem}
+.upside-card h4{font-family:var(--font-heading);font-size:.8rem;color:var(--navy);margin-bottom:.3rem;font-weight:700}
+.upside-card p{font-size:.75rem;color:var(--text-light);line-height:1.5}
+@media(max-width:900px){.upside-drivers{grid-template-columns:1fr 1fr}.discount-visual{flex-direction:column}}
+@media(max-width:600px){.upside-drivers{grid-template-columns:1fr}}
+
 /* CONTACT */
 #contact{background:var(--navy)!important;color:#fff;padding:6rem 0}
 #contact .section-title{color:#fff}
@@ -455,121 +509,105 @@ footer .footer-logo{font-family:var(--font-heading);font-size:1.8rem;font-weight
 footer .footer-logo span{color:var(--red)}
 footer p{font-size:.8rem;color:rgba(255,255,255,.5)}
 footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-dim);margin-top:1.5rem}
-/* RTL overrides */
-html[dir=rtl] body{direction:rtl;text-align:right}
-html[dir=rtl] .nav-links{flex-direction:row-reverse}
-html[dir=rtl] .hero-content{text-align:right}
-html[dir=rtl] .opportunity-list li{padding-left:0;padding-right:1.2rem}
-html[dir=rtl] .opportunity-list li::before{left:auto;right:0}
-html[dir=rtl] .product-bullets li{padding-left:0;padding-right:1rem}
-html[dir=rtl] .product-bullets li::before{left:auto;right:0}
-html[dir=rtl] .unit-panel li{padding-left:0;padding-right:1rem}
-html[dir=rtl] .unit-panel li::before{left:auto;right:0}
-html[dir=rtl] .gcc-info li{padding-left:0;padding-right:.8rem}
-html[dir=rtl] .gcc-info li::before{left:auto;right:0}
-html[dir=rtl] .mna-phase{border-left:none;border-right:3px solid var(--gold)}
-html[dir=rtl] .product-kpi{border-left:none;border-right:3px solid var(--gold)}
-html[dir=rtl] .platform-callout{border-left:none;border-right:3px solid var(--gold)}
-html[dir=rtl] .lang-switch{right:auto;left:1rem}
-html[dir=rtl] .floating-cta{right:auto;left:2rem}
 </style>
 </head>
 <body>
 
-<!-- URGENCY TICKER -->
-<div class="urgency-bar" style="position:relative"><span class="ub-dot"></span>סגירת הסבב מאי 2026 &mdash; הקצאה מוגבלת<div class="lang-switch"><a href="index.html">EN</a><a href="he.html" class="active">HE</a></div></div>
-
 <!-- FLOATING CTA -->
-<a href="#contact" class="floating-cta" id="floatingCta">בקשת גישה</a>
+<a href="#contact" class="floating-cta" id="floatingCta">Request Access</a>
 
-<nav id="navbar">
+<!-- SITE HEADER: urgency + nav together -->
+<div class="site-header" id="siteHeader">
+  <div class="urgency-bar" style="position:relative"><span class="ub-dot"></span>ROUND CLOSING MAY 2026 &mdash; LIMITED ALLOCATION<div class="lang-switch"><a href="index.html" class="active">EN</a><a href="he.html">HE</a></div></div>
+  <nav>
   <div class="container">
     <a href="#hero" class="nav-logo">ipc<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="#summary">סקירה</a></li>
-      <li><a href="#vision">חזון</a></li>
-      <li><a href="#products">מוצרים</a></li>
-      <li><a href="#partners">שותפים</a></li>
-      <li><a href="#market">שוק</a></li>
-      <li><a href="#growth">צמיחה</a></li>
-      <li><a href="#financials">פיננסים</a></li>
-      <li><a href="#team">צוות</a></li>
+      <li><a href="#summary">Overview</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#products">Product</a></li>
+      <li><a href="#partners">Partners</a></li>
+      <li><a href="#market">Market</a></li>
+      <li><a href="#growth">Growth</a></li>
+      <li><a href="#financials">Financials</a></li>
+      <li><a href="#team">Team</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">צרו קשר</a>
+    <a href="#contact" class="nav-cta">Contact Us</a>
   </div>
-</nav>
+  </nav>
+</div><!-- /site-header -->
 
 <!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="container hero-content">
     <img src="images/ipc_logo.png" alt="IPC" class="hero-logo reveal">
-    <div class="hero-badge reveal reveal-delay-1">סודי &middot; מרץ 2026</div>
-    <h1 class="hero-title reveal reveal-delay-2">גל הכשרת ה-AI כבר כאן.<br><em>אנחנו כבר רווחיים<br>והגדולים בשוק.</em></h1>
-    <p class="hero-sub reveal reveal-delay-3">הפלטפורמה המקצועית #1 בישראל. הכנסות 41 מיליון ש״ח. שולי EBIT של 25%. 92% מהסטודנטים ממליצים עלינו. עכשיו מרחיבים לשוק הערבי של $4.5 מיליארד.</p>
+    <div class="hero-badge reveal reveal-delay-1">CONFIDENTIAL &middot; MARCH 2026</div>
+    <h1 class="hero-title reveal reveal-delay-2">The AI Reskilling Wave Is Here.<br><em>We're Already Profitable<br>and Biggest on the Market.</em></h1>
+    <p class="hero-sub reveal reveal-delay-3">Israel's #1 vocational platform. NIS 41M revenue. 25% EBIT margin. 92% of students recommend us. Now taking this machine to the $4.5B Arab-speaking market.</p>
     <div class="hero-kpis reveal reveal-delay-4">
-      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">הכנסות 2025 <span class="hero-sparkline" id="heroSparkline"></span></div></div>
-      <div class="hero-kpi"><div class="hero-kpi-value" data-count="10.2" data-suffix="M NIS" data-decimals="1">0</div><div class="hero-kpi-label">EBIT 2025</div></div>
-      <div class="hero-kpi"><div class="hero-kpi-value" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="hero-kpi-label">סטודנטים בשנה</div></div>
-      <div class="hero-kpi"><div class="hero-kpi-value" data-count="25" data-suffix="+">0</div><div class="hero-kpi-label">תוכניות</div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">Revenue 2025A</div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="10.2" data-suffix="M NIS" data-decimals="1">0</div><div class="hero-kpi-label">EBIT 2025A</div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="hero-kpi-label">Students per Year</div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="25" data-suffix="+">0</div><div class="hero-kpi-label">Programs</div></div>
     </div>
   </div>
-  <div class="hero-scroll">גלילה להמשך &darr;</div>
-</section>
-
-<!-- EXECUTIVE SUMMARY -->
-<section id="summary">
-  <div class="container">
-    <span class="section-label reveal">תקציר מנהלים</span>
-    <h2 class="section-title reveal reveal-delay-1">ההזדמנות</h2>
-    <div class="summary-grid">
-      <div class="reveal reveal-delay-2">
-        <ul class="opportunity-list">
-          <li>IPC היא <strong>השחקנית #1 בחינוך המקצועי בישראל</strong> &mdash; סקייל מוכח, רווחיות מוכחת</li>
-          <li>לישראל <strong>מערכת החינוך הטובה באזור</strong>: הוצאה מובילה ב-OECD, מקום #2 במדד החדשנות של Bloomberg</li>
-          <li>AI מחליף מיליוני משרות &mdash; גל ההכשרה המקצועית כבר כאן. אוניברסיטאות איטיות מדי; שוק מקצועי צפוף &mdash; <strong>מכונת המכירות הטובה ביותר מנצחת</strong></li>
-          <li>מכונת מכירות <strong>מוכחת ומנוסה</strong> מוכנה &mdash; אנחנו הטובים ביותר בשוק</li>
-          <li>כבר מלמדים קורסי AI עם <strong>הכנסות ורווחים אמיתיים היום</strong> &mdash; הביקוש רק מתגבר</li>
-          <li>שוק מפוצל, ללא מוביל ברור &mdash; <strong>בשל לקונסולידציה</strong></li>
-          <li>הקורסים <strong>אסינכרוניים לחלוטין</strong> &mdash; לוקליזציה מבוססת AI מרחיבה אותם <strong>לשוק הערבי העצום</strong> בעלות שולית כמעט אפסית</li>
-        </ul>
-      </div>
-      <div class="summary-right">
-        <div class="kpi-card reveal reveal-delay-1"><div class="kpi-val" data-count="41" data-suffix="M">0</div><div class="kpi-label">הכנסות ש״ח 2025</div></div>
-        <div class="kpi-card reveal reveal-delay-2"><div class="kpi-val" data-count="10.2" data-suffix="M" data-decimals="1">0</div><div class="kpi-label">EBIT ש״ח 2025</div></div>
-        <div class="kpi-card reveal reveal-delay-3"><div class="kpi-val" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="kpi-label">סטודנטים בשנה</div></div>
-        <div class="kpi-card reveal reveal-delay-4"><div class="kpi-val" data-count="25" data-suffix="+">0</div><div class="kpi-label">תוכניות פעילות</div></div>
-      </div>
-    </div>
-    <div class="growth-strategy reveal">
-      <span class="section-label">אסטרטגיית צמיחה</span>
-      <div class="growth-items">
-        <div class="growth-item reveal reveal-delay-1"><h4>ביקוש להכשרה מונעת AI</h4><p>תפיסת הגל העצום של טרנספורמציה בשוק העבודה כש-AI משנה כל מקצוע</p></div>
-        <div class="growth-item reveal reveal-delay-2"><h4>התרחבות לשוק דובר הערבית</h4><p>פתיחת שוק ה-EdTech של $4.5 מיליארד במפרץ עם תוכן מלוקלז ומתורגם ב-AI</p></div>
-        <div class="growth-item reveal reveal-delay-3"><h4>אסטרטגיית רכישות ומיזוגים</h4><p>קונסולידציה של שוק החינוך המפוצל בישראל לפלטפורמה מלאה</p></div>
-      </div>
-    </div>
-  </div>
+  <div class="hero-scroll">Scroll to explore &darr;</div>
 </section>
 
 <!-- TESTIMONIAL -->
 <div class="testimonial">
   <div class="container testimonial-inner reveal">
     <div class="testimonial-photo"><img src="images/shay_piron.png" alt="Rabbi Shay Moshe Piron"></div>
-    <blockquote>&ldquo;מכללת IPC היא יותר ממוסד אקדמי &mdash; היא דרך חדשה בעולם התעסוקה וההכשרה המקצועית בישראל. אנחנו לא רק מלמדים &mdash; אנחנו פותחים את הפוטנציאל של כל סטודנט ויוצרים הזדמנויות שוות לכולם.&rdquo;</blockquote>
+    <blockquote>&ldquo;IPC College is more than an academic institution &mdash; it is a new path in the world of employment and professional training in Israel. We don't just teach &mdash; we unlock each student's potential and create equal opportunities for all.&rdquo;</blockquote>
     <cite>
-      <span class="cite-name">הרב שי משה פירון</span>
-      <span class="cite-role">נשיא מכללת IPC ושר החינוך לשעבר של מדינת ישראל</span>
+      <span class="cite-name">Rabbi Shay Moshe Piron</span>
+      <span class="cite-role">President of IPC College &amp; Former Minister of Education of Israel</span>
     </cite>
   </div>
 </div>
 
+<!-- EXECUTIVE SUMMARY -->
+<section id="summary">
+  <div class="container">
+    <span class="section-label reveal">Executive Summary</span>
+    <h2 class="section-title reveal reveal-delay-1">The Opportunity</h2>
+    <div class="summary-grid">
+      <div class="reveal reveal-delay-2">
+        <ul class="opportunity-list">
+          <li>IPC is Israel's <strong>#1 vocational education player</strong> &mdash; proven scale, proven profits</li>
+          <li>Israel has the <strong>best education system in the region</strong>: top OECD spending, #2 on Bloomberg Innovation Index</li>
+          <li>AI is displacing millions of jobs &mdash; the reskilling wave is here now. Universities too slow; crowded vocational market &mdash; <strong>the best sales machine wins</strong></li>
+          <li><strong>Battle-tested</strong> and proven sales machine is ready &mdash; we are the best in the market</li>
+          <li>Already teaching AI courses with <strong>real revenue and profits today</strong> &mdash; demand only accelerating</li>
+          <li>Fragmented market, no clear leader &mdash; <strong>ripe for consolidation</strong></li>
+          <li>Courses are <strong>fully asynchronous</strong> &mdash; AI-driven localization scales them into the <strong>massive Arab-speaking market</strong> at near-zero marginal cost</li>
+        </ul>
+      </div>
+      <div class="summary-right">
+        <div class="kpi-card reveal reveal-delay-1"><div class="kpi-val" data-count="41" data-suffix="M">0</div><div class="kpi-label">NIS Revenue 2025A</div></div>
+        <div class="kpi-card reveal reveal-delay-2"><div class="kpi-val" data-count="10.2" data-suffix="M" data-decimals="1">0</div><div class="kpi-label">NIS EBIT 2025A</div></div>
+        <div class="kpi-card reveal reveal-delay-3"><div class="kpi-val" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="kpi-label">Students Annually</div></div>
+        <div class="kpi-card reveal reveal-delay-4"><div class="kpi-val" data-count="25" data-suffix="+">0</div><div class="kpi-label">Active Programs</div></div>
+      </div>
+    </div>
+    <div class="growth-strategy reveal">
+      <span class="section-label">Growth Strategy</span>
+      <div class="growth-items">
+        <div class="growth-item reveal reveal-delay-1"><h4>AI-Driven Reskilling Demand</h4><p>Capturing the massive wave of workforce transformation as AI reshapes every profession</p></div>
+        <div class="growth-item reveal reveal-delay-2"><h4>Arab-Speaking Market Expansion</h4><p>Unlocking the $4.5B GCC EdTech market with localized, AI-translated content</p></div>
+        <div class="growth-item reveal reveal-delay-3"><h4>M&A Roll-up Strategy</h4><p>Consolidating Israel's fragmented education landscape into a full-cycle platform</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- VISION -->
 <section id="vision">
   <div class="container">
-    <span class="section-label reveal">החזון שלנו</span>
-    <h2 class="section-title reveal reveal-delay-1">לבנות את <em style="font-family:var(--font-display);color:var(--gold)">חברת החינוך הגדולה</em> במזרח התיכון</h2>
-    <p class="vision-funding reveal reveal-delay-2">לביצוע החזון, כבר זיהינו 3 גופים בישראל. תקציב מאושר: <strong>19 מיליון ש״ח</strong> לפייפליין זה.</p>
+    <span class="section-label reveal">Our Vision</span>
+    <h2 class="section-title reveal reveal-delay-1">Build the <em style="font-family:var(--font-display);color:var(--gold)">Largest Education Company</em> in the Middle East</h2>
+    <p class="vision-funding reveal reveal-delay-2">To execute this vision, we have already identified 3 entities in Israel. Approved funding: <strong>19M NIS</strong> for this pipeline.</p>
 
     <div class="vision-split reveal reveal-delay-2">
       <!-- LEFT: Map (sticky) -->
@@ -582,15 +620,15 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
           <rect x="100" y="93" width="22" height="2" fill="#0038b8"/><rect x="100" y="100" width="22" height="2" fill="#0038b8"/>
           <polygon points="111,94.5 113.5,98.5 108.5,98.5" fill="none" stroke="#0038b8" stroke-width=".8"/>
           <polygon points="111,100.5 108.5,96.5 113.5,96.5" fill="none" stroke="#0038b8" stroke-width=".8"/>
-          <text x="120" y="205" fill="var(--navy)" font-family="Syne,sans-serif" font-size="11" font-weight="700" text-anchor="middle">ישראל</text>
-          <text x="120" y="218" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">מטה &middot; שוק $1.1B</text>
+          <text x="120" y="205" fill="var(--navy)" font-family="Syne,sans-serif" font-size="11" font-weight="700" text-anchor="middle">ISRAEL</text>
+          <text x="120" y="218" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">HQ &middot; $1.1B Market</text>
           <!-- Arrow -->
           <line x1="158" y1="148" x2="275" y2="148" stroke="var(--gold)" stroke-width="2" stroke-dasharray="7,4"/>
           <polygon points="275,143 287,148 275,153" fill="var(--gold)"/>
-          <text x="218" y="140" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">התרחבות</text>
+          <text x="218" y="140" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">EXPAND</text>
           <!-- Arab Markets bubble -->
           <ellipse cx="370" cy="150" rx="68" ry="88" fill="#1a1f36" opacity=".04" stroke="#1a1f36" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="370" y="68" fill="#1a1f36" font-family="Syne,sans-serif" font-size="9" font-weight="700" text-anchor="middle">שווקים דוברי ערבית</text>
+          <text x="370" y="68" fill="#1a1f36" font-family="Syne,sans-serif" font-size="9" font-weight="700" text-anchor="middle">ARAB-SPEAKING MARKETS</text>
           <!-- Flags + labels -->
           <rect x="330" y="88" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
           <rect x="330" y="88" width="16" height="3.3" fill="#00732f"/><rect x="330" y="91.3" width="16" height="3.4" fill="#fff"/><rect x="330" y="94.7" width="16" height="3.3" fill="#000"/><rect x="330" y="88" width="4.5" height="10" fill="#ce1126"/>
@@ -611,52 +649,52 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
           <text x="354" y="188" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Saudi Arabia</text>
           <!-- TAM -->
           <text x="370" y="215" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">$4.5B TAM</text>
-          <text x="370" y="228" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">15.5M סטודנטים פוטנציאליים</text>
+          <text x="370" y="228" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">15.5M potential students</text>
         </svg>
-        <p class="map-caption">לוקליזציה מבוססת AI בעלות שולית כמעט אפסית</p>
+        <p class="map-caption">AI-driven localization at near-zero marginal cost</p>
       </div>
 
       <!-- RIGHT: Tabbed unit cards -->
       <div>
         <div class="unit-tabs">
-          <button class="unit-tab active" onclick="showUnit(0,this)">יחידת B2C</button>
-          <button class="unit-tab" onclick="showUnit(1,this)">יחידת B2B</button>
-          <button class="unit-tab" onclick="showUnit(2,this)">יחידת B2G</button>
+          <button class="unit-tab active" onclick="showUnit(0,this)">B2C Unit</button>
+          <button class="unit-tab" onclick="showUnit(1,this)">B2B Unit</button>
+          <button class="unit-tab" onclick="showUnit(2,this)">B2G Unit</button>
         </div>
         <div class="unit-panel active" id="unit-0">
-          <h3>יחידת B2C</h3>
+          <h3>B2C Unit</h3>
           <ul>
-            <li><strong>מכונת מכירות מנוסה ומוכחת</strong> המשותפת לרכישות חדשות ושווקים חדשים</li>
-            <li>פתיחת גישה ל-<strong>15.5 מיליון סטודנטים פוטנציאליים</strong> בשוק דובר הערבית</li>
-            <li>רכישת חברת K12 / הכנה לבגרויות להבטחת <strong>חינוך לאורך כל החיים</strong></li>
+            <li><strong>Battle-tested and proven sales machine</strong> shared with new acquisitions and new markets</li>
+            <li>Unlocking <strong>15.5M potential students</strong> in the Arab-speaking market</li>
+            <li>Acquiring K12 / Graduation Preparation Company to ensure <strong>lifelong education</strong></li>
           </ul>
           <div class="unit-panel-stats">
-            <div class="unit-panel-stat"><div class="ups-val" data-count="50" data-suffix="K">0</div><div class="ups-label">סטודנטים / שנה</div></div>
-            <div class="unit-panel-stat"><div class="ups-val" data-count="45" data-suffix="+">0</div><div class="ups-label">קורסים</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" data-count="50" data-suffix="K">0</div><div class="ups-label">Students / Year</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" data-count="45" data-suffix="+">0</div><div class="ups-label">Courses</div></div>
           </div>
         </div>
         <div class="unit-panel" id="unit-1">
-          <h3>יחידת B2B</h3>
+          <h3>B2B Unit</h3>
           <ul>
-            <li><strong>מותג אמין</strong> עם מנוע שדרוג לבסיס הלקוחות הקיים</li>
-            <li><strong>קצה לקצה:</strong> הערכה, הכשרה ושדרוג כוח אדם ארגוני</li>
-            <li>מיקוד בתקציבי <strong>L&D ארגוניים</strong> עם מסירה דיגיטלית סקלבילית</li>
+            <li><strong>Trusted brand</strong> with upsell engine across existing client base</li>
+            <li><strong>End-to-end:</strong> assess, train &amp; upskill corporate workforces</li>
+            <li>Target corporate <strong>L&D budgets</strong> with scalable digital delivery</li>
           </ul>
           <div class="unit-panel-stats">
-            <div class="unit-panel-stat"><div class="ups-val">12.4M</div><div class="ups-label">הכנסות ש״ח</div></div>
-            <div class="unit-panel-stat"><div class="ups-val">13%</div><div class="ups-label">שולי EBITDA</div></div>
+            <div class="unit-panel-stat"><div class="ups-val">12.4M</div><div class="ups-label">NIS Revenue</div></div>
+            <div class="unit-panel-stat"><div class="ups-val">13%</div><div class="ups-label">EBITDA Margin</div></div>
           </div>
         </div>
         <div class="unit-panel" id="unit-2">
-          <h3>יחידת B2G</h3>
+          <h3>B2G Unit</h3>
           <ul>
-            <li>מינוף <strong>ה-playbook של B2B</strong> לזכייה במכרזים ממשלתיים</li>
-            <li>פייפליין ל<strong>מכרזים גדולים</strong> ופרויקטים בינלאומיים</li>
-            <li><strong>TAM עצום:</strong> הכשרה מחדש של כוח אדם ציבורי שלם</li>
+            <li>Leverage <strong>B2B playbook</strong> to win government contracts</li>
+            <li>Pipeline into <strong>large-scale tenders</strong> &amp; international projects</li>
+            <li><strong>Massive TAM:</strong> reskilling entire public-sector workforces</li>
           </ul>
           <div class="unit-panel-stats">
-            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">GOV</div><div class="ups-label">סקטור יעד</div></div>
-            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">B2G</div><div class="ups-label">ערוץ</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">GOV</div><div class="ups-label">Sector Target</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">B2G</div><div class="ups-label">Channel</div></div>
           </div>
         </div>
       </div>
@@ -667,29 +705,29 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- PRODUCTS -->
 <section id="products">
   <div class="container">
-    <span class="section-label reveal">IPC במבט חטוף</span>
-    <h2 class="section-title reveal reveal-delay-1">מוצרים ותוכניות</h2>
-    <p class="section-sub reveal reveal-delay-2">25+ תוכניות מקצועיות ב-3 אשכולות מרכזיים</p>
+    <span class="section-label reveal">IPC at Glance</span>
+    <h2 class="section-title reveal reveal-delay-1">Products &amp; Programs</h2>
+    <p class="section-sub reveal reveal-delay-2">25+ vocational programs across 3 key verticals</p>
     <div class="products-layout">
       <div>
         <div class="verticals-grid">
-          <div class="vertical-card reveal reveal-delay-1"><img src="images/hitech.jpg" alt="Hi-Tech" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>הייטק ודיגיטל</h4><div class="v-courses">סייבר, QA, אנליטיקת דאטה, פיתוח אתרים, שיווק דיגיטלי, עיצוב גרפי, SEO</div><div class="v-pct">51% מההרשמות</div></div>
-          <div class="vertical-card reveal reveal-delay-2"><img src="images/finance.jpg" alt="Finance" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>פיננסים ועסקים</h4><div class="v-courses">הנהלת חשבונות, ייעוץ מס, קריפטו ושוק ההון, משכנתאות, נדל״ן</div><div class="v-pct">30% מההרשמות</div></div>
-          <div class="vertical-card reveal reveal-delay-3"><img src="images/professional.jpg" alt="Professional" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>מיומנויות מקצועיות</h4><div class="v-courses">Excel, אנגלית, Priority ERP, ניהול ומנהיגות</div><div class="v-pct">19% מההרשמות</div></div>
+          <div class="vertical-card reveal reveal-delay-1"><img src="images/hitech.jpg" alt="Hi-Tech" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>Hi-Tech &amp; Digital</h4><div class="v-courses">Cybersecurity, QA, Data Analytics, Web Dev, Digital Marketing, Graphic Design, SEO</div><div class="v-pct">51% of enrollment</div></div>
+          <div class="vertical-card reveal reveal-delay-2"><img src="images/finance.jpg" alt="Finance" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>Finance &amp; Business</h4><div class="v-courses">Bookkeeping, Tax Consulting, Crypto &amp; Capital Markets, Mortgage, Real Estate</div><div class="v-pct">30% of enrollment</div></div>
+          <div class="vertical-card reveal reveal-delay-3"><img src="images/professional.jpg" alt="Professional" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>Professional Skills</h4><div class="v-courses">Excel, English, Priority ERP, Management &amp; Leadership</div><div class="v-pct">19% of enrollment</div></div>
         </div>
         <ul class="product-bullets reveal">
-          <li><strong>הסמכות חיצוניות</strong> (ISTQB, CCNA, מועצת רואי החשבון, משרד העבודה) מניעות אמון מעסיקים ותמחור פרימיום</li>
-          <li><strong>46% שיעור שדרוג</strong> &mdash; כל סטודנט ליבה הוא שער ל-2-3 קורסים נוספים עם CAC שולי כמעט אפסי</li>
-          <li><strong>100% בעלות על IP</strong> של כל תוכן הקורסים &mdash; שליטה מלאה באיכות, רישוי, white-labeling וזיכיונות</li>
-          <li><strong>שותפי גיוס אמינים</strong> מקבלים בוגרים באופן פעיל &mdash; פייפליין ביקוש מובנה עם 100+ מעסיקים מובילים</li>
-          <li>לא רק קטלוג קורסים &mdash; <strong>פלטפורמה משולבת אנכית מחינוך לתעסוקה</strong></li>
+          <li><strong>External accreditations</strong> (ISTQB, CCNA, Israeli CPA Council, Ministry of Labor) drive employer trust and premium pricing</li>
+          <li><strong>46% upsell conversion</strong> &mdash; every core student is a gateway to 2-3 additional courses with near-zero incremental CAC</li>
+          <li><strong>100% IP ownership</strong> on all course content &mdash; full control over quality, licensing, white-labeling and franchising</li>
+          <li><strong>Trusted hiring partners</strong> actively receiving graduates &mdash; built-in demand pipeline with 100+ leading employers</li>
+          <li>Not just a course catalog &mdash; a <strong>vertically integrated education-to-employment platform</strong></li>
         </ul>
       </div>
       <div class="product-kpis">
-        <div class="product-kpi reveal reveal-delay-1"><div class="pk-val" data-count="92" data-suffix="%">0</div><div class="pk-label">ימליצו</div></div>
-        <div class="product-kpi reveal reveal-delay-2"><div class="pk-val">4.6 / 5.0</div><div class="pk-label">שביעות רצון כללית</div></div>
-        <div class="product-kpi reveal reveal-delay-3"><div class="pk-val" data-count="46" data-suffix="%">0</div><div class="pk-label">שיעור שדרוג</div></div>
-        <div class="product-kpi reveal reveal-delay-4"><div class="pk-val" data-count="71" data-suffix="%">0</div><div class="pk-label">שיעור השמה (חשבונאות)</div></div>
+        <div class="product-kpi reveal reveal-delay-1"><div class="pk-val" data-count="92" data-suffix="%">0</div><div class="pk-label">Would Recommend</div></div>
+        <div class="product-kpi reveal reveal-delay-2"><div class="pk-val">4.6 / 5.0</div><div class="pk-label">Overall Satisfaction</div></div>
+        <div class="product-kpi reveal reveal-delay-3"><div class="pk-val" data-count="46" data-suffix="%">0</div><div class="pk-label">Upsell Rate</div></div>
+        <div class="product-kpi reveal reveal-delay-4"><div class="pk-val" data-count="71" data-suffix="%">0</div><div class="pk-label">Placement Rate (Accounting)</div></div>
       </div>
     </div>
   </div>
@@ -698,49 +736,49 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- TECH PLATFORM -->
 <section id="platform">
   <div class="container">
-    <span class="section-label reveal">תשתית טכנולוגית</span>
-    <h2 class="section-title reveal reveal-delay-1">פלטפורמה טכנולוגית קצה לקצה</h2>
+    <span class="section-label reveal">Technology Infrastructure</span>
+    <h2 class="section-title reveal reveal-delay-1">Front and Back-end Tech Platform</h2>
     <div class="platform-cols">
       <div class="platform-col reveal reveal-delay-1">
-        <div class="platform-col-header"><h3>LMS ושכבת AI</h3></div>
+        <div class="platform-col-header"><h3>LMS &amp; AI Layer</h3></div>
         <div class="platform-col-body">
-          <div class="pitem"><h4>LMS מותאם ("ידע")</h4><p>מסירת קורסים מלאה, מעקב התקדמות, הערכות ואנליטיקה בפלטפורמה אחת</p></div>
-          <div class="pitem"><h4>מורה AI</h4><p>מוטמע ישירות ב-LMS עם גישה מאובטחת לכל חומרי הקורס. למידה אדפטיבית מבוססת AI</p></div>
-          <div class="pitem"><h4>למידה אינטראקטיבית</h4><p>חידונים, סימולציות, אנימציות וקצב מותאם ב-AI לכל ספריית הקורסים</p></div>
-          <div class="pitem"><h4>לוקליזציה לפי דרישה</h4><p>כתוביות אוטומטיות + קריינות נוירונית בכל שפה בעלות טוקנים מינימלית</p></div>
+          <div class="pitem"><h4>Custom LMS ("Yeda")</h4><p>Full course delivery, progress tracking, assessments &amp; analytics in one platform</p></div>
+          <div class="pitem"><h4>AI Tutor</h4><p>Embedded directly in LMS with secure access to all course materials. AI-powered adaptive learning</p></div>
+          <div class="pitem"><h4>Interactive Learning</h4><p>AI quizzes, simulations, animations &amp; adaptive pacing across course library</p></div>
+          <div class="pitem"><h4>On-Demand Localization</h4><p>Auto subtitles + neural voice-over in any language at nominal token cost</p></div>
         </div>
       </div>
       <div class="platform-col reveal reveal-delay-2">
-        <div class="platform-col-header"><h3>מנוע הפקה</h3></div>
+        <div class="platform-col-header"><h3>Production Engine</h3></div>
         <div class="platform-col-body">
-          <div class="pitem"><h4>אולפן פנימי</h4><p>מסך ירוק פנורמי, מצלמות PTZ, טלפרומפטר, תאורה חכמה; צילום רב-פורמטי</p></div>
-          <div class="pitem"><h4>4 ערכות הקלטה ניידות</h4><p>מוצבות אצל מרצים להפקה מרחוק &mdash; זמן תגובה מהיר ואיכות עקבית</p></div>
-          <div class="pitem"><h4>מחלקת פיתוח קורסים ייעודית</h4><p>קו ייצור קצה לקצה: מחקר &rarr; גיוס &rarr; עיצוב &rarr; הפקה &rarr; QA &rarr; עדכון</p></div>
-          <div class="pitem"><h4>אפס דליפת IP</h4><p>מרצים פרילנסרים מומחי תחום &mdash; ללא חלוקת הכנסות, ללא זכויות בעלות, ללא תמלוגים</p></div>
+          <div class="pitem"><h4>In-House Studio</h4><p>Panoramic green screen, PTZ cameras, teleprompter, smart lighting; multi-format filming</p></div>
+          <div class="pitem"><h4>4 Mobile Recording Kits</h4><p>Deployed to instructors for remote production &mdash; fast turnaround &amp; consistent quality</p></div>
+          <div class="pitem"><h4>Dedicated Course Dev Dept</h4><p>End-to-end production line: research &rarr; recruit &rarr; design &rarr; produce &rarr; QA &rarr; update</p></div>
+          <div class="pitem"><h4>Zero IP Leakage</h4><p>Freelance SME instructors &mdash; no revenue share, no ownership rights, no royalties</p></div>
         </div>
       </div>
       <div class="platform-col reveal reveal-delay-3">
-        <div class="platform-col-header"><h3>CRM ותפעול</h3></div>
+        <div class="platform-col-header"><h3>CRM &amp; Operations</h3></div>
         <div class="platform-col-body">
-          <div class="pitem"><h4>ארכיטקטורת CRM משולשת</h4><p>Fix Digital (שיווק/מכירות), הכוורת (ניהול סטודנטים), Galaxis (פניות דיגיטליות)</p></div>
-          <div class="pitem"><h4>מוקד טלפוני ענן</h4><p>VoiceSpin עם מעקב שיחות מלא, אנליטיקה ואינטגרציית CRM למכירות בשיעור המרה גבוה</p></div>
-          <div class="pitem"><h4>שכבת אוטומציה</h4><p>Make.com + Zapier מחברים את כל הפלטפורמות &mdash; צוות רזה, תפוקה גבוהה</p></div>
-          <div class="pitem"><h4>ניהול פיננסי</h4><p>iCount: חשבונות לקוחות, גביית חובות, תשלומים חוזרים ודיווח &mdash; אוטומטי לחלוטין</p></div>
+          <div class="pitem"><h4>Triple-CRM Architecture</h4><p>Fix Digital (mktg/sales), Hakaveret (student mgmt), Galaxis (digital inquiries)</p></div>
+          <div class="pitem"><h4>Cloud Call Center</h4><p>VoiceSpin with full call tracking, analytics &amp; CRM integration for high-conversion sales</p></div>
+          <div class="pitem"><h4>Automation Layer</h4><p>Make.com + Zapier connecting all platforms &mdash; lean team, high throughput</p></div>
+          <div class="pitem"><h4>Financial Management</h4><p>iCount: client accounts, debt collection, recurring payments &amp; reporting &mdash; fully automated</p></div>
         </div>
       </div>
     </div>
-    <div class="platform-callout reveal"><strong>חפיר הפלטפורמה:</strong> מערך פרופריאטרי משולב לחלוטין &mdash; מיצירת קורסים להשמת סטודנטים &mdash; בעלות שולית כמעט אפסית לכל סטודנט או שוק נוסף</div>
+    <div class="platform-callout reveal"><strong>Platform Moat:</strong> Fully integrated, proprietary stack &mdash; course creation to student placement &mdash; with near-zero marginal cost per additional student or market</div>
   </div>
 </section>
 
 <!-- HIRING PARTNERS -->
 <section id="partners">
   <div class="container">
-    <span class="section-label reveal">IPC במבט חטוף</span>
-    <h2 class="section-title reveal reveal-delay-1">שותפי גיוס</h2>
+    <span class="section-label reveal">IPC at Glance</span>
+    <h2 class="section-title reveal reveal-delay-1">Hiring Partners</h2>
     <div class="partners-intro reveal reveal-delay-2">
       <div class="big-stat">100+</div>
-      <div>רשת שותפי גיוס חזקה: בוגרי IPC מועסקים בחברות מובילות, עם 100+ שותפים התומכים בתוצאות תעסוקה חזקות</div>
+      <div>Strong hiring partner network: IPC graduates are hired by leading companies, supporting strong employment outcomes</div>
     </div>
     <div class="marquee-wrap reveal reveal-delay-3">
       <div class="marquee-track">
@@ -775,19 +813,19 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- MARKET -->
 <section id="market">
   <div class="container">
-    <span class="section-label reveal">מנועי צמיחה</span>
-    <h2 class="section-title reveal reveal-delay-1">שוק ה-EdTech הגלובלי</h2>
-    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-display);color:var(--gold);font-size:1.15rem"><em>עתיד החינוך הוא כניסה מואצת לשוק העבודה והכשרה מתמשכת</em></p>
+    <span class="section-label reveal">Growth Drivers</span>
+    <h2 class="section-title reveal reveal-delay-1">Global EdTech Market</h2>
+    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-display);color:var(--gold);font-size:1.15rem"><em>The future of education is accelerated workforce entry and continuous upskilling</em></p>
     <div class="market-hero-stats">
-      <div class="market-stat reveal reveal-delay-1"><div class="ms-val" data-count="348" data-prefix="$" data-suffix="B">0</div><div class="ms-label">שוק EdTech עד 2030</div></div>
-      <div class="market-stat reveal reveal-delay-2"><div class="ms-val" data-count="41" data-prefix="$" data-suffix="B">0</div><div class="ms-label">AI ב-EdTech עד 2030</div></div>
+      <div class="market-stat reveal reveal-delay-1"><div class="ms-val" data-count="348" data-prefix="$" data-suffix="B">0</div><div class="ms-label">EdTech Market by 2030</div></div>
+      <div class="market-stat reveal reveal-delay-2"><div class="ms-val" data-count="41" data-prefix="$" data-suffix="B">0</div><div class="ms-label">AI in EdTech by 2030</div></div>
       <div class="market-stat reveal reveal-delay-3"><div class="ms-val" data-count="13.3" data-suffix="%" data-decimals="1">0</div><div class="ms-label">CAGR 2025&ndash;2030</div></div>
     </div>
     <div class="market-drivers">
-      <div class="driver-card reveal reveal-delay-1"><h4>מיומנויות מעל תארים</h4><p>85% מהמעסיקים כיום מעדיפים מיומנויות על תארים פורמליים. Google, Apple, IBM, Microsoft ביטלו דרישות תואר.</p></div>
-      <div class="driver-card reveal reveal-delay-2"><h4>פער הכשרה עצום</h4><p>WEF מעריך ש-40-60% מהעובדים זקוקים להכשרה מחדש עד 2030, אך רק 28% מהארגונים מתכננים באופן פעיל שדרוג מיומנויות.</p></div>
-      <div class="driver-card reveal reveal-delay-3"><h4>AI משנה כל מקצוע</h4><p>אוריינות AI ושיתוף פעולה אדם-AI הופכים למיומנויות חיוניות בכל שוק העבודה, מחשבונאות ועד עיצוב.</p></div>
-      <div class="driver-card reveal reveal-delay-4"><h4>בום הכשרות ארגוניות</h4><p>מעל 65% מהחברות בישראל משקיעות בשדרוג מיומנויות עובדים, מניעות ביקוש לפתרונות EdTech ארגוניים.</p></div>
+      <div class="driver-card reveal reveal-delay-1"><h4>Skills Over Degrees</h4><p>85% of employers now prioritize skills over formal degrees. Google, Apple, IBM, Microsoft have dropped degree requirements.</p></div>
+      <div class="driver-card reveal reveal-delay-2"><h4>Massive Reskilling Gap</h4><p>WEF estimates 40-60% of workers need retraining by 2030, yet only 28% of organizations are actively planning upskilling.</p></div>
+      <div class="driver-card reveal reveal-delay-3"><h4>AI is Reshaping Every Profession</h4><p>AI literacy and human-AI collaboration are becoming essential skills across the entire workforce, from accounting to design.</p></div>
+      <div class="driver-card reveal reveal-delay-4"><h4>Corporate Training Boom</h4><p>Over 65% of companies in Israel invest in employee upskilling, driving demand for B2B EdTech solutions.</p></div>
     </div>
   </div>
 </section>
@@ -795,30 +833,30 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- WHY NOW -->
 <section id="whynow">
   <div class="container">
-    <span class="section-label reveal">תזמון</span>
-    <h2 class="section-title reveal reveal-delay-1">למה עכשיו?</h2>
-    <p class="section-sub reveal reveal-delay-2">שלושה דברים קורים בו-זמנית. החלון הזה לא יישאר פתוח.</p>
+    <span class="section-label reveal">Timing</span>
+    <h2 class="section-title reveal reveal-delay-1">Why Now?</h2>
+    <p class="section-sub reveal reveal-delay-2">Three things are happening at the same time. This window won't stay open.</p>
     <div class="whynow-grid">
       <div class="whynow-card reveal reveal-delay-1">
         <span class="wn-num">01</span>
         <div class="wn-icon">&#129302;</div>
-        <h4>AI משכתב את שוק העבודה</h4>
-        <p>40-60% מהעובדים זקוקים להכשרה מחדש עד 2030. כולם מוכרים קורסי AI. אנחנו היחידים עם <strong>מכונת מכירות מוכחת שממירה בסקייל</strong> &mdash; 46% שיעור שדרוג, 7,200+ סטודנטים, רווחיים מהיום הראשון.</p>
-        <div class="wn-stat">WEF: 1.4 מיליארד עובדים זקוקים להכשרה עד 2030</div>
+        <h4>AI Is Rewriting the Job Market</h4>
+        <p>40-60% of workers need reskilling by 2030. Everyone is selling AI courses. We're the only ones with a <strong>proven sales machine that actually converts at scale</strong> &mdash; 46% upsell rate, 7,200+ students, profitable since day one.</p>
+        <div class="wn-stat">WEF: 1.4B workers need reskilling by 2030</div>
       </div>
       <div class="whynow-card reveal reveal-delay-2">
         <span class="wn-num">02</span>
         <div class="wn-icon">&#127757;</div>
-        <h4>השוק דובר הערבית פתוח לרווחה</h4>
-        <p>$4.5B TAM ב-EdTech של המפרץ. 50%+ מהאוכלוסייה מתחת לגיל 30. הסכמי אברהם פותחים שותפויות ישראליות. <strong>הקורסים שלנו כבר מלוקלזים בערבית.</strong> חלון ההזדמנות נסגר מהר.</p>
-        <div class="wn-stat">15.5M סטודנטים פוטנציאליים &middot; 6 מדינות GCC</div>
+        <h4>Arab-Speaking Market Is Wide Open</h4>
+        <p>$4.5B GCC EdTech TAM. 50%+ of population under 30. Abraham Accords unlocking Israeli partnerships. <strong>Our courses are already localized in Arabic.</strong> First-mover window is closing fast.</p>
+        <div class="wn-stat">15.5M potential students &middot; 6 GCC countries</div>
       </div>
       <div class="whynow-card reveal reveal-delay-3">
         <span class="wn-num">03</span>
         <div class="wn-icon">&#128737;</div>
-        <h4>חלון הקונסולידציה פתוח</h4>
-        <p>לחינוך המקצועי בישראל <strong>אין מוביל שוק</strong>. זיהינו 3 יעדי רכישה עם תקציב מאושר של 19 מיליון ש״ח. ה-playbook של ה-roll-up מוכח. הפייפליין חי. יתרון הראשון הוא הכל.</p>
-        <div class="wn-stat">3 יעדים זוהו &middot; 19M ש״ח מאושרים</div>
+        <h4>Consolidation Window Is Open</h4>
+        <p>Israeli vocational education has <strong>no market leader</strong>. We've identified 3 acquisition targets with approved 19M NIS funding. The roll-up playbook is proven. The pipeline is live. First-mover advantage is everything.</p>
+        <div class="wn-stat">3 targets identified &middot; 19M NIS approved</div>
       </div>
     </div>
   </div>
@@ -827,39 +865,39 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- GROWTH DRIVERS -->
 <section id="growth">
   <div class="container">
-    <span class="section-label reveal">מנועי צמיחה</span>
-    <h2 class="section-title reveal reveal-delay-1">שלושה מנועי צמיחה</h2>
+    <span class="section-label reveal">Growth Drivers</span>
+    <h2 class="section-title reveal reveal-delay-1">Three Engines of Growth</h2>
 
     <!-- Selector Cards -->
     <div class="gd-selector reveal reveal-delay-2">
       <div class="gd-card active" onclick="showGrowth(0,this)">
-        <div class="gd-num">מנוע 01</div>
+        <div class="gd-num">Driver 01</div>
         <div class="gd-icon">&#128200;</div>
-        <div class="gd-title">AI כמנוע צמיחה</div>
-        <div class="gd-stat">30% מההכנסות עד 2027</div>
+        <div class="gd-title">AI as a Growth Engine</div>
+        <div class="gd-stat">30% of revenue by 2027</div>
       </div>
       <div class="gd-card" onclick="showGrowth(1,this)">
-        <div class="gd-num">מנוע 02</div>
+        <div class="gd-num">Driver 02</div>
         <div class="gd-icon">&#127758;</div>
-        <div class="gd-title">שווקים דוברי ערבית</div>
-        <div class="gd-stat">$4.5B TAM &middot; 6 מדינות</div>
+        <div class="gd-title">Arab-Speaking Markets</div>
+        <div class="gd-stat">$4.5B TAM &middot; 6 countries</div>
       </div>
       <div class="gd-card" onclick="showGrowth(2,this)">
-        <div class="gd-num">מנוע 03</div>
+        <div class="gd-num">Driver 03</div>
         <div class="gd-icon">&#128736;</div>
-        <div class="gd-title">התרחבות מונעת רכישות</div>
-        <div class="gd-stat">110M ש״ח הכנסות עד 2030</div>
+        <div class="gd-title">M&A-Driven Expansion</div>
+        <div class="gd-stat">110M NIS revenue by 2030</div>
       </div>
     </div>
 
     <!-- Content Panels -->
     <!-- DRIVER 1: AI -->
     <div class="gd-content active" id="gd-0">
-      <p style="color:var(--text-light);margin-bottom:1.5rem"><em style="font-family:var(--font-display);color:var(--gold);font-size:1.2rem">&laquo;בזמן הבהלה לזהב, כדאי להיות בעסק של כלי העבודה&raquo;</em> <span style="font-size:.85rem">&mdash; מארק טוויין</span></p>
+      <p style="color:var(--text-light);margin-bottom:1.5rem"><em style="font-family:var(--font-display);color:var(--gold);font-size:1.2rem">&laquo;During the gold rush it's a good time to be in the pick and shovel business&raquo;</em> <span style="font-size:.85rem">&mdash; Mark Twain</span></p>
       <div class="ai-growth-cards">
-        <div class="ai-card"><div class="ai-icon">&#128200;</div><h4>חיזוק מכירות הליבה</h4><p>המרה גבוהה יותר דרך הצעת ערך מועצמת ב-AI ובידול תחרותי</p></div>
-        <div class="ai-card"><div class="ai-icon">&#128640;</div><h4>מנוע שדרוג AI</h4><p>מכירת קורסי AI נוספים לבסיס הסטודנטים הקיים, הגדלת ערך חיי הסטודנט</p></div>
-        <div class="ai-card"><div class="ai-icon">&#127919;</div><h4>השפעה על הכנסות</h4><p>קורסים מונעי AI צפויים להגיע ל-</p><div class="ai-highlight" data-count="30" data-suffix="%">0</div><p style="margin-top:.2rem">מההכנסות ב-2026-2027</p></div>
+        <div class="ai-card"><div class="ai-icon">&#128200;</div><h4>Strengthening Core Sales</h4><p>Higher conversion through AI-enhanced value proposition and competitive differentiation</p></div>
+        <div class="ai-card"><div class="ai-icon">&#128640;</div><h4>AI Upsell Engine</h4><p>Selling AI add-on courses to existing student base, increasing lifetime value per student</p></div>
+        <div class="ai-card"><div class="ai-icon">&#127919;</div><h4>Revenue Impact</h4><p>AI-driven courses projected to reach</p><div class="ai-highlight">30-40%</div><p style="margin-top:.2rem">of revenue in 2026-2027</p></div>
       </div>
     </div>
 
@@ -867,13 +905,13 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
     <div class="gd-content" id="gd-1">
       <div class="gcc-layout">
         <div class="gcc-info">
-          <h4>ישראל: מעצמת EdTech</h4>
-          <ul><li>שוק EdTech בשווי ~$1.1B, מהגבוהים לנפש בעולם</li><li>בית ל-500+ סטארטאפי EdTech, מקום 2 בעולם בצפיפות חדשנות EdTech</li><li>בוטקמפים ממומני ממשלה וצנרת טכנולוגית יוצרים תשתית כישרונות</li></ul>
-          <h4 style="margin-top:1.5rem;color:var(--teal)">GCC: הזדמנות של $4.5B</h4>
-          <ul><li>שוק ה-EdTech במפרץ גדל מ-$3.02B ל-$4.47B עד 2030 (6.7% CAGR)</li><li>50%+ מאוכלוסיית המפרץ מתחת לגיל 30, מניע ביקוש ללמידה דיגיטלית</li><li>גיוון כלכלי מהיר מנפט מתדלק ביקוש להכשרה טכנולוגית ומקצועית</li></ul>
+          <h4>Israel: EdTech Powerhouse</h4>
+          <ul><li>EdTech market valued at ~$1.1B, one of the highest per-capita globally</li><li>Home to 500+ EdTech startups, 2nd globally in EdTech innovation density</li><li>Government-funded bootcamps and tech pipelines creating talent infrastructure</li></ul>
+          <h4 style="margin-top:1.5rem;color:var(--teal)">GCC: $4.5B Opportunity</h4>
+          <ul><li>GCC EdTech market growing from $3.02B to $4.47B by 2030 (6.7% CAGR)</li><li>50%+ of GCC population is under 30, driving digital learning demand</li><li>Rapid economic diversification from oil fuels tech and vocational training demand</li></ul>
         </div>
         <div style="display:flex;flex-direction:column;gap:.6rem">
-          <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:.5rem">הקצאת TAM במפרץ</h4>
+          <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:.5rem">GCC TAM Allocation</h4>
           <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Saudi Arabia</span><div style="height:24px;width:85%;background:var(--navy);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$1,960M</span></div></div>
           <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">UAE</span><div style="height:24px;width:40%;background:var(--gold);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$450M</span></div></div>
           <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Kuwait</span><div style="height:24px;width:20%;background:var(--gold-dim);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$210M</span></div></div>
@@ -886,8 +924,8 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 
     <!-- DRIVER 3: M&A -->
     <div class="gd-content" id="gd-2">
-      <p style="color:var(--text-light);margin-bottom:.5rem">קונסולידציה של סגמנטי חינוך מפוצלים ב-B2B ו-B2C</p>
-      <p style="color:var(--gold);font-family:var(--font-heading);font-size:1.1rem;margin-bottom:1rem"><strong>פלטפורמת פיתוח כוח אדם מלאה</strong></p>
+      <p style="color:var(--text-light);margin-bottom:.5rem">Consolidating fragmented B2B and B2C education segments</p>
+      <p style="color:var(--gold);font-family:var(--font-heading);font-size:1.1rem;margin-bottom:1rem"><strong>Full-cycle workforce development platform</strong></p>
 
       <div class="triangle-wrap" id="triWrap">
         <svg class="tri-svg" viewBox="0 0 650 420" id="triSvg">
@@ -899,22 +937,17 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
           <path d="M480,365 C400,400 250,400 170,365" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
           <defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="var(--navy)" opacity=".5"/></marker></defs>
         </svg>
-        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0"><h4>הכשרה מחדש / B2B / B2G</h4><p>White-labeling</p></div>
-        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1"><h4>תואר ראשון</h4><p>הערכה (K12)</p></div>
-        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2"><h4>הערכה ו</h4><p>השמת כישרונות</p></div>
-        <div class="tri-center"><span>הכשרה<br>לאורך החיים</span></div>
+        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0"><h4>Reskilling / B2B / B2G</h4><p>White-labeling</p><span class="tri-phase-tag">&#8594; Phase 2</span></div>
+        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1"><h4>Undergraduate</h4><p>Assessment (K12)</p><span class="tri-phase-tag">&#8594; Phase 1</span></div>
+        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2"><h4>Assessment and</h4><p>Talent Placement</p><span class="tri-phase-tag">&#8594; Phase 3</span></div>
+        <div class="tri-center"><span>Lifelong<br>reskilling</span></div>
       </div>
-      <div class="tri-detail" id="triDetail"><p>לחצו על צומת כלשהו כדי לראות כיצד כל סגמנט מזין את הפלטפורמה המלאה</p></div>
-
-      <div style="display:flex;gap:2rem;justify-content:center;margin:2rem 0;flex-wrap:wrap">
-        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px"><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">110M</div><div style="font-size:.75rem;color:rgba(255,255,255,.6)">ש״ח הכנסות הקבוצה 2030</div></div>
-        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px"><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">23M</div><div style="font-size:.75rem;color:rgba(255,255,255,.6)">ש״ח EBITDA הקבוצה 2030</div></div>
-      </div>
+      <div class="tri-detail" id="triDetail"><p>Click on any node to explore how each segment feeds into the full-cycle platform</p></div>
 
       <div class="mna-phases" style="margin-top:1.5rem">
-        <div class="mna-phase"><span class="phase-badge">שלב 1</span><div><h4>חינוך K12 / תואר ראשון</h4><p>חברות הכשרה טכנולוגית והכנה למבחנים יוצרות פייפליין סטודנטים מלא</p></div><span class="phase-metrics">10M ש״ח הכנסות | 10% EBITDA</span></div>
-        <div class="mna-phase"><span class="phase-badge">שלב 2</span><div><h4>הכשרות B2B</h4><p>חברת חינוך ארגוני B2B עם שותפויות חזקות. מוסיפה ערוץ B2B וחשיפה בינלאומית.</p></div><span class="phase-metrics">12.4M ש״ח | 55% רווח גולמי | 13% EBITDA</span></div>
-        <div class="mna-phase"><span class="phase-badge">שלב 3</span><div><h4>רכישות נוספות</h4><p>השמת כישרונות, שחקנים מפוצלים נוספים. בניית שרשרת ערך הון אנושי מלאה.</p></div><span class="phase-metrics">פלטפורמה מלאה</span></div>
+        <div class="mna-phase"><span class="phase-badge">Phase 1</span><div><h4>K12 / Undergraduate Education</h4><p>Tech training and test preparation companies create a full student pipeline</p></div><span class="phase-metrics">10M NIS Rev | 10% EBITDA</span></div>
+        <div class="mna-phase"><span class="phase-badge">Phase 2</span><div><h4>B2B Trainings</h4><p>B2B corporate education company with strong partnerships. Adds B2B channel and international reach.</p></div><span class="phase-metrics">12.4M NIS | 55% GP | 13% EBITDA</span></div>
+        <div class="mna-phase"><span class="phase-badge">Phase 3</span><div><h4>Further Bolt-ons</h4><p>Talent placement, additional fragmented players. Building a full Human Capital Value Chain.</p></div><span class="phase-metrics">Full-cycle platform</span></div>
       </div>
     </div>
 
@@ -924,17 +957,30 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- FINANCIALS -->
 <section id="financials">
   <div class="container">
-    <span class="section-label reveal">ביצועים פיננסיים</span>
-    <h2 class="section-title reveal reveal-delay-1">תמונת מצב פיננסית</h2>
+    <span class="section-label reveal">Financial Performance</span>
+    <h2 class="section-title reveal reveal-delay-1">Financial Snapshot</h2>
     <div class="fin-toggle reveal reveal-delay-2">
-      <button class="fin-toggle-btn active" onclick="showFinView('standalone',this)">IPC עצמאית</button>
-      <button class="fin-toggle-btn" onclick="showFinView('consolidated',this)">הקבוצה המאוחדת</button>
+      <button class="fin-toggle-btn active" onclick="showFinView('standalone',this)">IPC Stand-alone</button>
+      <button class="fin-toggle-btn" onclick="showFinView('consolidated',this)">Target Group (Consolidated)</button>
     </div>
     <!-- STANDALONE -->
     <div class="fin-view active" id="fin-standalone">
       <div class="financials-layout">
-        <div>
-          <div class="chart-container reveal"><h3>הכנסות (אלפי ש״ח) <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--gold)">&#9644; בפועל &#9638; תחזית</span></h3><div class="chart-area"><div class="chart-bars">
+        <!-- 1. Growth thesis - full width -->
+        <div class="fin-thesis reveal">
+          <span class="ft-icon">&#9650;</span>
+          <span class="ft-text">Organic growth driven by expanding AI-powered course offerings and penetrating new Arab-speaking markets</span>
+        </div>
+        <!-- 2. Key KPIs - row -->
+        <div class="fin-kpi-row">
+          <div class="fin-kpi reveal reveal-delay-1"><div class="fk-val" data-count="12" data-suffix="%">0</div><div class="fk-label">Revenue CAGR (2025-2030)</div></div>
+          <div class="fin-kpi reveal reveal-delay-2"><div class="fk-val" data-count="26" data-suffix="%">0</div><div class="fk-label">EBIT Margin by 2030</div></div>
+          <div class="fin-kpi reveal reveal-delay-3"><div class="fk-val" data-count="29" data-suffix="%">0</div><div class="fk-label">YoY Revenue Growth 2025</div></div>
+          <div class="fin-kpi reveal reveal-delay-4"><div class="fk-val" data-count="36" data-suffix="%">0</div><div class="fk-label">Gross Margin 2025</div></div>
+        </div>
+        <!-- 3. Charts side by side -->
+        <div class="fin-charts-row">
+          <div class="chart-container reveal"><h3>Revenue (NIS K)</h3><div class="chart-area"><div class="chart-bars">
             <div class="chart-bar-group"><div class="chart-bar" data-height="29%" style="height:0;background:var(--gold-dim)"><span class="chart-bar-value">23,386</span></div><div class="chart-bar-label">2023A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="40%" style="height:0;background:var(--gold-dim)"><span class="chart-bar-value">31,920</span></div><div class="chart-bar-label">2024A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="51%" style="height:0;background:var(--gold)"><span class="chart-bar-value">41,046</span></div><div class="chart-bar-label">2025A</div></div>
@@ -944,7 +990,7 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
             <div class="chart-bar-group"><div class="chart-bar" data-height="78%" style="height:0;background:repeating-linear-gradient(45deg,var(--gold-dim),var(--gold-dim) 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">62,425</span></div><div class="chart-bar-label">2029F</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="90%" style="height:0;background:var(--gold)"><span class="chart-bar-value" style="color:var(--gold)">71,789</span></div><div class="chart-bar-label" style="color:var(--gold)">2030F</div></div>
           </div></div></div>
-          <div class="chart-container chart-ebit reveal" style="margin-top:1.5rem"><h3>EBIT (אלפי ש״ח)</h3><div class="chart-area"><div class="chart-bars">
+          <div class="chart-container chart-ebit reveal"><h3>EBIT (NIS K)</h3><div class="chart-area"><div class="chart-bars">
             <div class="chart-bar-group"><div class="chart-bar" data-height="26%" style="height:0;background:var(--teal)"><span class="chart-bar-value">4,850</span></div><div class="chart-bar-label">2023A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="27%" style="height:0;background:var(--teal)"><span class="chart-bar-value">5,055</span></div><div class="chart-bar-label">2024A</div></div>
             <div class="chart-bar-group"><div class="chart-bar" data-height="54%" style="height:0;background:var(--teal)"><span class="chart-bar-value">10,168</span></div><div class="chart-bar-label">2025A</div></div>
@@ -955,21 +1001,27 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
             <div class="chart-bar-group"><div class="chart-bar" data-height="100%" style="height:0;background:var(--teal)"><span class="chart-bar-value" style="color:var(--teal)">18,658</span></div><div class="chart-bar-label" style="color:var(--teal)">2030F</div></div>
           </div></div></div>
         </div>
-        <div class="fin-kpis">
-          <div class="fin-kpi reveal reveal-delay-1"><div class="fk-val" data-count="12" data-suffix="%">0</div><div class="fk-label">CAGR הכנסות (2025-2030)</div></div>
-          <div class="fin-kpi reveal reveal-delay-2"><div class="fk-val" data-count="36" data-suffix="%">0</div><div class="fk-label">שולי רווח גולמי 2025</div></div>
-          <div class="fin-kpi reveal reveal-delay-3"><div class="fk-val" data-count="26" data-suffix="%">0</div><div class="fk-label">שולי EBIT עד 2030</div></div>
-          <div class="fin-kpi reveal reveal-delay-4"><div class="fk-val" data-count="29" data-suffix="%">0</div><div class="fk-label">צמיחת הכנסות שנתית 2025</div></div>
-          <div class="fin-kpi reveal reveal-delay-5"><div class="fk-val">ללא חוב</div><div class="fk-label">מאזן עד 2030</div></div>
-        </div>
       </div>
     </div>
     <!-- CONSOLIDATED -->
     <div class="fin-view" id="fin-consolidated">
       <div class="financials-layout">
-        <div>
+        <!-- 1. Growth thesis - full width -->
+        <div class="fin-thesis">
+          <span class="ft-icon">&#9650;</span>
+          <span class="ft-text">Post-M&A growth powered by life-long upsell across the combined student base &mdash; every acquisition feeds the engine</span>
+        </div>
+        <!-- 2. Key KPIs - row -->
+        <div class="fin-kpi-row">
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">110M</div><div class="fk-label">NIS Revenue by 2030</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">23M</div><div class="fk-label">NIS EBIT by 2030</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">12%</div><div class="fk-label">Revenue CAGR</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">21%</div><div class="fk-label">EBIT Margin by 2030</div></div>
+        </div>
+        <!-- 3. Charts side by side -->
+        <div class="fin-charts-row">
           <div class="chart-container">
-            <h3>הכנסות הקבוצה (אלפי ש״ח)</h3>
+            <h3>Group Revenue (NIS K)</h3>
             <div class="chart-area"><div class="chart-bars">
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="55%" style="height:0"><span class="stack-value">60,000</span><div class="chart-bar-seg" style="height:15%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:17%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:68%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2025A</div></div>
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="58%" style="height:0"><span class="stack-value">63,000</span><div class="chart-bar-seg" style="height:15%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:20%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:65%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2026F</div></div>
@@ -979,13 +1031,13 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="100%" style="height:0"><span class="stack-value" style="color:var(--gold)">110,000</span><div class="chart-bar-seg" style="height:24%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:28%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:48%;background:var(--gold-dim)"></div></div><div class="chart-bar-label" style="color:var(--gold)">2030F</div></div>
             </div></div>
             <div class="chart-legend">
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--gold-dim)"></div>מכללת IPC</div>
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--gold)"></div>K12 / תואר ראשון</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--gold-dim)"></div>IPC College</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--gold)"></div>K12 / Undergraduate</div>
               <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4)"></div>B2B</div>
             </div>
           </div>
-          <div class="chart-container chart-ebit" style="margin-top:1.5rem">
-            <h3>EBIT הקבוצה (אלפי ש״ח)</h3>
+          <div class="chart-container chart-ebit">
+            <h3>Group EBIT (NIS K)</h3>
             <div class="chart-area"><div class="chart-bars">
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="52%" style="height:0"><span class="stack-value">12,000</span><div class="chart-bar-seg" style="height:13%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:12%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:75%;background:var(--teal)"></div></div><div class="chart-bar-label">2025A</div></div>
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="57%" style="height:0"><span class="stack-value">13,000</span><div class="chart-bar-seg" style="height:14%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:14%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:72%;background:var(--teal)"></div></div><div class="chart-bar-label">2026F</div></div>
@@ -995,17 +1047,11 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
               <div class="chart-bar-group"><div class="chart-bar-stack" data-height="100%" style="height:0"><span class="stack-value" style="color:var(--teal)">23,000</span><div class="chart-bar-seg" style="height:20%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:22%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:58%;background:var(--teal)"></div></div><div class="chart-bar-label" style="color:var(--teal)">2030F</div></div>
             </div></div>
             <div class="chart-legend">
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--teal)"></div>מכללת IPC</div>
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#1a8a6e"></div>K12 / תואר ראשון</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--teal)"></div>IPC College</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#1a8a6e"></div>K12 / Undergraduate</div>
               <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4)"></div>B2B</div>
             </div>
           </div>
-        </div>
-        <div class="fin-kpis">
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">110M</div><div class="fk-label">ש״ח הכנסות עד 2030</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">23M</div><div class="fk-label">ש״ח EBIT עד 2030</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">12%</div><div class="fk-label">CAGR הכנסות</div></div>
-          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">21%</div><div class="fk-label">שולי EBIT עד 2030</div></div>
         </div>
       </div>
     </div>
@@ -1015,13 +1061,89 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- TEAM -->
 <section id="team">
   <div class="container">
-    <span class="section-label reveal">הנהגה</span>
-    <h2 class="section-title reveal reveal-delay-1">צוות</h2>
-    <p class="section-sub reveal reveal-delay-2">ל-IPC צוות חזק של 60+ עובדים, כולל הנהלה, מחנכים, מומחי טכנולוגיה וצוותי תמיכה</p>
+    <span class="section-label reveal">Leadership</span>
+    <h2 class="section-title reveal reveal-delay-1">Team</h2>
+    <p class="section-sub reveal reveal-delay-2">IPC has a strong team of 60+ employees, including management, educators, tech experts, and support staff</p>
     <div class="team-grid">
-      <div class="team-card reveal reveal-delay-1"><div class="team-avatar"><img src="images/doron_alter.png" alt="Doron Alter"></div><h3>דורון אלתר</h3><div class="team-role">מנכ״ל</div><p>המנוע התפעולי מאחורי ההתרחבות המהירה של IPC מאמצע 2022. הוביל מעבר לחינוך מקוון בשוליים גבוהים. מנהיגות משתרעת על פיתוח קורסים, אינטגרציה טכנולוגית, B2B, white-label ותוכניות בינלאומיות.</p></div>
-      <div class="team-card reveal reveal-delay-2"><div class="team-avatar"><img src="images/shay_piron.png" alt="Shay Moshe Piron"></div><h3>שי משה פירון</h3><div class="team-role">נשיא המכללה</div><p>שר החינוך לשעבר של מדינת ישראל. עשרות שנות מנהיגות במדיניות ורפורמה חינוכית. מחזק את הפרופיל הציבורי של IPC ואת האמון המוסדי כמוביל דעה לאומי.</p></div>
-      <div class="team-card reveal reveal-delay-3"><div class="team-avatar"><img src="images/andrey_yashunsky.png" alt="Andrey Yashunsky"></div><h3>אנדריי ישונסקי</h3><div class="team-role">יו״ר</div><p>משקיע ועושה עסקאות מנוסה. ניסיון עמוק בהון סיכון, פרייבט אקוויטי וניהול נכסים. מומחיות חזקה ברכישות ומיזוגים ובבניית פלטפורמות במספר שווקים.</p></div>
+      <div class="team-card reveal reveal-delay-1"><div class="team-avatar"><img src="images/doron_alter.png" alt="Doron Alter"></div><h3>Doron Alter</h3><div class="team-role">CEO</div><p>Operational engine behind IPC's rapid expansion since mid-2022. Oversaw transition to online-first, high-margin vocational education. Leadership spans course creation, tech integration, B2B, white-label, and international programs.</p></div>
+      <div class="team-card reveal reveal-delay-2"><div class="team-avatar"><img src="images/shay_piron.png" alt="Shay Moshe Piron"></div><h3>Shay Moshe Piron</h3><div class="team-role">President of the College</div><p>Former Minister of Education of Israel. Decades of leadership in education policy and reform. Strengthens IPC's public profile and institutional trust as a national thought leader.</p></div>
+      <div class="team-card reveal reveal-delay-3"><div class="team-avatar"><img src="images/andrey_yashunsky.png" alt="Andrey Yashunsky"></div><h3>Andrey Yashunsky</h3><div class="team-role">Chairman</div><p>Seasoned investor and dealmaker. Deep experience in venture capital, private equity, and asset management. Strong M&A and platform-building expertise across multiple markets.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUATION CONTEXT -->
+<section id="valuation">
+  <div class="container">
+    <span class="section-label reveal">Valuation Context</span>
+    <h2 class="section-title reveal reveal-delay-1">Market Peers & Entry Pricing</h2>
+    <p class="section-sub reveal reveal-delay-2">IPC's entry valuation at a significant discount to publicly traded EdTech peers</p>
+
+    <!-- Peer Table -->
+    <table class="peers-table reveal reveal-delay-2" id="peersTable">
+      <thead><tr>
+        <th onclick="sortPeers(0)" style="text-align:left">Company <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(1)">EV/Rev 2025 <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(2)">EV/EBITDA 2025 <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(3)">Rev, $m <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(4)">EBITDA, $m <span class="sort-arrow">&#9650;</span></th>
+      </tr></thead>
+      <tbody id="peersBody">
+        <tr class="peer-highest"><td>Coursera (COUR)</td><td>1.4x</td><td>13.6x</td><td>758</td><td>78</td></tr>
+        <tr><td>American Public Education (APEI)</td><td>1.5x</td><td>11.6x</td><td>649</td><td>86</td></tr>
+        <tr><td>Strategic Education (STRA)</td><td>1.4x</td><td>7.3x</td><td>1,268</td><td>242</td></tr>
+        <tr class="peer-lowest"><td>Perdoceo Education (PRDO)</td><td>1.5x</td><td>5.4x</td><td>846</td><td>238</td></tr>
+        <tr class="peer-avg"><td>Average</td><td>1.5x</td><td>9.5x</td><td></td><td></td></tr>
+        <tr class="peer-median"><td>Median</td><td>1.5x</td><td>9.5x</td><td></td><td></td></tr>
+        <tr class="peer-ipc"><td>IPC (Entry Valuation)</td><td>1.5x</td><td>5.0x</td><td>&mdash;</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Discount Visual -->
+    <div class="discount-visual reveal">
+      <div class="discount-bar-wrap">
+        <div class="discount-bar-label"><span>IPC Entry: 5.0x EBITDA</span><span>Peer Median: 9.5x EBITDA</span></div>
+        <div class="discount-bar-track">
+          <div class="discount-bar-ipc" id="discountBar" style="width:0"></div>
+          <div class="discount-gap" id="discountGap" style="left:0;width:0"><span class="discount-gap-label">Your Upside</span></div>
+          <div class="discount-bar-median" id="discountMedian" style="left:0"></div>
+        </div>
+      </div>
+      <div class="discount-stat">
+        <div class="ds-val">47%</div>
+        <div class="ds-label">Discount to Peers</div>
+      </div>
+    </div>
+
+    <!-- Upside Drivers -->
+    <h3 class="reveal" style="font-family:var(--font-heading);font-size:1.1rem;color:var(--navy);margin-top:2.5rem;margin-bottom:.3rem">Why the Upside?</h3>
+    <p class="reveal" style="font-size:.9rem;color:var(--text-light);margin-bottom:1.5rem">Five reasons IPC will re-rate from 5.0x to 8-10x at exit</p>
+    <div class="upside-drivers">
+      <div class="upside-card reveal reveal-delay-1">
+        <div class="uc-icon">&#128200;</div>
+        <h4>Growth Premium</h4>
+        <p>29% YoY revenue growth vs. peer median of ~8%. Fastest grower in the comp set by a wide margin.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-2">
+        <div class="uc-icon">&#128181;</div>
+        <h4>Liquidity Premium</h4>
+        <p>IPO on TASE or strategic sale at 9-10x EBITDA. Public peers already trade at 9.5x median today.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-3">
+        <div class="uc-icon">&#128274;</div>
+        <h4>Low Entry Basis</h4>
+        <p>Acquiring at 5.0x EBITDA -- a 47% discount to public peer median of 9.5x. Built-in margin of safety.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-4">
+        <div class="uc-icon">&#127793;</div>
+        <h4>Organic Growth</h4>
+        <p>AI courses + Arab market expansion = double-digit growth without acquisitions. M&A is pure upside on top.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-5">
+        <div class="uc-icon">&#128640;</div>
+        <h4>Multiple Expansion</h4>
+        <p>Entry at 5.0x, exit at 8-10x = 1.6-2x return just from re-rating, before any operational growth.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1029,46 +1151,46 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- INVESTMENT -->
 <section id="investment">
   <div class="container">
-    <span class="section-label reveal">תנאי העסקה</span>
-    <h2 class="section-title reveal reveal-delay-1">הצטרפו לסבב</h2>
-    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-mono);font-size:.85rem;color:var(--red)">סגירת הסבב מאי 2026 &mdash; הקצאה מוגבלת</p>
+    <span class="section-label reveal">Deal Terms</span>
+    <h2 class="section-title reveal reveal-delay-1">Join the Round</h2>
+    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-mono);font-size:.85rem;color:var(--red)">Round closing May 2026 &mdash; Limited allocation available</p>
     <div class="invest-dashboard reveal reveal-delay-2">
       <div class="invest-inputs">
-        <h3>בניית תרחישים</h3>
+        <h3>Scenario Builder</h3>
         <div class="input-row">
-          <label>מכפיל יציאה (x EBITDA)</label>
+          <label>Exit Multiple (x EBITDA)</label>
           <div class="slider-wrap">
             <input type="range" id="slider-multiple" min="8" max="10" step="0.5" value="10" oninput="calcInvest()">
             <span class="slider-val" id="val-multiple">10.0x</span>
           </div>
         </div>
         <div class="input-row">
-          <label>EBITDA ביציאה (מיליוני ש״ח)</label>
+          <label>Exit EBITDA (NIS M)</label>
           <div class="slider-wrap">
             <input type="range" id="slider-ebitda" min="15" max="23.2" step="0.1" value="23.2" oninput="calcInvest()">
             <span class="slider-val" id="val-ebitda">23.2M</span>
           </div>
         </div>
         <div class="invest-fixed">
-          <div class="invest-fixed-item"><div class="ifi-label">השקעה</div><div class="ifi-val">3M ש״ח</div></div>
-          <div class="invest-fixed-item"><div class="ifi-label">אחזקה אפקטיבית</div><div class="ifi-val">7.7%</div></div>
-          <div class="invest-fixed-item"><div class="ifi-label">תקופה</div><div class="ifi-val">עד 5 שנים</div></div>
+          <div class="invest-fixed-item"><div class="ifi-label">Investment</div><div class="ifi-val">3M NIS</div></div>
+          <div class="invest-fixed-item"><div class="ifi-label">Effective Stake</div><div class="ifi-val">7.7%</div></div>
+          <div class="invest-fixed-item"><div class="ifi-label">Period</div><div class="ifi-val">Up to 5 years</div></div>
         </div>
-        <p style="font-size:.65rem;color:var(--text-light);margin-top:.8rem;line-height:1.4;font-style:italic">* 10% לפני דילול. אחזקה אפקטיבית של 7.7% לאחר דילול ו-ESOP. כל חישובי התשואה משתמשים בנתון 7.7%.</p>
+        <p style="font-size:.65rem;color:var(--text-light);margin-top:.8rem;line-height:1.4;font-style:italic">* 10% pre-dilution stake. Effective ownership of 7.7% post-dilution and ESOP. All return calculations use the 7.7% post-dilution figure.</p>
       </div>
       <div class="invest-output">
-        <h3>ניתוח תשואות</h3>
-        <div class="output-row"><span class="or-label">שווי חברה (ללא חוב)</span><span class="or-val" id="out-ev">232.0M NIS</span></div>
-        <div class="output-row"><span class="or-label">חלק המשקיע 7.7% (לאחר דילול)</span><span class="or-val" id="out-share">17.9M NIS</span></div>
-        <div class="output-row"><span class="or-label">סכום השקעה</span><span class="or-val" style="color:rgba(255,255,255,.6)">3.0M NIS</span></div>
-        <div class="output-row"><span class="or-label">רווח</span><span class="or-val" id="out-profit">20.2M NIS</span></div>
-        <div class="output-row highlight"><span class="or-label">תשואה על ההשקעה</span><span class="or-val" id="out-coc">7.7x</span></div>
+        <h3>Returns Analysis</h3>
+        <div class="output-row"><span class="or-label">Enterprise Value (debt-free)</span><span class="or-val" id="out-ev">232.0M NIS</span></div>
+        <div class="output-row"><span class="or-label">Investor's 7.7% Share (post-dilution)</span><span class="or-val" id="out-share">17.9M NIS</span></div>
+        <div class="output-row"><span class="or-label">Invested</span><span class="or-val" style="color:rgba(255,255,255,.6)">3.0M NIS</span></div>
+        <div class="output-row"><span class="or-label">Profit</span><span class="or-val" id="out-profit">20.2M NIS</span></div>
+        <div class="output-row highlight"><span class="or-label">Cash-on-Cash Return</span><span class="or-val" id="out-coc">7.7x</span></div>
       </div>
     </div>
     <div class="invest-benefits">
-      <div class="invest-benefit reveal reveal-delay-1"><h4>רווחים אמיתיים, לא הבטחות</h4><p>זו לא השקעה לפני הכנסות. IPC כבר ב-41 מיליון ש״ח הכנסות עם שולי EBIT של 25% ובצמיחה.</p></div>
-      <div class="invest-benefit reveal reveal-delay-2"><h4>רוח גבית של $350 מיליארד</h4><p>EdTech הגלובלי בשגשוג. AI הוא המאיץ. אנחנו רוכבים על הגל עם מכונה שכבר עובדת.</p></div>
-      <div class="invest-benefit reveal reveal-delay-3"><h4>ה-GCC הבא בתור</h4><p>שוק של $4.5B, 15.5M סטודנטים פוטנציאליים, קורסים כבר בערבית. הסכמי אברהם פתחו את הדלת. אנחנו עוברים דרכה.</p></div>
+      <div class="invest-benefit reveal reveal-delay-1"><h4>Real Profits, Not Promises</h4><p>This isn't a pre-revenue bet. IPC is already at NIS 41M revenue with 25% EBIT margins and growing.</p></div>
+      <div class="invest-benefit reveal reveal-delay-2"><h4>$350B Tailwind</h4><p>Global EdTech is booming. AI is the accelerant. We're riding the wave with a machine that already works.</p></div>
+      <div class="invest-benefit reveal reveal-delay-3"><h4>GCC Is Next</h4><p>$4.5B market, 15.5M potential students, courses already in Arabic. Abraham Accords opened the door. We're walking through it.</p></div>
     </div>
   </div>
 </section>
@@ -1076,26 +1198,26 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <span class="section-label reveal">צרו קשר</span>
-    <h2 class="section-title reveal reveal-delay-1" style="color:#fff">מעוניינים? בואו נדבר.</h2>
+    <span class="section-label reveal">Get in Touch</span>
+    <h2 class="section-title reveal reveal-delay-1" style="color:#fff">Interested? Let's Talk.</h2>
     <div class="contact-layout">
       <div class="contact-info reveal reveal-delay-2">
-        <p>מעוניינים בעסקה? יש שאלות על המבנה, השוק או הצוות? שלחו לנו הודעה. נשמח לשתף חומרים נוספים, להדריך אתכם במודל, או לתאם שיחה עם המנכ״ל.</p>
-        <p>כל השיחות סודיות.</p>
+        <p>Interested in the deal? Have questions about the structure, the market, or the team? Drop us a line. We're happy to share additional materials, walk you through the model, or set up a call with the CEO.</p>
+        <p>All conversations are confidential.</p>
       </div>
       <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="return submitContact(event)" action="https://formsubmit.co/ajax/invest@prytek.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="text" name="_honey" style="display:none">
         <div class="form-row">
-          <input type="text" name="name" placeholder="שם מלא" required>
-          <input type="text" name="company" placeholder="חברה / קרן">
+          <input type="text" name="name" placeholder="Full Name" required>
+          <input type="text" name="company" placeholder="Company / Fund">
         </div>
-        <input type="email" name="email" placeholder="כתובת דוא״ל" required>
-        <input type="text" name="phone" placeholder="מספר טלפון">
-        <textarea name="message" rows="4" placeholder="ההודעה או השאלות שלכם..."></textarea>
-        <button type="submit">שליחת פנייה</button>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="text" name="phone" placeholder="Phone Number">
+        <textarea name="message" rows="4" placeholder="Your message or questions..."></textarea>
+        <button type="submit">Send Inquiry</button>
       </form>
-      <div class="form-success" id="formSuccess"><h4>תודה על ההתעניינות.</h4><p>ניצור קשר תוך 24 שעות. בינתיים, תזכורת לתנאים: <strong style="color:var(--gold)">3M ש״ח עבור 7.7% לאחר דילול</strong> &middot; עד 5 שנים &middot; יציאה ב-8-10x EBITDA &middot; סגירת הסבב מאי 2026.</p></div>
+      <div class="form-success" id="formSuccess"><h4>Thank you for your interest.</h4><p>We'll be in touch within 24 hours. In the meantime, here's a reminder of the terms: <strong style="color:var(--gold)">3M NIS for 7.7% post-dilution</strong> &middot; Up to 5 years &middot; 8-10x EBITDA exit &middot; Round closing May 2026.</p></div>
     </div>
   </div>
 </section>
@@ -1104,7 +1226,7 @@ html[dir=rtl] .floating-cta{right:auto;left:2rem}
   <div class="container">
     <div class="footer-logo">ipc<span>.</span></div>
     <p>Israel Professional College</p>
-    <div class="footer-conf">סודי &middot; לצרכי דיון בלבד</div>
+    <div class="footer-conf">CONFIDENTIAL &middot; For discussion purposes only</div>
   </div>
 </footer>
 
@@ -1138,7 +1260,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // NAV + FLOATING CTA
 window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+  document.getElementById('siteHeader').classList.toggle('scrolled',window.scrollY>50);
   const cta=document.getElementById('floatingCta');
   cta.classList.toggle('visible',window.scrollY>window.innerHeight);
 });
@@ -1208,10 +1330,14 @@ function showGrowth(idx,card){
   card.classList.add('active');
   const panel=document.getElementById('gd-'+idx);
   panel.classList.add('active');
+  // Reset and re-trigger counters in this panel
+  panel.querySelectorAll('[data-count]').forEach(c=>{counted.delete(c)});
   animateCounters(panel);
-  // Trigger SVG animation if M&A panel
   if(idx===2){const svg=document.getElementById('triSvg');if(svg)svg.classList.add('animated')}
 }
+// Fire counters on initially active growth panel
+const initGd=document.getElementById('gd-0');
+if(initGd){const gdObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)animateCounters(e.target)})},{threshold:.2});gdObs.observe(initGd)}
 
 // VISION UNIT TABS
 function showUnit(idx,btn){
@@ -1228,9 +1354,9 @@ function showUnit(idx,btn){
 // idx 1 = Undergraduate (bottom-left) -> Phase 1 (K12)
 // idx 2 = Talent Placement (bottom-right) -> Phase 3 (Bolt-ons)
 const triDetails=[
-  {title:'הכשרה מחדש / B2B / B2G / White-labeling',text:'תוכניות שדרוג מיומנויות ארגוניות דרך <strong>ערוצי B2B ו-B2G</strong>. שותפויות white-label מאפשרות סקייל מהיר ללא בניית מותגים חדשים. סטודנטים חוזרים באופן רציף להכשרה מחדש ככל שתעשיות מתפתחות.',phase:1},
-  {title:'הערכת תואר ראשון (K12)',text:'חברות <strong>K12 והכנה למבחנים</strong> מזינות את ראש המשפך. סטודנטים נכנסים למערכת האקולוגית מוקדם דרך הכנה לבגרויות, ואז זורמים באופן טבעי להכשרה מקצועית וקורסים מקצועיים.',phase:0},
-  {title:'הערכה והשמת כישרונות',text:'<strong>סוכנות השמה</strong> מורשית (משרד העבודה #3142) סוגרת את המעגל. בוגרים מוערכים, מותאמים ל-100+ שותפי גיוס, ומושמים בקריירה \u2014 מניע שביעות רצון מעסיקים ופייפליין הפניות חזרה למערכת.',phase:2}
+  {title:'Reskilling / B2B / B2G / White-labeling',text:'Corporate upskilling programs delivered via <strong>B2B and B2G channels</strong>. White-label partnerships allow rapid scaling without building new brands. Students continuously return for reskilling as industries evolve.',phase:1},
+  {title:'Undergraduate Assessment (K12)',text:'<strong>K12 and test preparation</strong> companies feed the top of the funnel. Students enter the ecosystem early through graduation prep, then flow naturally into professional training and vocational courses.',phase:0},
+  {title:'Assessment and Talent Placement',text:'Licensed <strong>placement agency</strong> (Ministry of Labor #3142) closes the loop. Graduates are assessed, matched with 100+ hiring partners, and placed into careers \u2014 driving employer satisfaction and referral pipeline back into the system.',phase:2}
 ];
 function showTriDetail(idx){
   document.querySelectorAll('.tri-node').forEach(n=>n.classList.remove('active'));
@@ -1247,6 +1373,38 @@ const triObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)do
 const tw=document.getElementById('triWrap');
 if(tw)triObs.observe(tw);
 
+// PEER TABLE SORT
+let sortDir=[1,1,1,1,1];
+function sortPeers(col){
+  const tb=document.getElementById('peersBody');
+  const rows=Array.from(tb.querySelectorAll('tr')).filter(r=>!r.classList.contains('peer-avg')&&!r.classList.contains('peer-median')&&!r.classList.contains('peer-ipc'));
+  const special=Array.from(tb.querySelectorAll('tr.peer-avg,tr.peer-median,tr.peer-ipc'));
+  sortDir[col]*=-1;
+  rows.sort((a,b)=>{
+    let va=a.cells[col].textContent.replace(/[x,$,\s]/g,'').replace(/,/g,'');
+    let vb=b.cells[col].textContent.replace(/[x,$,\s]/g,'').replace(/,/g,'');
+    if(!isNaN(parseFloat(va))&&!isNaN(parseFloat(vb)))return(parseFloat(va)-parseFloat(vb))*sortDir[col];
+    return va.localeCompare(vb)*sortDir[col];
+  });
+  rows.forEach(r=>tb.appendChild(r));
+  special.forEach(r=>tb.appendChild(r));
+  document.querySelectorAll('.peers-table th').forEach((th,i)=>{th.classList.toggle('sorted',i===col)});
+}
+
+// DISCOUNT BAR ANIMATION
+const discObs=new IntersectionObserver(es=>{es.forEach(e=>{
+  if(e.isIntersecting){
+    const ipcPct=5.0/10*100;// 5.0x on a 0-10x scale
+    const medPct=9.5/10*100;
+    document.getElementById('discountBar').style.width=ipcPct+'%';
+    document.getElementById('discountMedian').style.left=medPct+'%';
+    document.getElementById('discountGap').style.left=ipcPct+'%';
+    document.getElementById('discountGap').style.width=(medPct-ipcPct)+'%';
+  }
+})},{threshold:.3});
+const discEl=document.querySelector('.discount-visual');
+if(discEl)discObs.observe(discEl);
+
 // HIGHLIGHT 2030 TERMINAL YEAR BARS
 document.querySelectorAll('.chart-bar-label').forEach(l=>{
   if(l.textContent.trim()==='2030F') l.closest('.chart-bar-group').classList.add('terminal');
@@ -1257,9 +1415,9 @@ function submitContact(e){
   e.preventDefault();
   const f=document.getElementById('contactForm');
   const btn=f.querySelector('button');
-  btn.textContent='שולח...';btn.disabled=true;
+  btn.textContent='Sending...';btn.disabled=true;
   const data=new FormData(f);
-  data.append('_subject','פנייה להשקעה ב-IPC');
+  data.append('_subject','IPC Investment Inquiry');
   data.append('_template','table');
   fetch('https://formsubmit.co/ajax/invest@prytek.com',{
     method:'POST',
@@ -1270,12 +1428,12 @@ function submitContact(e){
       f.style.display='none';
       document.getElementById('formSuccess').style.display='block';
     } else {
-      btn.textContent='שליחת פנייה';btn.disabled=false;
-      alert('לא ניתן לשלוח. אנא שלחו לנו דוא״ל ישירות.');
+      btn.textContent='Send Inquiry';btn.disabled=false;
+      alert('Could not send. Please email us directly.');
     }
   }).catch(()=>{
-    btn.textContent='שליחת פנייה';btn.disabled=false;
-    alert('שגיאת רשת. אנא נסו שוב.');
+    btn.textContent='Send Inquiry';btn.disabled=false;
+    alert('Network error. Please try again.');
   });
   return false;
 }
