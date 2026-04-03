@@ -453,10 +453,11 @@ section:nth-child(even){background:var(--card-bg)}
 .discount-bar-label{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);margin-bottom:.4rem}
 .discount-bar-track{height:32px;background:var(--border);border-radius:4px;position:relative;overflow:visible}
 .discount-bar-ipc{height:100%;background:var(--gold);border-radius:4px;position:relative;transition:width 1.5s ease}
-.discount-bar-median{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--navy);border-radius:2px}
-.discount-bar-median::after{content:'Peer Median 8.6x';position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.6rem;color:var(--navy);white-space:nowrap;font-weight:700}
-.discount-gap{position:absolute;top:0;bottom:0;background:rgba(201,168,76,.12);border-left:1px dashed var(--gold);border-right:1px dashed var(--navy)}
-.discount-gap-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.discount-bar-median{position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--navy);border-radius:2px}
+.discount-bar-median::after{content:'8.6x';position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.65rem;color:var(--navy);white-space:nowrap;font-weight:700}
+.discount-bar-ipc::after{content:'5.0x';position:absolute;bottom:-22px;right:0;font-family:var(--font-mono);font-size:.65rem;color:var(--gold);font-weight:700}
+.discount-gap{position:absolute;top:0;bottom:0;background:rgba(201,168,76,.1)}
+.discount-gap-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:var(--gold);white-space:nowrap;background:rgba(255,255,255,.9);padding:.1rem .5rem;border-radius:2px}
 .discount-stat{text-align:center;min-width:120px}
 .discount-stat .ds-val{font-family:var(--font-mono);font-size:2.5rem;font-weight:700;color:var(--gold)}
 .discount-stat .ds-label{font-size:.75rem;color:var(--text-light)}
@@ -1084,14 +1085,14 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         <tr class="peer-highest"><td>Perdoceo Education Corp</td><td>2.6x</td><td>9.4x</td><td>832</td><td>228</td></tr>
         <tr class="peer-avg"><td>Average</td><td>1.4x</td><td>8.9x</td><td></td><td></td></tr>
         <tr class="peer-median"><td>Median</td><td>1.1x</td><td>8.6x</td><td></td><td></td></tr>
-        <tr class="peer-ipc"><td>IPC (Entry Valuation)</td><td>1.2x</td><td>3.6x</td><td>12.3</td><td>3.1</td></tr>
+        <tr class="peer-ipc"><td>IPC (Entry Valuation)</td><td>1.5x</td><td>5.0x</td><td>&mdash;</td><td>&mdash;</td></tr>
       </tbody>
     </table>
 
     <!-- Discount Visual -->
     <div class="discount-visual reveal">
       <div class="discount-bar-wrap">
-        <div class="discount-bar-label"><span>IPC Entry: 3.6x EBITDA</span><span>Peer Median: 8.6x EBITDA</span></div>
+        <div class="discount-bar-label"><span>IPC Entry: 5.0x EBITDA</span><span>Peer Median: 8.6x EBITDA</span></div>
         <div class="discount-bar-track">
           <div class="discount-bar-ipc" id="discountBar" style="width:0"></div>
           <div class="discount-gap" id="discountGap" style="left:0;width:0"><span class="discount-gap-label">Your Upside</span></div>
@@ -1099,14 +1100,14 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         </div>
       </div>
       <div class="discount-stat">
-        <div class="ds-val">58%</div>
+        <div class="ds-val">42%</div>
         <div class="ds-label">Discount to Peers</div>
       </div>
     </div>
 
     <!-- Upside Drivers -->
     <h3 class="reveal" style="font-family:var(--font-heading);font-size:1.1rem;color:var(--navy);margin-top:2.5rem;margin-bottom:.3rem">Why the Upside?</h3>
-    <p class="reveal" style="font-size:.9rem;color:var(--text-light);margin-bottom:1.5rem">Five reasons IPC will re-rate from 3.6x to 8-10x at exit</p>
+    <p class="reveal" style="font-size:.9rem;color:var(--text-light);margin-bottom:1.5rem">Five reasons IPC will re-rate from 5.0x to 8-10x at exit</p>
     <div class="upside-drivers">
       <div class="upside-card reveal reveal-delay-1">
         <div class="uc-icon">&#128200;</div>
@@ -1121,7 +1122,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       <div class="upside-card reveal reveal-delay-3">
         <div class="uc-icon">&#128274;</div>
         <h4>Low Entry Basis</h4>
-        <p>Acquiring at 3.6x EBITDA -- a 58% discount to public peer median. Built-in margin of safety.</p>
+        <p>Acquiring at 5.0x EBITDA -- a 42% discount to public peer median. Built-in margin of safety.</p>
       </div>
       <div class="upside-card reveal reveal-delay-4">
         <div class="uc-icon">&#127793;</div>
@@ -1131,7 +1132,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       <div class="upside-card reveal reveal-delay-5">
         <div class="uc-icon">&#128640;</div>
         <h4>Multiple Expansion</h4>
-        <p>Entry at 3.6x, exit at 8-10x = 2-3x return just from re-rating, before any operational growth.</p>
+        <p>Entry at 5.0x, exit at 8-10x = 1.6-2x return just from re-rating, before any operational growth.</p>
       </div>
     </div>
   </div>
@@ -1379,7 +1380,7 @@ function sortPeers(col){
 // DISCOUNT BAR ANIMATION
 const discObs=new IntersectionObserver(es=>{es.forEach(e=>{
   if(e.isIntersecting){
-    const ipcPct=3.6/10*100;// 3.6x on a 0-10x scale
+    const ipcPct=5.0/10*100;// 5.0x on a 0-10x scale
     const medPct=8.6/10*100;
     document.getElementById('discountBar').style.width=ipcPct+'%';
     document.getElementById('discountMedian').style.left=medPct+'%';
