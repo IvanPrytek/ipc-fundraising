@@ -426,6 +426,50 @@ section:nth-child(even){background:var(--card-bg)}
 .invest-benefit p{font-size:.8rem;color:var(--text-light)}
 @media(max-width:768px){.invest-dashboard,.invest-benefits{grid-template-columns:1fr}}
 
+/* VALUATION / PEERS */
+#valuation{background:#fff!important}
+.peers-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:2rem}
+.peers-table th{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;
+  background:var(--navy);color:#fff;padding:.7rem 1rem;text-align:right;cursor:pointer;
+  position:relative;transition:background .2s;user-select:none;
+}
+.peers-table th:first-child{text-align:left}
+.peers-table th:hover{background:#232942}
+.peers-table th .sort-arrow{margin-left:.3rem;font-size:.6rem;opacity:.4}
+.peers-table th.sorted .sort-arrow{opacity:1;color:var(--gold)}
+.peers-table td{padding:.6rem 1rem;border-bottom:1px solid var(--border);text-align:right;font-family:var(--font-mono);font-size:.8rem;color:var(--text);transition:background .2s}
+.peers-table td:first-child{text-align:left;font-family:var(--font-body);font-weight:500}
+.peers-table tr:hover td{background:rgba(201,168,76,.04)}
+.peers-table tr.peer-highest td{color:var(--gold);font-weight:600}
+.peers-table tr.peer-lowest td{color:var(--text-light)}
+.peers-table tr.peer-avg td{background:var(--card-bg);font-weight:600;color:var(--navy)}
+.peers-table tr.peer-median td{background:var(--card-bg);font-weight:700;color:var(--navy)}
+.peers-table tr.peer-ipc td{background:var(--navy);color:var(--gold);font-weight:700;font-size:.85rem}
+.peers-table tr.peer-ipc td:first-child{color:var(--gold)}
+
+.discount-visual{display:flex;align-items:center;gap:1.5rem;margin:2.5rem 0;padding:2rem;background:var(--card-bg);border:1px solid var(--border)}
+.discount-bar-wrap{flex:1}
+.discount-bar-label{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);margin-bottom:.4rem}
+.discount-bar-track{height:32px;background:var(--border);border-radius:4px;position:relative;overflow:visible}
+.discount-bar-ipc{height:100%;background:var(--gold);border-radius:4px;position:relative;transition:width 1.5s ease}
+.discount-bar-median{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--navy);border-radius:2px}
+.discount-bar-median::after{content:'Peer Median 8.6x';position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.6rem;color:var(--navy);white-space:nowrap;font-weight:700}
+.discount-gap{position:absolute;top:0;bottom:0;background:rgba(201,168,76,.12);border-left:1px dashed var(--gold);border-right:1px dashed var(--navy)}
+.discount-gap-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.discount-stat{text-align:center;min-width:120px}
+.discount-stat .ds-val{font-family:var(--font-mono);font-size:2.5rem;font-weight:700;color:var(--gold)}
+.discount-stat .ds-label{font-size:.75rem;color:var(--text-light)}
+
+.upside-drivers{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2rem}
+.upside-card{padding:1.2rem;border-top:3px solid var(--gold);background:var(--card-bg);transition:all .3s}
+.upside-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.upside-card .uc-icon{font-size:1.5rem;margin-bottom:.5rem}
+.upside-card h4{font-family:var(--font-heading);font-size:.8rem;color:var(--navy);margin-bottom:.3rem;font-weight:700}
+.upside-card p{font-size:.75rem;color:var(--text-light);line-height:1.5}
+@media(max-width:900px){.upside-drivers{grid-template-columns:1fr 1fr}.discount-visual{flex-direction:column}}
+@media(max-width:600px){.upside-drivers{grid-template-columns:1fr}}
+
 /* CONTACT */
 #contact{background:var(--navy)!important;color:#fff;padding:6rem 0}
 #contact .section-title{color:#fff}
@@ -1015,6 +1059,84 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
   </div>
 </section>
 
+<!-- VALUATION CONTEXT -->
+<section id="valuation">
+  <div class="container">
+    <span class="section-label reveal">Valuation Context</span>
+    <h2 class="section-title reveal reveal-delay-1">Market Peers & Entry Pricing</h2>
+    <p class="section-sub reveal reveal-delay-2">IPC's entry valuation at a significant discount to publicly traded EdTech peers</p>
+
+    <!-- Peer Table -->
+    <table class="peers-table reveal reveal-delay-2" id="peersTable">
+      <thead><tr>
+        <th onclick="sortPeers(0)" style="text-align:left">Company <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(1)">EV/Rev 2025 <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(2)">EV/EBITDA 2025 <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(3)">Rev, $m <span class="sort-arrow">&#9650;</span></th>
+        <th onclick="sortPeers(4)">EBITDA, $m <span class="sort-arrow">&#9650;</span></th>
+      </tr></thead>
+      <tbody id="peersBody">
+        <tr><td>Coursera</td><td>0.9x</td><td>13.3x</td><td>727</td><td>51</td></tr>
+        <tr><td>Udemy</td><td>1.1x</td><td>10.5x</td><td>786</td><td>83</td></tr>
+        <tr><td>Skillsoft</td><td>1.1x</td><td>5.1x</td><td>537</td><td>116</td></tr>
+        <tr><td>American Public Education</td><td>0.9x</td><td>7.2x</td><td>656</td><td>82</td></tr>
+        <tr><td>Strategic Education</td><td>1.6x</td><td>7.8x</td><td>1,269</td><td>256</td></tr>
+        <tr class="peer-highest"><td>Perdoceo Education Corp</td><td>2.6x</td><td>9.4x</td><td>832</td><td>228</td></tr>
+        <tr class="peer-avg"><td>Average</td><td>1.4x</td><td>8.9x</td><td></td><td></td></tr>
+        <tr class="peer-median"><td>Median</td><td>1.1x</td><td>8.6x</td><td></td><td></td></tr>
+        <tr class="peer-ipc"><td>IPC (Entry Valuation)</td><td>1.2x</td><td>3.6x</td><td>12.3</td><td>3.1</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Discount Visual -->
+    <div class="discount-visual reveal">
+      <div class="discount-bar-wrap">
+        <div class="discount-bar-label"><span>IPC Entry: 3.6x EBITDA</span><span>Peer Median: 8.6x EBITDA</span></div>
+        <div class="discount-bar-track">
+          <div class="discount-bar-ipc" id="discountBar" style="width:0"></div>
+          <div class="discount-gap" id="discountGap" style="left:0;width:0"><span class="discount-gap-label">Your Upside</span></div>
+          <div class="discount-bar-median" id="discountMedian" style="left:0"></div>
+        </div>
+      </div>
+      <div class="discount-stat">
+        <div class="ds-val">58%</div>
+        <div class="ds-label">Discount to Peers</div>
+      </div>
+    </div>
+
+    <!-- Upside Drivers -->
+    <h3 class="reveal" style="font-family:var(--font-heading);font-size:1.1rem;color:var(--navy);margin-top:2.5rem;margin-bottom:.3rem">Why the Upside?</h3>
+    <p class="reveal" style="font-size:.9rem;color:var(--text-light);margin-bottom:1.5rem">Five reasons IPC will re-rate from 3.6x to 8-10x at exit</p>
+    <div class="upside-drivers">
+      <div class="upside-card reveal reveal-delay-1">
+        <div class="uc-icon">&#128200;</div>
+        <h4>Growth Premium</h4>
+        <p>29% YoY revenue growth vs. peer median of ~8%. Fastest grower in the comp set by a wide margin.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-2">
+        <div class="uc-icon">&#128181;</div>
+        <h4>Liquidity Premium</h4>
+        <p>IPO on TASE or strategic sale at 9-10x EBITDA. Public peers already trade at 8.6x today.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-3">
+        <div class="uc-icon">&#128274;</div>
+        <h4>Low Entry Basis</h4>
+        <p>Acquiring at 3.6x EBITDA -- a 58% discount to public peer median. Built-in margin of safety.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-4">
+        <div class="uc-icon">&#127793;</div>
+        <h4>Organic Growth</h4>
+        <p>AI courses + Arab market expansion = double-digit growth without acquisitions. M&A is pure upside on top.</p>
+      </div>
+      <div class="upside-card reveal reveal-delay-5">
+        <div class="uc-icon">&#128640;</div>
+        <h4>Multiple Expansion</h4>
+        <p>Entry at 3.6x, exit at 8-10x = 2-3x return just from re-rating, before any operational growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- INVESTMENT -->
 <section id="investment">
   <div class="container">
@@ -1235,6 +1357,38 @@ function showTriDetail(idx){
 const triObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)document.getElementById('triSvg').classList.add('animated')})},{threshold:.3});
 const tw=document.getElementById('triWrap');
 if(tw)triObs.observe(tw);
+
+// PEER TABLE SORT
+let sortDir=[1,1,1,1,1];
+function sortPeers(col){
+  const tb=document.getElementById('peersBody');
+  const rows=Array.from(tb.querySelectorAll('tr')).filter(r=>!r.classList.contains('peer-avg')&&!r.classList.contains('peer-median')&&!r.classList.contains('peer-ipc'));
+  const special=Array.from(tb.querySelectorAll('tr.peer-avg,tr.peer-median,tr.peer-ipc'));
+  sortDir[col]*=-1;
+  rows.sort((a,b)=>{
+    let va=a.cells[col].textContent.replace(/[x,$,\s]/g,'').replace(/,/g,'');
+    let vb=b.cells[col].textContent.replace(/[x,$,\s]/g,'').replace(/,/g,'');
+    if(!isNaN(parseFloat(va))&&!isNaN(parseFloat(vb)))return(parseFloat(va)-parseFloat(vb))*sortDir[col];
+    return va.localeCompare(vb)*sortDir[col];
+  });
+  rows.forEach(r=>tb.appendChild(r));
+  special.forEach(r=>tb.appendChild(r));
+  document.querySelectorAll('.peers-table th').forEach((th,i)=>{th.classList.toggle('sorted',i===col)});
+}
+
+// DISCOUNT BAR ANIMATION
+const discObs=new IntersectionObserver(es=>{es.forEach(e=>{
+  if(e.isIntersecting){
+    const ipcPct=3.6/10*100;// 3.6x on a 0-10x scale
+    const medPct=8.6/10*100;
+    document.getElementById('discountBar').style.width=ipcPct+'%';
+    document.getElementById('discountMedian').style.left=medPct+'%';
+    document.getElementById('discountGap').style.left=ipcPct+'%';
+    document.getElementById('discountGap').style.width=(medPct-ipcPct)+'%';
+  }
+})},{threshold:.3});
+const discEl=document.querySelector('.discount-visual');
+if(discEl)discObs.observe(discEl);
 
 // HIGHLIGHT 2030 TERMINAL YEAR BARS
 document.querySelectorAll('.chart-bar-label').forEach(l=>{
