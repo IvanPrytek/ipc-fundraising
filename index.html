@@ -189,7 +189,23 @@ section:nth-child(even){background:var(--card-bg)}
 
 /* GROWTH */
 #growth{background:var(--card-bg)!important}
-.growth-driver-section{margin-bottom:4rem}.growth-driver-section:last-child{margin-bottom:0}
+.gd-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:0}
+.gd-card{
+  padding:1.5rem;border:2px solid var(--border);background:#fff;cursor:pointer;
+  transition:all .4s;position:relative;overflow:hidden;
+}
+.gd-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform .4s}
+.gd-card:hover{border-color:var(--gold-dim);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.gd-card.active{border-color:var(--gold);box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.gd-card.active::before{transform:scaleX(1)}
+.gd-card .gd-num{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.gd-card .gd-icon{font-size:1.8rem;margin-bottom:.5rem}
+.gd-card .gd-title{font-family:var(--font-heading);font-size:.95rem;color:var(--navy);margin-bottom:.3rem;font-weight:700}
+.gd-card .gd-stat{font-family:var(--font-mono);font-size:.75rem;color:var(--gold)}
+.gd-content{display:none;padding:2rem 0;animation:fadeUp .5s ease}
+.gd-content.active{display:block}
+@media(max-width:768px){.gd-selector{grid-template-columns:1fr}}
+
 .driver-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
 .driver-badge{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .8rem;background:var(--gold);color:#fff;font-weight:700}
 .driver-title{font-family:var(--font-heading);font-size:1.5rem;color:var(--navy)}
@@ -676,27 +692,54 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 <!-- GROWTH DRIVERS -->
 <section id="growth">
   <div class="container">
-    <div class="growth-driver-section">
-      <div class="driver-header reveal"><span class="driver-badge">Growth Driver 1</span><h3 class="driver-title">AI as a Growth Engine</h3></div>
-      <p class="reveal" style="color:var(--text-light);margin-bottom:1.5rem"><em style="font-family:var(--font-display);color:var(--gold);font-size:1.2rem">&laquo;During the gold rush it's a good time to be in the pick and shovel business&raquo;</em> <span style="font-size:.85rem">&mdash; Mark Twain</span></p>
-      <div class="ai-growth-cards">
-        <div class="ai-card reveal reveal-delay-1"><div class="ai-icon">&#128200;</div><h4>Strengthening Core Sales</h4><p>Higher conversion through AI-enhanced value proposition and competitive differentiation</p></div>
-        <div class="ai-card reveal reveal-delay-2"><div class="ai-icon">&#128640;</div><h4>AI Upsell Engine</h4><p>Selling AI add-on courses to existing student base, increasing lifetime value per student</p></div>
-        <div class="ai-card reveal reveal-delay-3"><div class="ai-icon">&#127919;</div><h4>Revenue Impact</h4><p>AI-driven courses projected to reach</p><div class="ai-highlight" data-count="30" data-suffix="%">0</div><p style="margin-top:.2rem">of revenue in 2026-2027</p></div>
+    <span class="section-label reveal">Growth Drivers</span>
+    <h2 class="section-title reveal reveal-delay-1">Three Engines of Growth</h2>
+
+    <!-- Selector Cards -->
+    <div class="gd-selector reveal reveal-delay-2">
+      <div class="gd-card active" onclick="showGrowth(0,this)">
+        <div class="gd-num">Driver 01</div>
+        <div class="gd-icon">&#128200;</div>
+        <div class="gd-title">AI as a Growth Engine</div>
+        <div class="gd-stat">30% of revenue by 2027</div>
+      </div>
+      <div class="gd-card" onclick="showGrowth(1,this)">
+        <div class="gd-num">Driver 02</div>
+        <div class="gd-icon">&#127758;</div>
+        <div class="gd-title">Arab-Speaking Markets</div>
+        <div class="gd-stat">$4.5B TAM &middot; 6 countries</div>
+      </div>
+      <div class="gd-card" onclick="showGrowth(2,this)">
+        <div class="gd-num">Driver 03</div>
+        <div class="gd-icon">&#128736;</div>
+        <div class="gd-title">M&A-Driven Expansion</div>
+        <div class="gd-stat">110M NIS revenue by 2030</div>
       </div>
     </div>
-    <div class="growth-driver-section">
-      <div class="driver-header reveal"><span class="driver-badge">Growth Driver 2</span><h3 class="driver-title">Arab-Speaking Market Expansion</h3></div>
+
+    <!-- Content Panels -->
+    <!-- DRIVER 1: AI -->
+    <div class="gd-content active" id="gd-0">
+      <p style="color:var(--text-light);margin-bottom:1.5rem"><em style="font-family:var(--font-display);color:var(--gold);font-size:1.2rem">&laquo;During the gold rush it's a good time to be in the pick and shovel business&raquo;</em> <span style="font-size:.85rem">&mdash; Mark Twain</span></p>
+      <div class="ai-growth-cards">
+        <div class="ai-card"><div class="ai-icon">&#128200;</div><h4>Strengthening Core Sales</h4><p>Higher conversion through AI-enhanced value proposition and competitive differentiation</p></div>
+        <div class="ai-card"><div class="ai-icon">&#128640;</div><h4>AI Upsell Engine</h4><p>Selling AI add-on courses to existing student base, increasing lifetime value per student</p></div>
+        <div class="ai-card"><div class="ai-icon">&#127919;</div><h4>Revenue Impact</h4><p>AI-driven courses projected to reach</p><div class="ai-highlight" data-count="30" data-suffix="%">0</div><p style="margin-top:.2rem">of revenue in 2026-2027</p></div>
+      </div>
+    </div>
+
+    <!-- DRIVER 2: GCC -->
+    <div class="gd-content" id="gd-1">
       <div class="gcc-layout">
-        <div class="gcc-info reveal reveal-delay-1">
+        <div class="gcc-info">
           <h4>Israel: EdTech Powerhouse</h4>
           <ul><li>EdTech market valued at ~$1.1B, one of the highest per-capita globally</li><li>Home to 500+ EdTech startups, 2nd globally in EdTech innovation density</li><li>Government-funded bootcamps and tech pipelines creating talent infrastructure</li></ul>
           <h4 style="margin-top:1.5rem;color:var(--teal)">GCC: $4.5B Opportunity</h4>
           <ul><li>GCC EdTech market growing from $3.02B to $4.47B by 2030 (6.7% CAGR)</li><li>50%+ of GCC population is under 30, driving digital learning demand</li><li>Rapid economic diversification from oil fuels tech and vocational training demand</li></ul>
         </div>
-        <div class="reveal reveal-delay-2" style="display:flex;flex-direction:column;gap:.6rem">
+        <div style="display:flex;flex-direction:column;gap:.6rem">
           <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:.5rem">GCC TAM Allocation</h4>
-          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Saudi Arabia</span><div style="height:24px;width:85%;background:var(--navy);border-radius:2px;position:relative;transition:width 1.5s"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$1,960M</span></div></div>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Saudi Arabia</span><div style="height:24px;width:85%;background:var(--navy);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$1,960M</span></div></div>
           <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">UAE</span><div style="height:24px;width:40%;background:var(--gold);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$450M</span></div></div>
           <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Kuwait</span><div style="height:24px;width:20%;background:var(--gold-dim);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$210M</span></div></div>
           <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Qatar</span><div style="height:24px;width:17%;background:var(--teal);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$180M</span></div></div>
@@ -705,65 +748,41 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         </div>
       </div>
     </div>
-    <div class="growth-driver-section">
-      <div class="driver-header reveal"><span class="driver-badge">Growth Driver 3</span><h3 class="driver-title">M&A-Driven Expansion</h3></div>
-      <p class="reveal" style="color:var(--text-light);margin-bottom:.5rem">Consolidating fragmented B2B and B2C education segments</p>
-      <p class="reveal" style="color:var(--gold);font-family:var(--font-heading);font-size:1.1rem;margin-bottom:1rem"><strong>Full-cycle workforce development platform</strong></p>
 
-      <!-- Interactive Triangle Diagram -->
-      <div class="triangle-wrap reveal" id="triWrap">
+    <!-- DRIVER 3: M&A -->
+    <div class="gd-content" id="gd-2">
+      <p style="color:var(--text-light);margin-bottom:.5rem">Consolidating fragmented B2B and B2C education segments</p>
+      <p style="color:var(--gold);font-family:var(--font-heading);font-size:1.1rem;margin-bottom:1rem"><strong>Full-cycle workforce development platform</strong></p>
+
+      <div class="triangle-wrap" id="triWrap">
         <svg class="tri-svg" viewBox="0 0 650 420" id="triSvg">
-          <!-- Triangle edges -->
           <line x1="325" y1="70" x2="90" y2="350" stroke="var(--border)" stroke-width="1.5"/>
           <line x1="325" y1="70" x2="560" y2="350" stroke="var(--border)" stroke-width="1.5"/>
           <line x1="90" y1="350" x2="560" y2="350" stroke="var(--border)" stroke-width="1.5"/>
-          <!-- Curved arrows -->
           <path d="M160,340 C100,200 200,100 280,80" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
           <path d="M370,80 C450,100 550,200 490,340" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
           <path d="M480,365 C400,400 250,400 170,365" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
           <defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="var(--navy)" opacity=".5"/></marker></defs>
         </svg>
-        <!-- Top node: Reskilling -->
-        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0">
-          <h4>Reskilling / B2B / B2G</h4>
-          <p>White-labeling</p>
-        </div>
-        <!-- Bottom-left: K12 -->
-        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1">
-          <h4>Undergraduate</h4>
-          <p>Assessment (K12)</p>
-        </div>
-        <!-- Bottom-right: Placement -->
-        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2">
-          <h4>Assessment and</h4>
-          <p>Talent Placement</p>
-        </div>
-        <!-- Center -->
+        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0"><h4>Reskilling / B2B / B2G</h4><p>White-labeling</p></div>
+        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1"><h4>Undergraduate</h4><p>Assessment (K12)</p></div>
+        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2"><h4>Assessment and</h4><p>Talent Placement</p></div>
         <div class="tri-center"><span>Lifelong<br>reskilling</span></div>
       </div>
-      <div class="tri-detail reveal" id="triDetail">
-        <p>Click on any node to explore how each segment feeds into the full-cycle platform</p>
-      </div>
+      <div class="tri-detail" id="triDetail"><p>Click on any node to explore how each segment feeds into the full-cycle platform</p></div>
 
-      <!-- Group Financial Targets -->
-      <div style="display:flex;gap:2rem;justify-content:center;margin:2rem 0;flex-wrap:wrap" class="reveal">
-        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px">
-          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">110M</div>
-          <div style="font-size:.75rem;color:rgba(255,255,255,.6)">NIS 2030 Group Revenue</div>
-        </div>
-        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px">
-          <div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">23M</div>
-          <div style="font-size:.75rem;color:rgba(255,255,255,.6)">NIS 2030 Group EBITDA</div>
-        </div>
+      <div style="display:flex;gap:2rem;justify-content:center;margin:2rem 0;flex-wrap:wrap">
+        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px"><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">110M</div><div style="font-size:.75rem;color:rgba(255,255,255,.6)">NIS 2030 Group Revenue</div></div>
+        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px"><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">23M</div><div style="font-size:.75rem;color:rgba(255,255,255,.6)">NIS 2030 Group EBITDA</div></div>
       </div>
 
       <div class="mna-phases" style="margin-top:1.5rem">
-        <div class="mna-phase reveal reveal-delay-1"><span class="phase-badge">Phase 1</span><div><h4>K12 / Undergraduate Education</h4><p>Tech training and test preparation companies create a full student pipeline</p></div><span class="phase-metrics">10M NIS Rev | 10% EBITDA</span></div>
-        <div class="mna-phase reveal reveal-delay-2"><span class="phase-badge">Phase 2</span><div><h4>B2B Trainings</h4><p>B2B corporate education company with strong partnerships. Adds B2B channel and international reach.</p></div><span class="phase-metrics">12.4M NIS | 55% GP | 13% EBITDA</span></div>
-        <div class="mna-phase reveal reveal-delay-3"><span class="phase-badge">Phase 3</span><div><h4>Further Bolt-ons</h4><p>Talent placement, additional fragmented players. Building a full Human Capital Value Chain.</p></div><span class="phase-metrics">Full-cycle platform</span></div>
+        <div class="mna-phase"><span class="phase-badge">Phase 1</span><div><h4>K12 / Undergraduate Education</h4><p>Tech training and test preparation companies create a full student pipeline</p></div><span class="phase-metrics">10M NIS Rev | 10% EBITDA</span></div>
+        <div class="mna-phase"><span class="phase-badge">Phase 2</span><div><h4>B2B Trainings</h4><p>B2B corporate education company with strong partnerships. Adds B2B channel and international reach.</p></div><span class="phase-metrics">12.4M NIS | 55% GP | 13% EBITDA</span></div>
+        <div class="mna-phase"><span class="phase-badge">Phase 3</span><div><h4>Further Bolt-ons</h4><p>Talent placement, additional fragmented players. Building a full Human Capital Value Chain.</p></div><span class="phase-metrics">Full-cycle platform</span></div>
       </div>
-      <div class="mna-targets reveal"><div><div class="mna-target-val" data-count="110" data-suffix="M">0</div><div class="mna-target-label">NIS 2030 Group Revenue</div></div><div><div class="mna-target-val" data-count="23" data-suffix="M">0</div><div class="mna-target-label">NIS 2030 Group EBITDA</div></div></div>
     </div>
+
   </div>
 </section>
 
@@ -1028,6 +1047,18 @@ function calcInvest(){
   document.getElementById('out-coc').textContent=coc.toFixed(1)+'x';
 }
 calcInvest();
+
+// GROWTH DRIVER SELECTOR
+function showGrowth(idx,card){
+  document.querySelectorAll('.gd-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.gd-content').forEach(c=>c.classList.remove('active'));
+  card.classList.add('active');
+  const panel=document.getElementById('gd-'+idx);
+  panel.classList.add('active');
+  animateCounters(panel);
+  // Trigger SVG animation if M&A panel
+  if(idx===2){const svg=document.getElementById('triSvg');if(svg)svg.classList.add('animated')}
+}
 
 // VISION UNIT TABS
 function showUnit(idx,btn){
