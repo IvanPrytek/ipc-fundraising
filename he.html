@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPC | מכללת ישראל המקצועית — הזדמנות השקעה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:hidden;line-height:1.65}
+::selection{background:#c9a84c;color:#fff}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#f0f0f0}
+::-webkit-scrollbar-thumb{background:#c9a84c;border-radius:3px}
+
+:root{
+  --navy:#1a1f36;--navy-light:#232942;--card-bg:#f7f8fa;
+  --gold:#c9a84c;--gold-dim:#a68b3a;--teal:#2dd4a8;
+  --text:#2c3e50;--text-light:#5a6a7a;--border:#e5e7eb;
+  --white:#ffffff;--red:#c0392b;
+  --font-display:'Instrument Serif',serif;
+  --font-heading:'Syne',sans-serif;
+  --font-body:'Figtree',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+
+.container{max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3.5rem)}
+.section-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;display:block}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.2rem);color:var(--navy);line-height:1.1;margin-bottom:1.2rem}
+.section-sub{font-size:1.05rem;color:var(--text-light);max-width:680px;margin-bottom:2.5rem}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}.reveal-delay-5{transition-delay:.5s}
+
+/* LANGUAGE SWITCH */
+.lang-switch{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:flex;gap:.3rem}
+.lang-switch a{font-family:var(--font-mono);font-size:.6rem;color:rgba(255,255,255,.4);text-decoration:none;padding:.2rem .5rem;border:1px solid transparent;transition:all .3s}
+.lang-switch a.active{color:var(--gold);border-color:rgba(201,168,76,.3)}
+.lang-switch a:hover{color:var(--gold)}
+
+/* HERO LOGO + SPARKLINE */
+.hero-logo{height:50px;margin-bottom:1.5rem;opacity:.9}
+.hero-sparkline{display:inline-flex;align-items:flex-end;gap:3px;margin-left:1.5rem;vertical-align:middle}
+.hero-sparkline .sp-bar{width:8px;border-radius:2px 2px 0 0;background:var(--gold);transition:height 1s ease}
+
+/* TESTIMONIAL PHOTO */
+.testimonial-photo{width:80px;height:80px;border-radius:50%;margin:0 auto 1.2rem;overflow:hidden;border:2px solid var(--gold)}
+.testimonial-photo img{width:100%;height:100%;object-fit:cover}
+
+/* FORM SUCCESS IMPROVED */
+.form-success{display:none;background:rgba(45,212,168,.08);border:1px solid var(--teal);padding:2rem;text-align:center;color:var(--teal)}
+.form-success h4{font-family:var(--font-heading);font-size:1.1rem;margin-bottom:.5rem;color:#fff}
+.form-success p{font-size:.85rem;color:rgba(255,255,255,.6)}
+
+/* URGENCY TICKER */
+.urgency-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--navy);padding:.45rem 0;text-align:center;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--gold);
+}
+.urgency-bar .ub-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#e74c3c;margin-right:.5rem;animation:urgPulse 1.5s ease infinite}
+@keyframes urgPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+
+/* FLOATING CTA */
+.floating-cta{
+  position:fixed;bottom:2rem;right:2rem;z-index:150;
+  background:var(--gold);color:var(--navy);padding:.7rem 1.5rem;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(201,168,76,.4);
+  transition:all .3s;opacity:0;transform:translateY(20px);pointer-events:none;
+}
+.floating-cta.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.floating-cta:hover{background:var(--navy);color:var(--gold);box-shadow:0 6px 28px rgba(0,0,0,.2)}
+.floating-cta::before{content:'';position:absolute;inset:-3px;border:1px solid var(--gold);opacity:0;animation:ctaPulse 2.5s ease infinite}
+@keyframes ctaPulse{0%,100%{opacity:0;inset:-3px}50%{opacity:.5;inset:-8px}}
+
+/* TESTIMONIAL */
+.testimonial{background:var(--navy);padding:4rem 0;position:relative;overflow:hidden}
+.testimonial::before{content:'\201C';position:absolute;top:-20px;left:5%;font-family:var(--font-display);font-size:15rem;color:rgba(201,168,76,.06);line-height:1}
+.testimonial-inner{max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.testimonial blockquote{font-family:var(--font-display);font-size:clamp(1.2rem,2.5vw,1.7rem);color:#fff;line-height:1.5;font-style:italic;margin-bottom:1.5rem}
+.testimonial cite{display:block;font-style:normal}
+.testimonial .cite-name{font-family:var(--font-heading);font-size:.95rem;color:var(--gold);font-weight:700}
+.testimonial .cite-role{font-family:var(--font-mono);font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.05em;margin-top:.2rem}
+
+/* WHY NOW */
+#whynow{background:#fff!important;padding:6rem 0}
+.whynow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.whynow-card{padding:2rem;border:1px solid var(--border);background:#fff;position:relative;overflow:hidden;transition:all .4s}
+.whynow-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.06)}
+.whynow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transition:background .3s}
+.whynow-card:nth-child(1)::before{background:var(--gold)}
+.whynow-card:nth-child(2)::before{background:var(--teal)}
+.whynow-card:nth-child(3)::before{background:var(--red)}
+.whynow-card .wn-num{font-family:var(--font-mono);font-size:3rem;font-weight:700;color:var(--card-bg);position:absolute;top:.5rem;right:1rem;line-height:1}
+.whynow-card .wn-icon{font-size:2rem;margin-bottom:1rem}
+.whynow-card h4{font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:.6rem;font-weight:700}
+.whynow-card p{font-size:.88rem;color:var(--text-light);line-height:1.6}
+.whynow-card .wn-stat{font-family:var(--font-mono);font-size:.8rem;color:var(--gold);margin-top:.8rem;padding-top:.6rem;border-top:1px solid var(--border)}
+@media(max-width:768px){.whynow-grid{grid-template-columns:1fr}}
+
+/* NAV - offset for urgency bar */
+nav{position:fixed;top:28px;left:0;right:0;z-index:100;padding:.8rem 0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.scrolled{border-bottom-color:var(--border)}
+nav .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--font-heading);font-weight:800;font-size:1.4rem;color:var(--navy);text-decoration:none}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.2rem;background:var(--navy);color:#fff;text-decoration:none;transition:background .3s}
+.nav-cta:hover{background:var(--gold)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* HERO - dark navy like slide 1 */
+#hero{min-height:100vh;display:flex;align-items:center;background:var(--navy);color:#fff;position:relative;overflow:hidden;padding-top:5.5rem}
+#hero-canvas{position:absolute;inset:0;z-index:0}
+.hero-content{position:relative;z-index:1}
+.hero-badge{display:inline-block;font-family:var(--font-mono);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:.35rem 1rem;margin-bottom:2rem}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.8rem,7vw,5.5rem);color:#fff;line-height:.95;margin-bottom:1.5rem;max-width:850px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1.15rem;color:rgba(255,255,255,.6);max-width:580px;margin-bottom:2.5rem;line-height:1.7}
+.hero-kpis{display:flex;gap:2.5rem;flex-wrap:wrap}
+.hero-kpi-value{font-family:var(--font-mono);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;color:var(--gold)}
+.hero-kpi-label{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.15rem}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);animation:bob 2s ease infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.4}50%{transform:translateX(-50%) translateY(6px);opacity:1}}
+
+/* SECTIONS */
+section{padding:6rem 0}
+section:nth-child(odd){background:#fff}
+section:nth-child(even){background:var(--card-bg)}
+
+/* EXEC SUMMARY - dark like slide 2 */
+#summary{background:var(--navy)!important;color:#fff;padding:6rem 0}
+#summary .section-title{color:#fff}
+#summary .section-label{color:var(--gold)}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start}
+.opportunity-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.opportunity-list li{padding-left:1.2rem;position:relative;font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.6}
+.opportunity-list li::before{content:'';position:absolute;left:0;top:.55rem;width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+.opportunity-list li strong{color:#fff}
+.summary-right{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.kpi-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:1.5rem;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--gold)}
+.kpi-card .kpi-val{font-family:var(--font-mono);font-size:1.6rem;font-weight:700;color:var(--gold)}
+.kpi-card .kpi-label{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.2rem}
+.growth-strategy{margin-top:3.5rem}
+.growth-items{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.2rem}
+.growth-item{background:rgba(255,255,255,.04);border:1px solid rgba(45,212,168,.1);padding:1.2rem}
+.growth-item h4{font-family:var(--font-heading);font-size:.85rem;color:var(--teal);margin-bottom:.4rem}
+.growth-item p{font-size:.8rem;color:rgba(255,255,255,.55)}
+@media(max-width:900px){.summary-grid,.growth-items{grid-template-columns:1fr}}
+
+/* VISION */
+#vision{background:#fff!important}
+.vision-funding{font-size:1rem;color:var(--text-light);margin-bottom:2.5rem}
+.vision-funding strong{color:var(--gold);font-family:var(--font-mono)}
+.vision-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.vision-map-panel{position:sticky;top:6rem}
+.vision-map-panel svg{width:100%}
+.map-caption{font-size:.75rem;color:var(--text-light);margin-top:.8rem;font-style:italic;text-align:center}
+/* Unit tabs */
+.unit-tabs{display:flex;gap:0;margin-bottom:0;border-bottom:2px solid var(--border)}
+.unit-tab{
+  flex:1;padding:.8rem 1rem;font-family:var(--font-heading);font-size:.8rem;font-weight:600;
+  color:var(--text-light);background:transparent;border:none;cursor:pointer;
+  text-align:center;transition:all .3s;position:relative;letter-spacing:.02em;
+}
+.unit-tab::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform .3s;
+}
+.unit-tab:hover{color:var(--navy)}
+.unit-tab.active{color:var(--gold)}
+.unit-tab.active::after{transform:scaleX(1)}
+.unit-panel{display:none;padding:1.5rem 0;animation:fadeUp .4s ease}
+.unit-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.unit-panel h3{font-family:var(--font-heading);font-size:1.2rem;color:var(--navy);margin-bottom:1rem}
+.unit-panel ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}
+.unit-panel li{font-size:.88rem;color:var(--text-light);padding-left:1rem;position:relative;line-height:1.5}
+.unit-panel li::before{content:'';position:absolute;left:0;top:.55rem;width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+.unit-panel li strong{color:var(--navy)}
+.unit-panel-stats{display:flex;gap:2rem;padding-top:1rem;border-top:1px solid var(--border)}
+.unit-panel-stat .ups-val{font-family:var(--font-mono);font-size:1.5rem;color:var(--gold);font-weight:700}
+.unit-panel-stat .ups-label{font-size:.7rem;color:var(--text-light)}
+@media(max-width:900px){
+  .vision-split{grid-template-columns:1fr}
+  .vision-map-panel{position:relative;top:auto}
+}
+
+/* PRODUCTS */
+#products{background:var(--card-bg)!important}
+.products-layout{display:grid;grid-template-columns:2fr 1fr;gap:3rem;align-items:start}
+.verticals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.vertical-card{background:#fff;border:1px solid var(--border);padding:1.2rem;text-align:center;transition:all .3s}
+.vertical-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.vertical-card .v-icon{font-size:1.8rem;margin-bottom:.6rem;display:block}
+.vertical-card h4{font-family:var(--font-heading);font-size:.8rem;color:var(--navy);margin-bottom:.2rem}
+.vertical-card .v-courses{font-size:.7rem;color:var(--text-light);margin-top:.2rem}
+.vertical-card .v-pct{font-family:var(--font-mono);font-size:.7rem;color:var(--gold);margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)}
+.product-bullets{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:1.2rem}
+.product-bullets li{font-size:.85rem;color:var(--text-light);padding-left:1rem;position:relative;line-height:1.5}
+.product-bullets li::before{content:'\25C6';position:absolute;left:0;color:var(--gold);font-size:.45rem;top:.35rem}
+.product-bullets li strong{color:var(--navy)}
+.product-kpis{display:grid;gap:1rem}
+.product-kpi{background:#fff;border-left:3px solid var(--gold);padding:1.2rem;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.product-kpi .pk-val{font-family:var(--font-mono);font-size:1.8rem;font-weight:700;color:var(--navy)}
+.product-kpi .pk-label{font-size:.8rem;color:var(--text-light);margin-top:.1rem}
+@media(max-width:900px){.products-layout{grid-template-columns:1fr}.verticals-grid{grid-template-columns:1fr 1fr}}
+
+/* PLATFORM */
+#platform{background:#fff!important}
+.platform-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.platform-col{border:1px solid var(--border);overflow:hidden;background:#fff}
+.platform-col-header{background:var(--navy);padding:1rem 1.2rem}
+.platform-col-header h3{font-family:var(--font-heading);font-size:.9rem;color:#fff}
+.platform-col-body{padding:1.2rem}
+.pitem{margin-bottom:1rem}.pitem:last-child{margin-bottom:0}
+.pitem h4{font-family:var(--font-heading);font-size:.8rem;color:var(--gold);margin-bottom:.2rem}
+.pitem p{font-size:.75rem;color:var(--text-light);line-height:1.5}
+.platform-callout{margin-top:2rem;background:var(--card-bg);border-left:3px solid var(--gold);padding:1.2rem 1.5rem;font-size:.9rem;color:var(--navy)}
+.platform-callout strong{color:var(--gold)}
+@media(max-width:900px){.platform-cols{grid-template-columns:1fr}}
+
+/* HIRING PARTNERS */
+#partners{background:var(--card-bg)!important}
+.partners-intro{font-size:1rem;color:var(--text-light);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+.partners-intro .big-stat{font-family:var(--font-mono);font-size:3rem;font-weight:700;color:var(--navy);line-height:1}
+.marquee-wrap{overflow:hidden;position:relative;width:100%;padding:1rem 0}
+.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.marquee-wrap::before{left:0;background:linear-gradient(90deg,var(--card-bg),transparent)}
+.marquee-wrap::after{right:0;background:linear-gradient(270deg,var(--card-bg),transparent)}
+.marquee-track{display:flex;gap:3rem;align-items:center;animation:marquee 30s linear infinite;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-track img{height:50px;width:auto;object-fit:contain;opacity:.7;transition:opacity .3s;filter:grayscale(20%)}
+.marquee-track img:hover{opacity:1;filter:grayscale(0%)}
+
+/* MARKET */
+#market{background:#fff!important}
+.market-hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
+.market-stat{text-align:center;padding:2.5rem 1.5rem;background:var(--card-bg);border:1px solid var(--border);transition:all .3s}
+.market-stat:hover{border-color:var(--gold);transform:translateY(-3px)}
+.market-stat .ms-val{font-family:var(--font-mono);font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--gold)}
+.market-stat .ms-label{font-size:.9rem;color:var(--text-light);margin-top:.4rem}
+.market-drivers{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.driver-card{background:var(--card-bg);padding:1.5rem;border:1px solid var(--border);transition:all .3s}
+.driver-card:hover{border-color:var(--gold)}
+.driver-card h4{font-family:var(--font-heading);font-size:.95rem;color:var(--gold);margin-bottom:.5rem}
+.driver-card p{font-size:.85rem;color:var(--text-light)}
+@media(max-width:768px){.market-hero-stats,.market-drivers{grid-template-columns:1fr}}
+
+/* GROWTH */
+#growth{background:var(--card-bg)!important}
+.gd-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:0}
+.gd-card{
+  padding:1.5rem;border:2px solid var(--border);background:#fff;cursor:pointer;
+  transition:all .4s;position:relative;overflow:hidden;
+}
+.gd-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transition:transform .4s}
+.gd-card:hover{border-color:var(--gold-dim);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.gd-card.active{border-color:var(--gold);box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.gd-card.active::before{transform:scaleX(1)}
+.gd-card .gd-num{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.gd-card .gd-icon{font-size:1.8rem;margin-bottom:.5rem}
+.gd-card .gd-title{font-family:var(--font-heading);font-size:.95rem;color:var(--navy);margin-bottom:.3rem;font-weight:700}
+.gd-card .gd-stat{font-family:var(--font-mono);font-size:.75rem;color:var(--gold)}
+.gd-content{display:none;padding:2rem 0;animation:fadeUp .5s ease}
+.gd-content.active{display:block}
+@media(max-width:768px){.gd-selector{grid-template-columns:1fr}}
+
+.driver-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.driver-badge{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .8rem;background:var(--gold);color:#fff;font-weight:700}
+.driver-title{font-family:var(--font-heading);font-size:1.5rem;color:var(--navy)}
+.ai-growth-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.ai-card{background:#fff;padding:1.5rem;text-align:center;border:1px solid var(--border);transition:all .3s}
+.ai-card:hover{border-color:var(--gold)}
+.ai-card .ai-icon{font-size:2rem;margin-bottom:.8rem}
+.ai-card h4{font-family:var(--font-heading);font-size:.9rem;color:var(--navy);margin-bottom:.4rem}
+.ai-card p{font-size:.8rem;color:var(--text-light)}
+.ai-card .ai-highlight{font-family:var(--font-mono);font-size:1.8rem;color:var(--navy);font-weight:700;margin-top:.8rem}
+.gcc-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.gcc-info h4{font-family:var(--font-heading);font-size:1rem;color:var(--gold);margin-bottom:.8rem}
+.gcc-info ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.gcc-info li{font-size:.85rem;color:var(--text-light);padding-left:.8rem;position:relative}
+.gcc-info li::before{content:'\2022';position:absolute;left:0;color:var(--gold)}
+.mna-phases{display:flex;flex-direction:column;gap:1.2rem}
+.mna-phase{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;background:#fff;padding:1.2rem 1.5rem;border-left:3px solid var(--gold);align-items:center;transition:all .3s}
+.mna-phase:hover{transform:translateX(3px);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.mna-phase .phase-badge{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--navy);padding:.3rem .7rem;color:var(--gold);white-space:nowrap}
+.mna-phase h4{font-family:var(--font-heading);font-size:.9rem;color:var(--navy);margin-bottom:.2rem}
+.mna-phase p{font-size:.8rem;color:var(--text-light)}
+.mna-phase .phase-metrics{font-family:var(--font-mono);font-size:.7rem;color:var(--gold);white-space:nowrap}
+.mna-targets{display:flex;gap:2rem;margin-top:1.5rem;padding:1.5rem;background:#fff;border:1px solid var(--border)}
+.mna-target-val{font-family:var(--font-mono);font-size:2.2rem;font-weight:700;color:var(--gold)}
+.mna-target-label{font-size:.8rem;color:var(--text-light)}
+@media(max-width:900px){.ai-growth-cards,.gcc-layout{grid-template-columns:1fr}.mna-phase{grid-template-columns:1fr}.mna-targets{flex-direction:column}}
+
+/* PLATFORM TRIANGLE */
+.triangle-wrap{position:relative;width:100%;max-width:650px;margin:2rem auto 2.5rem;height:420px}
+.tri-svg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.tri-svg line,.tri-svg path{stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease}
+.tri-svg.animated line,.tri-svg.animated path{stroke-dashoffset:0}
+.tri-node{
+  position:absolute;background:#fff;border:2px dashed var(--border);
+  padding:1rem 1.5rem;text-align:center;z-index:2;cursor:pointer;
+  transition:all .4s;min-width:180px;
+}
+.tri-node:hover{border-color:var(--gold);border-style:solid;box-shadow:0 6px 24px rgba(0,0,0,.08);transform:scale(1.04)}
+.tri-node.active{border-color:var(--gold);border-style:solid;background:var(--navy);color:#fff}
+.tri-node.active h4{color:var(--gold)}
+.tri-node.active p{color:rgba(255,255,255,.7)}
+.tri-node h4{font-family:var(--font-heading);font-size:.85rem;color:var(--navy);margin-bottom:.15rem;transition:color .3s;font-weight:700}
+.tri-node p{font-size:.75rem;color:var(--text-light);line-height:1.3;transition:color .3s;font-family:var(--font-body)}
+.mna-phase.phase-highlight{border-left-color:var(--teal);background:var(--card-bg);transform:translateX(6px);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.tri-node-top{top:0;left:50%;transform:translateX(-50%)}
+.tri-node-bl{bottom:0;left:0}
+.tri-node-br{bottom:0;right:0}
+.tri-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:var(--card-bg);border:1px solid var(--border);border-radius:50%;
+  width:130px;height:130px;display:flex;align-items:center;justify-content:center;
+  text-align:center;z-index:3;
+}
+.tri-center span{font-family:var(--font-display);font-size:1rem;color:var(--gold);font-style:italic;line-height:1.2}
+.tri-detail{
+  margin-top:1rem;background:var(--card-bg);border:1px solid var(--border);
+  padding:1.2rem 1.5rem;text-align:center;min-height:60px;
+  transition:all .3s;
+}
+.tri-detail p{font-size:.85rem;color:var(--text-light)}
+.tri-detail strong{color:var(--navy)}
+
+/* FINANCIALS - dark like slides 27-28 */
+#financials{background:var(--navy)!important;color:#fff;padding:6rem 0}
+#financials .section-title{color:#fff}
+#financials .section-label{color:var(--gold)}
+.fin-toggle{display:flex;gap:0;margin-bottom:2rem;border:1px solid rgba(201,168,76,.3)}
+.fin-toggle-btn{flex:1;padding:.7rem 1.2rem;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:none;color:rgba(255,255,255,.5);cursor:pointer;transition:all .3s;text-align:center}
+.fin-toggle-btn.active{background:var(--gold);color:var(--navy);font-weight:700}
+.fin-toggle-btn:hover:not(.active){background:rgba(201,168,76,.1)}
+.fin-view{display:none}.fin-view.active{display:block}
+.financials-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start}
+.chart-container{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:1.5rem}
+.chart-container h3{font-family:var(--font-heading);font-size:.9rem;color:#fff;margin-bottom:1.2rem}
+.chart-area{position:relative;height:280px;padding-bottom:25px}
+.chart-bars{display:flex;align-items:flex-end;height:250px;gap:8px}
+.chart-bar-group{flex:1;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.chart-bar{width:80%;max-width:60px;border-radius:2px 2px 0 0;transition:height 1.5s ease,filter .2s,transform .2s;position:relative}
+.chart-bar-label{font-family:var(--font-mono);font-size:.6rem;color:rgba(255,255,255,.5);margin-top:6px;flex-shrink:0;transition:color .2s}
+.chart-bar-value{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;color:var(--gold);white-space:nowrap;opacity:.7;transition:opacity .2s,transform .2s,font-size .2s}
+/* Hover: highlight bar + show value prominently */
+.chart-bar-group{cursor:pointer;transition:transform .2s}
+.chart-bar-group:hover .chart-bar{filter:brightness(1.3);transform:scaleX(1.08)}
+.chart-bar-group:hover .chart-bar-value{opacity:1;transform:translateX(-50%) translateY(-4px);font-size:.7rem}
+.chart-bar-group:hover .chart-bar-label{color:rgba(255,255,255,.9)}
+.chart-bar-group:hover .chart-bar-stack{filter:brightness(1.3);transform:scaleX(1.08)}
+.chart-bar-group:hover .stack-value{opacity:1!important;transform:translateX(-50%) translateY(-4px)!important;font-size:.7rem!important}
+/* 2030 terminal year highlight */
+.chart-bar-group.terminal .chart-bar-label{font-weight:700;font-size:.7rem}
+.chart-bar-group.terminal .chart-bar-value{opacity:1;font-weight:700;font-size:.65rem}
+.chart-bar-group.terminal .chart-bar{box-shadow:0 0 12px rgba(201,168,76,.4)}
+.chart-bar-group.terminal .chart-bar-stack{box-shadow:0 0 12px rgba(201,168,76,.4)}
+.chart-bar-group.terminal .stack-value{opacity:1!important;font-weight:700}
+.chart-ebit .chart-bar-value{color:var(--teal)}
+.chart-bar-stack{width:80%;max-width:60px;display:flex;flex-direction:column;border-radius:2px 2px 0 0;overflow:visible;transition:height 1.5s ease;position:relative}
+.chart-bar-seg{width:100%}
+.chart-bar-group .stack-value{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;color:var(--gold);white-space:nowrap;z-index:2;opacity:.7;transition:opacity .2s,transform .2s,font-size .2s}
+.chart-legend{display:flex;gap:1.2rem;margin-top:1rem;justify-content:center;flex-wrap:wrap}
+.chart-legend-item{display:flex;align-items:center;gap:.4rem;font-family:var(--font-mono);font-size:.65rem;color:rgba(255,255,255,.5)}
+.chart-legend-dot{width:10px;height:10px;border-radius:1px}
+.fin-kpis{display:grid;gap:1rem}
+.fin-kpi{display:flex;align-items:center;gap:1.2rem;background:rgba(255,255,255,.04);padding:1.2rem 1.5rem;border:1px solid rgba(255,255,255,.06)}
+.fin-kpi .fk-val{font-family:var(--font-mono);font-size:2rem;font-weight:700;min-width:90px}
+.fin-kpi .fk-label{font-size:.85rem;color:rgba(255,255,255,.55)}
+.fin-kpi:nth-child(odd) .fk-val{color:var(--gold)}
+.fin-kpi:nth-child(even) .fk-val{color:var(--teal)}
+@media(max-width:900px){.financials-layout{grid-template-columns:1fr}}
+
+/* TEAM */
+#team{background:#fff!important}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.team-card{border:1px solid var(--border);padding:2rem 1.5rem;text-align:center;background:#fff;transition:all .3s}
+.team-card:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.team-avatar{width:110px;height:110px;border-radius:50%;margin:0 auto 1.2rem;background:linear-gradient(135deg,var(--gold),var(--navy));padding:3px;overflow:hidden}
+.team-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.team-card h3{font-family:var(--font-heading);font-size:1rem;color:var(--navy)}
+.team-card .team-role{font-family:var(--font-mono);font-size:.65rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin:.3rem 0 .8rem}
+.team-card p{font-size:.8rem;color:var(--text-light);line-height:1.6;text-align:left}
+@media(max-width:900px){.team-grid{grid-template-columns:1fr}}
+
+/* INVESTMENT */
+#investment{background:var(--card-bg)!important}
+.invest-dashboard{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+.invest-inputs{background:#fff;border:1px solid var(--border);padding:2rem}
+.invest-inputs h3{font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:1.5rem}
+.input-row{margin-bottom:1.5rem}
+.input-row label{display:block;font-size:.8rem;color:var(--text-light);margin-bottom:.4rem;font-family:var(--font-mono);letter-spacing:.05em}
+.input-row .slider-wrap{display:flex;align-items:center;gap:1rem}
+.input-row input[type=range]{flex:1;-webkit-appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none}
+.input-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.input-row .slider-val{font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--navy);min-width:60px;text-align:right}
+.invest-fixed{display:flex;gap:1.5rem;padding-top:1rem;border-top:1px solid var(--border);margin-top:.5rem}
+.invest-fixed-item .ifi-label{font-size:.7rem;color:var(--text-light);font-family:var(--font-mono)}
+.invest-fixed-item .ifi-val{font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--navy)}
+.invest-output{background:var(--navy);color:#fff;padding:2rem;display:flex;flex-direction:column;justify-content:center}
+.invest-output h3{font-family:var(--font-heading);font-size:1rem;color:var(--gold);margin-bottom:1.5rem}
+.output-row{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.output-row:last-child{border-bottom:none}
+.output-row .or-label{font-size:.85rem;color:rgba(255,255,255,.6)}
+.output-row .or-val{font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--gold)}
+.output-row.highlight{padding:1rem 0;margin-top:.5rem;border-top:2px solid var(--gold);border-bottom:none}
+.output-row.highlight .or-val{font-size:1.8rem;color:var(--teal)}
+.output-row.highlight .or-label{font-size:1rem;color:#fff}
+.invest-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.invest-benefit{background:#fff;padding:1.5rem;border-top:2px solid var(--gold);transition:all .3s}
+.invest-benefit:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.05)}
+.invest-benefit h4{font-family:var(--font-heading);font-size:.9rem;color:var(--navy);margin-bottom:.4rem}
+.invest-benefit p{font-size:.8rem;color:var(--text-light)}
+@media(max-width:768px){.invest-dashboard,.invest-benefits{grid-template-columns:1fr}}
+
+/* CONTACT */
+#contact{background:var(--navy)!important;color:#fff;padding:6rem 0}
+#contact .section-title{color:#fff}
+#contact .section-label{color:var(--gold)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-info p{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:1.5rem}
+.contact-email{font-family:var(--font-mono);font-size:1.1rem;color:var(--gold);text-decoration:none;display:inline-block;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:2px;transition:border-color .3s}
+.contact-email:hover{border-color:var(--gold)}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.contact-form input,.contact-form textarea{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  padding:.8rem 1rem;font-family:var(--font-body);font-size:.9rem;color:#fff;
+  outline:none;transition:border-color .3s;resize:vertical;
+}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.3)}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
+.contact-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.contact-form button{
+  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.8rem 2rem;background:var(--gold);color:var(--navy);border:none;cursor:pointer;
+  font-weight:700;transition:all .3s;align-self:flex-start;
+}
+.contact-form button:hover{background:#dbb85c}
+.form-success{display:none;background:rgba(45,212,168,.1);border:1px solid var(--teal);padding:1.2rem;text-align:center;color:var(--teal);font-family:var(--font-mono);font-size:.85rem}
+@media(max-width:768px){.contact-layout{grid-template-columns:1fr}.contact-form .form-row{grid-template-columns:1fr}}
+
+/* FOOTER */
+footer{padding:3rem 0;border-top:1px solid var(--border);text-align:center;background:var(--navy);color:#fff}
+footer .footer-logo{font-family:var(--font-heading);font-size:1.8rem;font-weight:800;margin-bottom:.5rem}
+footer .footer-logo span{color:var(--red)}
+footer p{font-size:.8rem;color:rgba(255,255,255,.5)}
+footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-dim);margin-top:1.5rem}
+/* RTL overrides */
+html[dir=rtl] body{direction:rtl;text-align:right}
+html[dir=rtl] .nav-links{flex-direction:row-reverse}
+html[dir=rtl] .hero-content{text-align:right}
+html[dir=rtl] .opportunity-list li{padding-left:0;padding-right:1.2rem}
+html[dir=rtl] .opportunity-list li::before{left:auto;right:0}
+html[dir=rtl] .product-bullets li{padding-left:0;padding-right:1rem}
+html[dir=rtl] .product-bullets li::before{left:auto;right:0}
+html[dir=rtl] .unit-panel li{padding-left:0;padding-right:1rem}
+html[dir=rtl] .unit-panel li::before{left:auto;right:0}
+html[dir=rtl] .gcc-info li{padding-left:0;padding-right:.8rem}
+html[dir=rtl] .gcc-info li::before{left:auto;right:0}
+html[dir=rtl] .mna-phase{border-left:none;border-right:3px solid var(--gold)}
+html[dir=rtl] .product-kpi{border-left:none;border-right:3px solid var(--gold)}
+html[dir=rtl] .platform-callout{border-left:none;border-right:3px solid var(--gold)}
+html[dir=rtl] .lang-switch{right:auto;left:1rem}
+html[dir=rtl] .floating-cta{right:auto;left:2rem}
+</style>
+</head>
+<body>
+
+<!-- URGENCY TICKER -->
+<div class="urgency-bar" style="position:relative"><span class="ub-dot"></span>סגירת הסבב מאי 2026 &mdash; הקצאה מוגבלת<div class="lang-switch"><a href="index.html">EN</a><a href="he.html" class="active">HE</a></div></div>
+
+<!-- FLOATING CTA -->
+<a href="#contact" class="floating-cta" id="floatingCta">בקשת גישה</a>
+
+<nav id="navbar">
+  <div class="container">
+    <a href="#hero" class="nav-logo">ipc<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#summary">סקירה</a></li>
+      <li><a href="#vision">חזון</a></li>
+      <li><a href="#products">מוצרים</a></li>
+      <li><a href="#partners">שותפים</a></li>
+      <li><a href="#market">שוק</a></li>
+      <li><a href="#growth">צמיחה</a></li>
+      <li><a href="#financials">פיננסים</a></li>
+      <li><a href="#team">צוות</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">צרו קשר</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="container hero-content">
+    <img src="images/ipc_logo.png" alt="IPC" class="hero-logo reveal">
+    <div class="hero-badge reveal reveal-delay-1">סודי &middot; מרץ 2026</div>
+    <h1 class="hero-title reveal reveal-delay-2">גל הכשרת ה-AI כבר כאן.<br><em>אנחנו כבר רווחיים<br>והגדולים בשוק.</em></h1>
+    <p class="hero-sub reveal reveal-delay-3">הפלטפורמה המקצועית #1 בישראל. הכנסות 41 מיליון ש״ח. שולי EBIT של 25%. 92% מהסטודנטים ממליצים עלינו. עכשיו מרחיבים לשוק הערבי של $4.5 מיליארד.</p>
+    <div class="hero-kpis reveal reveal-delay-4">
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">הכנסות 2025 <span class="hero-sparkline" id="heroSparkline"></span></div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="10.2" data-suffix="M NIS" data-decimals="1">0</div><div class="hero-kpi-label">EBIT 2025</div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="hero-kpi-label">סטודנטים בשנה</div></div>
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="25" data-suffix="+">0</div><div class="hero-kpi-label">תוכניות</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll">גלילה להמשך &darr;</div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="summary">
+  <div class="container">
+    <span class="section-label reveal">תקציר מנהלים</span>
+    <h2 class="section-title reveal reveal-delay-1">ההזדמנות</h2>
+    <div class="summary-grid">
+      <div class="reveal reveal-delay-2">
+        <ul class="opportunity-list">
+          <li>IPC היא <strong>השחקנית #1 בחינוך המקצועי בישראל</strong> &mdash; סקייל מוכח, רווחיות מוכחת</li>
+          <li>לישראל <strong>מערכת החינוך הטובה באזור</strong>: הוצאה מובילה ב-OECD, מקום #2 במדד החדשנות של Bloomberg</li>
+          <li>AI מחליף מיליוני משרות &mdash; גל ההכשרה המקצועית כבר כאן. אוניברסיטאות איטיות מדי; שוק מקצועי צפוף &mdash; <strong>מכונת המכירות הטובה ביותר מנצחת</strong></li>
+          <li>מכונת מכירות <strong>מוכחת ומנוסה</strong> מוכנה &mdash; אנחנו הטובים ביותר בשוק</li>
+          <li>כבר מלמדים קורסי AI עם <strong>הכנסות ורווחים אמיתיים היום</strong> &mdash; הביקוש רק מתגבר</li>
+          <li>שוק מפוצל, ללא מוביל ברור &mdash; <strong>בשל לקונסולידציה</strong></li>
+          <li>הקורסים <strong>אסינכרוניים לחלוטין</strong> &mdash; לוקליזציה מבוססת AI מרחיבה אותם <strong>לשוק הערבי העצום</strong> בעלות שולית כמעט אפסית</li>
+        </ul>
+      </div>
+      <div class="summary-right">
+        <div class="kpi-card reveal reveal-delay-1"><div class="kpi-val" data-count="41" data-suffix="M">0</div><div class="kpi-label">הכנסות ש״ח 2025</div></div>
+        <div class="kpi-card reveal reveal-delay-2"><div class="kpi-val" data-count="10.2" data-suffix="M" data-decimals="1">0</div><div class="kpi-label">EBIT ש״ח 2025</div></div>
+        <div class="kpi-card reveal reveal-delay-3"><div class="kpi-val" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="kpi-label">סטודנטים בשנה</div></div>
+        <div class="kpi-card reveal reveal-delay-4"><div class="kpi-val" data-count="25" data-suffix="+">0</div><div class="kpi-label">תוכניות פעילות</div></div>
+      </div>
+    </div>
+    <div class="growth-strategy reveal">
+      <span class="section-label">אסטרטגיית צמיחה</span>
+      <div class="growth-items">
+        <div class="growth-item reveal reveal-delay-1"><h4>ביקוש להכשרה מונעת AI</h4><p>תפיסת הגל העצום של טרנספורמציה בשוק העבודה כש-AI משנה כל מקצוע</p></div>
+        <div class="growth-item reveal reveal-delay-2"><h4>התרחבות לשוק דובר הערבית</h4><p>פתיחת שוק ה-EdTech של $4.5 מיליארד במפרץ עם תוכן מלוקלז ומתורגם ב-AI</p></div>
+        <div class="growth-item reveal reveal-delay-3"><h4>אסטרטגיית רכישות ומיזוגים</h4><p>קונסולידציה של שוק החינוך המפוצל בישראל לפלטפורמה מלאה</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testimonial">
+  <div class="container testimonial-inner reveal">
+    <div class="testimonial-photo"><img src="images/shay_piron.png" alt="Rabbi Shay Moshe Piron"></div>
+    <blockquote>&ldquo;מכללת IPC היא יותר ממוסד אקדמי &mdash; היא דרך חדשה בעולם התעסוקה וההכשרה המקצועית בישראל. אנחנו לא רק מלמדים &mdash; אנחנו פותחים את הפוטנציאל של כל סטודנט ויוצרים הזדמנויות שוות לכולם.&rdquo;</blockquote>
+    <cite>
+      <span class="cite-name">הרב שי משה פירון</span>
+      <span class="cite-role">נשיא מכללת IPC ושר החינוך לשעבר של מדינת ישראל</span>
+    </cite>
+  </div>
+</div>
+
+<!-- VISION -->
+<section id="vision">
+  <div class="container">
+    <span class="section-label reveal">החזון שלנו</span>
+    <h2 class="section-title reveal reveal-delay-1">לבנות את <em style="font-family:var(--font-display);color:var(--gold)">חברת החינוך הגדולה</em> במזרח התיכון</h2>
+    <p class="vision-funding reveal reveal-delay-2">לביצוע החזון, כבר זיהינו 3 גופים בישראל. תקציב מאושר: <strong>19 מיליון ש״ח</strong> לפייפליין זה.</p>
+
+    <div class="vision-split reveal reveal-delay-2">
+      <!-- LEFT: Map (sticky) -->
+      <div class="vision-map-panel">
+        <svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="120" cy="150" rx="30" ry="40" fill="var(--gold)" opacity=".15" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="120" cy="145" r="6" fill="var(--gold)"><animate attributeName="r" values="6;10;6" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>
+          <!-- Israel flag -->
+          <rect x="100" y="90" width="22" height="14" fill="#fff" stroke="#e5e7eb" stroke-width=".5" rx="2"/>
+          <rect x="100" y="93" width="22" height="2" fill="#0038b8"/><rect x="100" y="100" width="22" height="2" fill="#0038b8"/>
+          <polygon points="111,94.5 113.5,98.5 108.5,98.5" fill="none" stroke="#0038b8" stroke-width=".8"/>
+          <polygon points="111,100.5 108.5,96.5 113.5,96.5" fill="none" stroke="#0038b8" stroke-width=".8"/>
+          <text x="120" y="205" fill="var(--navy)" font-family="Syne,sans-serif" font-size="11" font-weight="700" text-anchor="middle">ישראל</text>
+          <text x="120" y="218" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">מטה &middot; שוק $1.1B</text>
+          <!-- Arrow -->
+          <line x1="158" y1="148" x2="275" y2="148" stroke="var(--gold)" stroke-width="2" stroke-dasharray="7,4"/>
+          <polygon points="275,143 287,148 275,153" fill="var(--gold)"/>
+          <text x="218" y="140" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">התרחבות</text>
+          <!-- Arab Markets bubble -->
+          <ellipse cx="370" cy="150" rx="68" ry="88" fill="#1a1f36" opacity=".04" stroke="#1a1f36" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="370" y="68" fill="#1a1f36" font-family="Syne,sans-serif" font-size="9" font-weight="700" text-anchor="middle">שווקים דוברי ערבית</text>
+          <!-- Flags + labels -->
+          <rect x="330" y="88" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="88" width="16" height="3.3" fill="#00732f"/><rect x="330" y="91.3" width="16" height="3.4" fill="#fff"/><rect x="330" y="94.7" width="16" height="3.3" fill="#000"/><rect x="330" y="88" width="4.5" height="10" fill="#ce1126"/>
+          <text x="354" y="96" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">UAE</text>
+          <rect x="330" y="106" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="106" width="6" height="10" fill="#fff"/><rect x="336" y="106" width="10" height="10" fill="#ce1126"/>
+          <text x="354" y="114" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Bahrain</text>
+          <rect x="330" y="124" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="124" width="6" height="10" fill="#fff"/><rect x="336" y="124" width="10" height="10" fill="#8a1538"/>
+          <text x="354" y="132" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Qatar</text>
+          <rect x="330" y="142" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="142" width="16" height="3.3" fill="#fff"/><rect x="330" y="145.3" width="16" height="3.4" fill="#ce1126"/><rect x="330" y="148.7" width="16" height="3.3" fill="#00732f"/><rect x="330" y="142" width="4.5" height="10" fill="#ce1126"/>
+          <text x="354" y="150" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Oman</text>
+          <rect x="330" y="160" width="16" height="10" rx="1" stroke="#e5e7eb" stroke-width=".3"/>
+          <rect x="330" y="160" width="16" height="3.3" fill="#00732f"/><rect x="330" y="163.3" width="16" height="3.4" fill="#fff"/><rect x="330" y="166.7" width="16" height="3.3" fill="#ce1126"/><polygon points="330,160 336,163.5 330,167" fill="#000"/>
+          <text x="354" y="168" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Kuwait</text>
+          <rect x="330" y="180" width="16" height="10" rx="1" fill="#006c35" stroke="#e5e7eb" stroke-width=".3"/>
+          <text x="354" y="188" fill="#1a1f36" font-family="Syne,sans-serif" font-size="8" font-weight="600">Saudi Arabia</text>
+          <!-- TAM -->
+          <text x="370" y="215" fill="#c9a84c" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" text-anchor="middle">$4.5B TAM</text>
+          <text x="370" y="228" fill="#5a6a7a" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">15.5M סטודנטים פוטנציאליים</text>
+        </svg>
+        <p class="map-caption">לוקליזציה מבוססת AI בעלות שולית כמעט אפסית</p>
+      </div>
+
+      <!-- RIGHT: Tabbed unit cards -->
+      <div>
+        <div class="unit-tabs">
+          <button class="unit-tab active" onclick="showUnit(0,this)">יחידת B2C</button>
+          <button class="unit-tab" onclick="showUnit(1,this)">יחידת B2B</button>
+          <button class="unit-tab" onclick="showUnit(2,this)">יחידת B2G</button>
+        </div>
+        <div class="unit-panel active" id="unit-0">
+          <h3>יחידת B2C</h3>
+          <ul>
+            <li><strong>מכונת מכירות מנוסה ומוכחת</strong> המשותפת לרכישות חדשות ושווקים חדשים</li>
+            <li>פתיחת גישה ל-<strong>15.5 מיליון סטודנטים פוטנציאליים</strong> בשוק דובר הערבית</li>
+            <li>רכישת חברת K12 / הכנה לבגרויות להבטחת <strong>חינוך לאורך כל החיים</strong></li>
+          </ul>
+          <div class="unit-panel-stats">
+            <div class="unit-panel-stat"><div class="ups-val" data-count="50" data-suffix="K">0</div><div class="ups-label">סטודנטים / שנה</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" data-count="45" data-suffix="+">0</div><div class="ups-label">קורסים</div></div>
+          </div>
+        </div>
+        <div class="unit-panel" id="unit-1">
+          <h3>יחידת B2B</h3>
+          <ul>
+            <li><strong>מותג אמין</strong> עם מנוע שדרוג לבסיס הלקוחות הקיים</li>
+            <li><strong>קצה לקצה:</strong> הערכה, הכשרה ושדרוג כוח אדם ארגוני</li>
+            <li>מיקוד בתקציבי <strong>L&D ארגוניים</strong> עם מסירה דיגיטלית סקלבילית</li>
+          </ul>
+          <div class="unit-panel-stats">
+            <div class="unit-panel-stat"><div class="ups-val">12.4M</div><div class="ups-label">הכנסות ש״ח</div></div>
+            <div class="unit-panel-stat"><div class="ups-val">13%</div><div class="ups-label">שולי EBITDA</div></div>
+          </div>
+        </div>
+        <div class="unit-panel" id="unit-2">
+          <h3>יחידת B2G</h3>
+          <ul>
+            <li>מינוף <strong>ה-playbook של B2B</strong> לזכייה במכרזים ממשלתיים</li>
+            <li>פייפליין ל<strong>מכרזים גדולים</strong> ופרויקטים בינלאומיים</li>
+            <li><strong>TAM עצום:</strong> הכשרה מחדש של כוח אדם ציבורי שלם</li>
+          </ul>
+          <div class="unit-panel-stats">
+            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">GOV</div><div class="ups-label">סקטור יעד</div></div>
+            <div class="unit-panel-stat"><div class="ups-val" style="color:var(--gold)">B2G</div><div class="ups-label">ערוץ</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <span class="section-label reveal">IPC במבט חטוף</span>
+    <h2 class="section-title reveal reveal-delay-1">מוצרים ותוכניות</h2>
+    <p class="section-sub reveal reveal-delay-2">25+ תוכניות מקצועיות ב-3 אשכולות מרכזיים</p>
+    <div class="products-layout">
+      <div>
+        <div class="verticals-grid">
+          <div class="vertical-card reveal reveal-delay-1"><img src="images/hitech.jpg" alt="Hi-Tech" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>הייטק ודיגיטל</h4><div class="v-courses">סייבר, QA, אנליטיקת דאטה, פיתוח אתרים, שיווק דיגיטלי, עיצוב גרפי, SEO</div><div class="v-pct">51% מההרשמות</div></div>
+          <div class="vertical-card reveal reveal-delay-2"><img src="images/finance.jpg" alt="Finance" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>פיננסים ועסקים</h4><div class="v-courses">הנהלת חשבונות, ייעוץ מס, קריפטו ושוק ההון, משכנתאות, נדל״ן</div><div class="v-pct">30% מההרשמות</div></div>
+          <div class="vertical-card reveal reveal-delay-3"><img src="images/professional.jpg" alt="Professional" style="width:100%;height:100px;object-fit:cover;margin-bottom:.8rem;border-radius:2px"><h4>מיומנויות מקצועיות</h4><div class="v-courses">Excel, אנגלית, Priority ERP, ניהול ומנהיגות</div><div class="v-pct">19% מההרשמות</div></div>
+        </div>
+        <ul class="product-bullets reveal">
+          <li><strong>הסמכות חיצוניות</strong> (ISTQB, CCNA, מועצת רואי החשבון, משרד העבודה) מניעות אמון מעסיקים ותמחור פרימיום</li>
+          <li><strong>46% שיעור שדרוג</strong> &mdash; כל סטודנט ליבה הוא שער ל-2-3 קורסים נוספים עם CAC שולי כמעט אפסי</li>
+          <li><strong>100% בעלות על IP</strong> של כל תוכן הקורסים &mdash; שליטה מלאה באיכות, רישוי, white-labeling וזיכיונות</li>
+          <li><strong>שותפי גיוס אמינים</strong> מקבלים בוגרים באופן פעיל &mdash; פייפליין ביקוש מובנה עם 100+ מעסיקים מובילים</li>
+          <li>לא רק קטלוג קורסים &mdash; <strong>פלטפורמה משולבת אנכית מחינוך לתעסוקה</strong></li>
+        </ul>
+      </div>
+      <div class="product-kpis">
+        <div class="product-kpi reveal reveal-delay-1"><div class="pk-val" data-count="92" data-suffix="%">0</div><div class="pk-label">ימליצו</div></div>
+        <div class="product-kpi reveal reveal-delay-2"><div class="pk-val">4.6 / 5.0</div><div class="pk-label">שביעות רצון כללית</div></div>
+        <div class="product-kpi reveal reveal-delay-3"><div class="pk-val" data-count="46" data-suffix="%">0</div><div class="pk-label">שיעור שדרוג</div></div>
+        <div class="product-kpi reveal reveal-delay-4"><div class="pk-val" data-count="71" data-suffix="%">0</div><div class="pk-label">שיעור השמה (חשבונאות)</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH PLATFORM -->
+<section id="platform">
+  <div class="container">
+    <span class="section-label reveal">תשתית טכנולוגית</span>
+    <h2 class="section-title reveal reveal-delay-1">פלטפורמה טכנולוגית קצה לקצה</h2>
+    <div class="platform-cols">
+      <div class="platform-col reveal reveal-delay-1">
+        <div class="platform-col-header"><h3>LMS ושכבת AI</h3></div>
+        <div class="platform-col-body">
+          <div class="pitem"><h4>LMS מותאם ("ידע")</h4><p>מסירת קורסים מלאה, מעקב התקדמות, הערכות ואנליטיקה בפלטפורמה אחת</p></div>
+          <div class="pitem"><h4>מורה AI</h4><p>מוטמע ישירות ב-LMS עם גישה מאובטחת לכל חומרי הקורס. מבוסס GPT-4o, משודרג למצב לימוד</p></div>
+          <div class="pitem"><h4>למידה אינטראקטיבית</h4><p>חידונים, סימולציות, אנימציות וקצב מותאם ב-AI לכל ספריית הקורסים</p></div>
+          <div class="pitem"><h4>לוקליזציה לפי דרישה</h4><p>כתוביות אוטומטיות + קריינות נוירונית בכל שפה בעלות טוקנים מינימלית</p></div>
+        </div>
+      </div>
+      <div class="platform-col reveal reveal-delay-2">
+        <div class="platform-col-header"><h3>מנוע הפקה</h3></div>
+        <div class="platform-col-body">
+          <div class="pitem"><h4>אולפן פנימי</h4><p>מסך ירוק פנורמי, מצלמות PTZ, טלפרומפטר, תאורה חכמה; צילום רב-פורמטי</p></div>
+          <div class="pitem"><h4>4 ערכות הקלטה ניידות</h4><p>מוצבות אצל מרצים להפקה מרחוק &mdash; זמן תגובה מהיר ואיכות עקבית</p></div>
+          <div class="pitem"><h4>מחלקת פיתוח קורסים ייעודית</h4><p>קו ייצור קצה לקצה: מחקר &rarr; גיוס &rarr; עיצוב &rarr; הפקה &rarr; QA &rarr; עדכון</p></div>
+          <div class="pitem"><h4>אפס דליפת IP</h4><p>מרצים פרילנסרים מומחי תחום &mdash; ללא חלוקת הכנסות, ללא זכויות בעלות, ללא תמלוגים</p></div>
+        </div>
+      </div>
+      <div class="platform-col reveal reveal-delay-3">
+        <div class="platform-col-header"><h3>CRM ותפעול</h3></div>
+        <div class="platform-col-body">
+          <div class="pitem"><h4>ארכיטקטורת CRM משולשת</h4><p>Fix Digital (שיווק/מכירות), הכוורת (ניהול סטודנטים), Galaxis (פניות דיגיטליות)</p></div>
+          <div class="pitem"><h4>מוקד טלפוני ענן</h4><p>VoiceSpin עם מעקב שיחות מלא, אנליטיקה ואינטגרציית CRM למכירות בשיעור המרה גבוה</p></div>
+          <div class="pitem"><h4>שכבת אוטומציה</h4><p>Make.com + Zapier מחברים את כל הפלטפורמות &mdash; צוות רזה, תפוקה גבוהה</p></div>
+          <div class="pitem"><h4>ניהול פיננסי</h4><p>iCount: חשבונות לקוחות, גביית חובות, תשלומים חוזרים ודיווח &mdash; אוטומטי לחלוטין</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="platform-callout reveal"><strong>חפיר הפלטפורמה:</strong> מערך פרופריאטרי משולב לחלוטין &mdash; מיצירת קורסים להשמת סטודנטים &mdash; בעלות שולית כמעט אפסית לכל סטודנט או שוק נוסף</div>
+  </div>
+</section>
+
+<!-- HIRING PARTNERS -->
+<section id="partners">
+  <div class="container">
+    <span class="section-label reveal">IPC במבט חטוף</span>
+    <h2 class="section-title reveal reveal-delay-1">שותפי גיוס</h2>
+    <div class="partners-intro reveal reveal-delay-2">
+      <div class="big-stat">100+</div>
+      <div>רשת שותפי גיוס חזקה: בוגרי IPC מועסקים בחברות מובילות, עם 100+ שותפים התומכים בתוצאות תעסוקה חזקות</div>
+    </div>
+    <div class="marquee-wrap reveal reveal-delay-3">
+      <div class="marquee-track">
+        <img src="images/logos/logo_7.png" alt="JobMaster">
+        <img src="images/logos/logo_1.png" alt="Pelephone">
+        <img src="images/logos/logo_10.png" alt="Wolt">
+        <img src="images/logos/logo_11.png" alt="Rafael">
+        <img src="images/logos/logo_6.png" alt="H&M">
+        <img src="images/logos/logo_5.png" alt="Afikim">
+        <img src="images/logos/logo_2.png" alt="Ytaron">
+        <img src="images/logos/logo_3.png" alt="Manpower">
+        <img src="images/logos/logo_8.png" alt="Match">
+        <img src="images/logos/logo_4.png" alt="MAX">
+        <img src="images/logos/logo_9.png" alt="Castro">
+        <!-- Duplicate for seamless loop -->
+        <img src="images/logos/logo_7.png" alt="JobMaster">
+        <img src="images/logos/logo_1.png" alt="Pelephone">
+        <img src="images/logos/logo_10.png" alt="Wolt">
+        <img src="images/logos/logo_11.png" alt="Rafael">
+        <img src="images/logos/logo_6.png" alt="H&M">
+        <img src="images/logos/logo_5.png" alt="Afikim">
+        <img src="images/logos/logo_2.png" alt="Ytaron">
+        <img src="images/logos/logo_3.png" alt="Manpower">
+        <img src="images/logos/logo_8.png" alt="Match">
+        <img src="images/logos/logo_4.png" alt="MAX">
+        <img src="images/logos/logo_9.png" alt="Castro">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section id="market">
+  <div class="container">
+    <span class="section-label reveal">מנועי צמיחה</span>
+    <h2 class="section-title reveal reveal-delay-1">שוק ה-EdTech הגלובלי</h2>
+    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-display);color:var(--gold);font-size:1.15rem"><em>עתיד החינוך הוא כניסה מואצת לשוק העבודה והכשרה מתמשכת</em></p>
+    <div class="market-hero-stats">
+      <div class="market-stat reveal reveal-delay-1"><div class="ms-val" data-count="348" data-prefix="$" data-suffix="B">0</div><div class="ms-label">שוק EdTech עד 2030</div></div>
+      <div class="market-stat reveal reveal-delay-2"><div class="ms-val" data-count="41" data-prefix="$" data-suffix="B">0</div><div class="ms-label">AI ב-EdTech עד 2030</div></div>
+      <div class="market-stat reveal reveal-delay-3"><div class="ms-val" data-count="13.3" data-suffix="%" data-decimals="1">0</div><div class="ms-label">CAGR 2025&ndash;2030</div></div>
+    </div>
+    <div class="market-drivers">
+      <div class="driver-card reveal reveal-delay-1"><h4>מיומנויות מעל תארים</h4><p>85% מהמעסיקים כיום מעדיפים מיומנויות על תארים פורמליים. Google, Apple, IBM, Microsoft ביטלו דרישות תואר.</p></div>
+      <div class="driver-card reveal reveal-delay-2"><h4>פער הכשרה עצום</h4><p>WEF מעריך ש-40-60% מהעובדים זקוקים להכשרה מחדש עד 2030, אך רק 28% מהארגונים מתכננים באופן פעיל שדרוג מיומנויות.</p></div>
+      <div class="driver-card reveal reveal-delay-3"><h4>AI משנה כל מקצוע</h4><p>אוריינות AI ושיתוף פעולה אדם-AI הופכים למיומנויות חיוניות בכל שוק העבודה, מחשבונאות ועד עיצוב.</p></div>
+      <div class="driver-card reveal reveal-delay-4"><h4>בום הכשרות ארגוניות</h4><p>מעל 65% מהחברות בישראל משקיעות בשדרוג מיומנויות עובדים, מניעות ביקוש לפתרונות EdTech ארגוניים.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section id="whynow">
+  <div class="container">
+    <span class="section-label reveal">תזמון</span>
+    <h2 class="section-title reveal reveal-delay-1">למה עכשיו?</h2>
+    <p class="section-sub reveal reveal-delay-2">שלושה דברים קורים בו-זמנית. החלון הזה לא יישאר פתוח.</p>
+    <div class="whynow-grid">
+      <div class="whynow-card reveal reveal-delay-1">
+        <span class="wn-num">01</span>
+        <div class="wn-icon">&#129302;</div>
+        <h4>AI משכתב את שוק העבודה</h4>
+        <p>40-60% מהעובדים זקוקים להכשרה מחדש עד 2030. כולם מוכרים קורסי AI. אנחנו היחידים עם <strong>מכונת מכירות מוכחת שממירה בסקייל</strong> &mdash; 46% שיעור שדרוג, 7,200+ סטודנטים, רווחיים מהיום הראשון.</p>
+        <div class="wn-stat">WEF: 1.4 מיליארד עובדים זקוקים להכשרה עד 2030</div>
+      </div>
+      <div class="whynow-card reveal reveal-delay-2">
+        <span class="wn-num">02</span>
+        <div class="wn-icon">&#127757;</div>
+        <h4>השוק דובר הערבית פתוח לרווחה</h4>
+        <p>$4.5B TAM ב-EdTech של המפרץ. 50%+ מהאוכלוסייה מתחת לגיל 30. הסכמי אברהם פותחים שותפויות ישראליות. <strong>הקורסים שלנו כבר מלוקלזים בערבית.</strong> חלון ההזדמנות נסגר מהר.</p>
+        <div class="wn-stat">15.5M סטודנטים פוטנציאליים &middot; 6 מדינות GCC</div>
+      </div>
+      <div class="whynow-card reveal reveal-delay-3">
+        <span class="wn-num">03</span>
+        <div class="wn-icon">&#128737;</div>
+        <h4>חלון הקונסולידציה פתוח</h4>
+        <p>לחינוך המקצועי בישראל <strong>אין מוביל שוק</strong>. זיהינו 3 יעדי רכישה עם תקציב מאושר של 19 מיליון ש״ח. ה-playbook של ה-roll-up מוכח. הפייפליין חי. יתרון הראשון הוא הכל.</p>
+        <div class="wn-stat">3 יעדים זוהו &middot; 19M ש״ח מאושרים</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH DRIVERS -->
+<section id="growth">
+  <div class="container">
+    <span class="section-label reveal">מנועי צמיחה</span>
+    <h2 class="section-title reveal reveal-delay-1">שלושה מנועי צמיחה</h2>
+
+    <!-- Selector Cards -->
+    <div class="gd-selector reveal reveal-delay-2">
+      <div class="gd-card active" onclick="showGrowth(0,this)">
+        <div class="gd-num">מנוע 01</div>
+        <div class="gd-icon">&#128200;</div>
+        <div class="gd-title">AI כמנוע צמיחה</div>
+        <div class="gd-stat">30% מההכנסות עד 2027</div>
+      </div>
+      <div class="gd-card" onclick="showGrowth(1,this)">
+        <div class="gd-num">מנוע 02</div>
+        <div class="gd-icon">&#127758;</div>
+        <div class="gd-title">שווקים דוברי ערבית</div>
+        <div class="gd-stat">$4.5B TAM &middot; 6 מדינות</div>
+      </div>
+      <div class="gd-card" onclick="showGrowth(2,this)">
+        <div class="gd-num">מנוע 03</div>
+        <div class="gd-icon">&#128736;</div>
+        <div class="gd-title">התרחבות מונעת רכישות</div>
+        <div class="gd-stat">110M ש״ח הכנסות עד 2030</div>
+      </div>
+    </div>
+
+    <!-- Content Panels -->
+    <!-- DRIVER 1: AI -->
+    <div class="gd-content active" id="gd-0">
+      <p style="color:var(--text-light);margin-bottom:1.5rem"><em style="font-family:var(--font-display);color:var(--gold);font-size:1.2rem">&laquo;בזמן הבהלה לזהב, כדאי להיות בעסק של כלי העבודה&raquo;</em> <span style="font-size:.85rem">&mdash; מארק טוויין</span></p>
+      <div class="ai-growth-cards">
+        <div class="ai-card"><div class="ai-icon">&#128200;</div><h4>חיזוק מכירות הליבה</h4><p>המרה גבוהה יותר דרך הצעת ערך מועצמת ב-AI ובידול תחרותי</p></div>
+        <div class="ai-card"><div class="ai-icon">&#128640;</div><h4>מנוע שדרוג AI</h4><p>מכירת קורסי AI נוספים לבסיס הסטודנטים הקיים, הגדלת ערך חיי הסטודנט</p></div>
+        <div class="ai-card"><div class="ai-icon">&#127919;</div><h4>השפעה על הכנסות</h4><p>קורסים מונעי AI צפויים להגיע ל-</p><div class="ai-highlight" data-count="30" data-suffix="%">0</div><p style="margin-top:.2rem">מההכנסות ב-2026-2027</p></div>
+      </div>
+    </div>
+
+    <!-- DRIVER 2: GCC -->
+    <div class="gd-content" id="gd-1">
+      <div class="gcc-layout">
+        <div class="gcc-info">
+          <h4>ישראל: מעצמת EdTech</h4>
+          <ul><li>שוק EdTech בשווי ~$1.1B, מהגבוהים לנפש בעולם</li><li>בית ל-500+ סטארטאפי EdTech, מקום 2 בעולם בצפיפות חדשנות EdTech</li><li>בוטקמפים ממומני ממשלה וצנרת טכנולוגית יוצרים תשתית כישרונות</li></ul>
+          <h4 style="margin-top:1.5rem;color:var(--teal)">GCC: הזדמנות של $4.5B</h4>
+          <ul><li>שוק ה-EdTech במפרץ גדל מ-$3.02B ל-$4.47B עד 2030 (6.7% CAGR)</li><li>50%+ מאוכלוסיית המפרץ מתחת לגיל 30, מניע ביקוש ללמידה דיגיטלית</li><li>גיוון כלכלי מהיר מנפט מתדלק ביקוש להכשרה טכנולוגית ומקצועית</li></ul>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--navy);margin-bottom:.5rem">הקצאת TAM במפרץ</h4>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Saudi Arabia</span><div style="height:24px;width:85%;background:var(--navy);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$1,960M</span></div></div>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">UAE</span><div style="height:24px;width:40%;background:var(--gold);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$450M</span></div></div>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Kuwait</span><div style="height:24px;width:20%;background:var(--gold-dim);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$210M</span></div></div>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Qatar</span><div style="height:24px;width:17%;background:var(--teal);border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$180M</span></div></div>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Oman</span><div style="height:24px;width:14%;background:#5a9e8f;border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff">$150M</span></div></div>
+          <div style="display:flex;align-items:center;gap:.8rem"><span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-light);width:90px;text-align:right">Bahrain</span><div style="height:24px;width:8%;background:#8b949e;border-radius:2px;position:relative"><span style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:#fff;white-space:nowrap">$60M</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DRIVER 3: M&A -->
+    <div class="gd-content" id="gd-2">
+      <p style="color:var(--text-light);margin-bottom:.5rem">קונסולידציה של סגמנטי חינוך מפוצלים ב-B2B ו-B2C</p>
+      <p style="color:var(--gold);font-family:var(--font-heading);font-size:1.1rem;margin-bottom:1rem"><strong>פלטפורמת פיתוח כוח אדם מלאה</strong></p>
+
+      <div class="triangle-wrap" id="triWrap">
+        <svg class="tri-svg" viewBox="0 0 650 420" id="triSvg">
+          <line x1="325" y1="70" x2="90" y2="350" stroke="var(--border)" stroke-width="1.5"/>
+          <line x1="325" y1="70" x2="560" y2="350" stroke="var(--border)" stroke-width="1.5"/>
+          <line x1="90" y1="350" x2="560" y2="350" stroke="var(--border)" stroke-width="1.5"/>
+          <path d="M160,340 C100,200 200,100 280,80" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
+          <path d="M370,80 C450,100 550,200 490,340" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
+          <path d="M480,365 C400,400 250,400 170,365" fill="none" stroke="var(--navy)" stroke-width="1.2" marker-end="url(#arrowhead)" opacity=".4"/>
+          <defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="var(--navy)" opacity=".5"/></marker></defs>
+        </svg>
+        <div class="tri-node tri-node-top" onclick="showTriDetail(0)" data-idx="0"><h4>הכשרה מחדש / B2B / B2G</h4><p>White-labeling</p></div>
+        <div class="tri-node tri-node-bl" onclick="showTriDetail(1)" data-idx="1"><h4>תואר ראשון</h4><p>הערכה (K12)</p></div>
+        <div class="tri-node tri-node-br" onclick="showTriDetail(2)" data-idx="2"><h4>הערכה ו</h4><p>השמת כישרונות</p></div>
+        <div class="tri-center"><span>הכשרה<br>לאורך החיים</span></div>
+      </div>
+      <div class="tri-detail" id="triDetail"><p>לחצו על צומת כלשהו כדי לראות כיצד כל סגמנט מזין את הפלטפורמה המלאה</p></div>
+
+      <div style="display:flex;gap:2rem;justify-content:center;margin:2rem 0;flex-wrap:wrap">
+        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px"><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">110M</div><div style="font-size:.75rem;color:rgba(255,255,255,.6)">ש״ח הכנסות הקבוצה 2030</div></div>
+        <div style="text-align:center;padding:1rem 2rem;background:var(--navy);border-radius:4px"><div style="font-family:var(--font-mono);font-size:2rem;font-weight:700;color:var(--gold)">23M</div><div style="font-size:.75rem;color:rgba(255,255,255,.6)">ש״ח EBITDA הקבוצה 2030</div></div>
+      </div>
+
+      <div class="mna-phases" style="margin-top:1.5rem">
+        <div class="mna-phase"><span class="phase-badge">שלב 1</span><div><h4>חינוך K12 / תואר ראשון</h4><p>חברות הכשרה טכנולוגית והכנה למבחנים יוצרות פייפליין סטודנטים מלא</p></div><span class="phase-metrics">10M ש״ח הכנסות | 10% EBITDA</span></div>
+        <div class="mna-phase"><span class="phase-badge">שלב 2</span><div><h4>הכשרות B2B</h4><p>חברת חינוך ארגוני B2B עם שותפויות חזקות. מוסיפה ערוץ B2B וחשיפה בינלאומית.</p></div><span class="phase-metrics">12.4M ש״ח | 55% רווח גולמי | 13% EBITDA</span></div>
+        <div class="mna-phase"><span class="phase-badge">שלב 3</span><div><h4>רכישות נוספות</h4><p>השמת כישרונות, שחקנים מפוצלים נוספים. בניית שרשרת ערך הון אנושי מלאה.</p></div><span class="phase-metrics">פלטפורמה מלאה</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FINANCIALS -->
+<section id="financials">
+  <div class="container">
+    <span class="section-label reveal">ביצועים פיננסיים</span>
+    <h2 class="section-title reveal reveal-delay-1">תמונת מצב פיננסית</h2>
+    <div class="fin-toggle reveal reveal-delay-2">
+      <button class="fin-toggle-btn active" onclick="showFinView('standalone',this)">IPC עצמאית</button>
+      <button class="fin-toggle-btn" onclick="showFinView('consolidated',this)">הקבוצה המאוחדת</button>
+    </div>
+    <!-- STANDALONE -->
+    <div class="fin-view active" id="fin-standalone">
+      <div class="financials-layout">
+        <div>
+          <div class="chart-container reveal"><h3>הכנסות (אלפי ש״ח) <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--gold)">&#9644; בפועל &#9638; תחזית</span></h3><div class="chart-area"><div class="chart-bars">
+            <div class="chart-bar-group"><div class="chart-bar" data-height="29%" style="height:0;background:var(--gold-dim)"><span class="chart-bar-value">23,386</span></div><div class="chart-bar-label">2023A</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="40%" style="height:0;background:var(--gold-dim)"><span class="chart-bar-value">31,920</span></div><div class="chart-bar-label">2024A</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="51%" style="height:0;background:var(--gold)"><span class="chart-bar-value">41,046</span></div><div class="chart-bar-label">2025A</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="51%" style="height:0;background:repeating-linear-gradient(45deg,var(--gold-dim),var(--gold-dim) 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">41,046</span></div><div class="chart-bar-label">2026F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="59%" style="height:0;background:repeating-linear-gradient(45deg,var(--gold-dim),var(--gold-dim) 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">47,203</span></div><div class="chart-bar-label">2027F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="68%" style="height:0;background:repeating-linear-gradient(45deg,var(--gold-dim),var(--gold-dim) 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">54,283</span></div><div class="chart-bar-label">2028F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="78%" style="height:0;background:repeating-linear-gradient(45deg,var(--gold-dim),var(--gold-dim) 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">62,425</span></div><div class="chart-bar-label">2029F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="90%" style="height:0;background:var(--gold)"><span class="chart-bar-value" style="color:var(--gold)">71,789</span></div><div class="chart-bar-label" style="color:var(--gold)">2030F</div></div>
+          </div></div></div>
+          <div class="chart-container chart-ebit reveal" style="margin-top:1.5rem"><h3>EBIT (אלפי ש״ח)</h3><div class="chart-area"><div class="chart-bars">
+            <div class="chart-bar-group"><div class="chart-bar" data-height="26%" style="height:0;background:var(--teal)"><span class="chart-bar-value">4,850</span></div><div class="chart-bar-label">2023A</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="27%" style="height:0;background:var(--teal)"><span class="chart-bar-value">5,055</span></div><div class="chart-bar-label">2024A</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="54%" style="height:0;background:var(--teal)"><span class="chart-bar-value">10,168</span></div><div class="chart-bar-label">2025A</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="57%" style="height:0;background:repeating-linear-gradient(45deg,#1a8a6e,#1a8a6e 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">10,668</span></div><div class="chart-bar-label">2026F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="66%" style="height:0;background:repeating-linear-gradient(45deg,#1a8a6e,#1a8a6e 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">12,268</span></div><div class="chart-bar-label">2027F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="75%" style="height:0;background:repeating-linear-gradient(45deg,#1a8a6e,#1a8a6e 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">14,108</span></div><div class="chart-bar-label">2028F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="87%" style="height:0;background:repeating-linear-gradient(45deg,#1a8a6e,#1a8a6e 2px,transparent 2px,transparent 6px)"><span class="chart-bar-value">16,224</span></div><div class="chart-bar-label">2029F</div></div>
+            <div class="chart-bar-group"><div class="chart-bar" data-height="100%" style="height:0;background:var(--teal)"><span class="chart-bar-value" style="color:var(--teal)">18,658</span></div><div class="chart-bar-label" style="color:var(--teal)">2030F</div></div>
+          </div></div></div>
+        </div>
+        <div class="fin-kpis">
+          <div class="fin-kpi reveal reveal-delay-1"><div class="fk-val" data-count="12" data-suffix="%">0</div><div class="fk-label">CAGR הכנסות (2025-2030)</div></div>
+          <div class="fin-kpi reveal reveal-delay-2"><div class="fk-val" data-count="36" data-suffix="%">0</div><div class="fk-label">שולי רווח גולמי 2025</div></div>
+          <div class="fin-kpi reveal reveal-delay-3"><div class="fk-val" data-count="26" data-suffix="%">0</div><div class="fk-label">שולי EBIT עד 2030</div></div>
+          <div class="fin-kpi reveal reveal-delay-4"><div class="fk-val" data-count="29" data-suffix="%">0</div><div class="fk-label">צמיחת הכנסות שנתית 2025</div></div>
+          <div class="fin-kpi reveal reveal-delay-5"><div class="fk-val">ללא חוב</div><div class="fk-label">מאזן עד 2030</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- CONSOLIDATED -->
+    <div class="fin-view" id="fin-consolidated">
+      <div class="financials-layout">
+        <div>
+          <div class="chart-container">
+            <h3>הכנסות הקבוצה (אלפי ש״ח)</h3>
+            <div class="chart-area"><div class="chart-bars">
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="55%" style="height:0"><span class="stack-value">60,000</span><div class="chart-bar-seg" style="height:15%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:17%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:68%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2025A</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="58%" style="height:0"><span class="stack-value">63,000</span><div class="chart-bar-seg" style="height:15%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:20%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:65%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2026F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="68%" style="height:0"><span class="stack-value">75,000</span><div class="chart-bar-seg" style="height:18%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:22%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:60%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2027F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="77%" style="height:0"><span class="stack-value">85,000</span><div class="chart-bar-seg" style="height:20%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:24%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:56%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2028F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="86%" style="height:0"><span class="stack-value">95,000</span><div class="chart-bar-seg" style="height:22%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:26%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:52%;background:var(--gold-dim)"></div></div><div class="chart-bar-label">2029F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="100%" style="height:0"><span class="stack-value" style="color:var(--gold)">110,000</span><div class="chart-bar-seg" style="height:24%;background:rgba(255,255,255,.25)"></div><div class="chart-bar-seg" style="height:28%;background:var(--gold)"></div><div class="chart-bar-seg" style="height:48%;background:var(--gold-dim)"></div></div><div class="chart-bar-label" style="color:var(--gold)">2030F</div></div>
+            </div></div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--gold-dim)"></div>מכללת IPC</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--gold)"></div>K12 / תואר ראשון</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4)"></div>B2B</div>
+            </div>
+          </div>
+          <div class="chart-container chart-ebit" style="margin-top:1.5rem">
+            <h3>EBIT הקבוצה (אלפי ש״ח)</h3>
+            <div class="chart-area"><div class="chart-bars">
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="52%" style="height:0"><span class="stack-value">12,000</span><div class="chart-bar-seg" style="height:13%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:12%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:75%;background:var(--teal)"></div></div><div class="chart-bar-label">2025A</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="57%" style="height:0"><span class="stack-value">13,000</span><div class="chart-bar-seg" style="height:14%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:14%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:72%;background:var(--teal)"></div></div><div class="chart-bar-label">2026F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="65%" style="height:0"><span class="stack-value">15,000</span><div class="chart-bar-seg" style="height:16%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:16%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:68%;background:var(--teal)"></div></div><div class="chart-bar-label">2027F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="76%" style="height:0"><span class="stack-value">17,500</span><div class="chart-bar-seg" style="height:17%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:18%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:65%;background:var(--teal)"></div></div><div class="chart-bar-label">2028F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="87%" style="height:0"><span class="stack-value">20,000</span><div class="chart-bar-seg" style="height:18%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:20%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:62%;background:var(--teal)"></div></div><div class="chart-bar-label">2029F</div></div>
+              <div class="chart-bar-group"><div class="chart-bar-stack" data-height="100%" style="height:0"><span class="stack-value" style="color:var(--teal)">23,000</span><div class="chart-bar-seg" style="height:20%;background:rgba(255,255,255,.2)"></div><div class="chart-bar-seg" style="height:22%;background:#1a8a6e"></div><div class="chart-bar-seg" style="height:58%;background:var(--teal)"></div></div><div class="chart-bar-label" style="color:var(--teal)">2030F</div></div>
+            </div></div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:var(--teal)"></div>מכללת IPC</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#1a8a6e"></div>K12 / תואר ראשון</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4)"></div>B2B</div>
+            </div>
+          </div>
+        </div>
+        <div class="fin-kpis">
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">110M</div><div class="fk-label">ש״ח הכנסות עד 2030</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">23M</div><div class="fk-label">ש״ח EBIT עד 2030</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--gold)">12%</div><div class="fk-label">CAGR הכנסות</div></div>
+          <div class="fin-kpi"><div class="fk-val" style="color:var(--teal)">21%</div><div class="fk-label">שולי EBIT עד 2030</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <span class="section-label reveal">הנהגה</span>
+    <h2 class="section-title reveal reveal-delay-1">צוות</h2>
+    <p class="section-sub reveal reveal-delay-2">ל-IPC צוות חזק של 60+ עובדים, כולל הנהלה, מחנכים, מומחי טכנולוגיה וצוותי תמיכה</p>
+    <div class="team-grid">
+      <div class="team-card reveal reveal-delay-1"><div class="team-avatar"><img src="images/doron_alter.png" alt="Doron Alter"></div><h3>דורון אלתר</h3><div class="team-role">מנכ״ל</div><p>המנוע התפעולי מאחורי ההתרחבות המהירה של IPC מאמצע 2022. הוביל מעבר לחינוך מקוון בשוליים גבוהים. מנהיגות משתרעת על פיתוח קורסים, אינטגרציה טכנולוגית, B2B, white-label ותוכניות בינלאומיות.</p></div>
+      <div class="team-card reveal reveal-delay-2"><div class="team-avatar"><img src="images/shay_piron.png" alt="Shay Moshe Piron"></div><h3>שי משה פירון</h3><div class="team-role">נשיא המכללה</div><p>שר החינוך לשעבר של מדינת ישראל. עשרות שנות מנהיגות במדיניות ורפורמה חינוכית. מחזק את הפרופיל הציבורי של IPC ואת האמון המוסדי כמוביל דעה לאומי.</p></div>
+      <div class="team-card reveal reveal-delay-3"><div class="team-avatar"><img src="images/andrey_yashunsky.png" alt="Andrey Yashunsky"></div><h3>אנדריי ישונסקי</h3><div class="team-role">יו״ר</div><p>משקיע ועושה עסקאות מנוסה. ניסיון עמוק בהון סיכון, פרייבט אקוויטי וניהול נכסים. מומחיות חזקה ברכישות ומיזוגים ובבניית פלטפורמות במספר שווקים.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section id="investment">
+  <div class="container">
+    <span class="section-label reveal">תנאי העסקה</span>
+    <h2 class="section-title reveal reveal-delay-1">הצטרפו לסבב</h2>
+    <p class="section-sub reveal reveal-delay-2" style="font-family:var(--font-mono);font-size:.85rem;color:var(--red)">סגירת הסבב מאי 2026 &mdash; הקצאה מוגבלת</p>
+    <div class="invest-dashboard reveal reveal-delay-2">
+      <div class="invest-inputs">
+        <h3>בניית תרחישים</h3>
+        <div class="input-row">
+          <label>מכפיל יציאה (x EBITDA)</label>
+          <div class="slider-wrap">
+            <input type="range" id="slider-multiple" min="8" max="10" step="0.5" value="10" oninput="calcInvest()">
+            <span class="slider-val" id="val-multiple">10.0x</span>
+          </div>
+        </div>
+        <div class="input-row">
+          <label>EBITDA ביציאה (מיליוני ש״ח)</label>
+          <div class="slider-wrap">
+            <input type="range" id="slider-ebitda" min="15" max="23.2" step="0.1" value="23.2" oninput="calcInvest()">
+            <span class="slider-val" id="val-ebitda">23.2M</span>
+          </div>
+        </div>
+        <div class="invest-fixed">
+          <div class="invest-fixed-item"><div class="ifi-label">השקעה</div><div class="ifi-val">3M ש״ח</div></div>
+          <div class="invest-fixed-item"><div class="ifi-label">אחזקה אפקטיבית</div><div class="ifi-val">7.7%</div></div>
+          <div class="invest-fixed-item"><div class="ifi-label">תקופה</div><div class="ifi-val">עד 5 שנים</div></div>
+        </div>
+        <p style="font-size:.65rem;color:var(--text-light);margin-top:.8rem;line-height:1.4;font-style:italic">* 10% לפני דילול. אחזקה אפקטיבית של 7.7% לאחר דילול ו-ESOP. כל חישובי התשואה משתמשים בנתון 7.7%.</p>
+      </div>
+      <div class="invest-output">
+        <h3>ניתוח תשואות</h3>
+        <div class="output-row"><span class="or-label">שווי חברה (ללא חוב)</span><span class="or-val" id="out-ev">232.0M NIS</span></div>
+        <div class="output-row"><span class="or-label">חלק המשקיע 7.7% (לאחר דילול)</span><span class="or-val" id="out-share">17.9M NIS</span></div>
+        <div class="output-row"><span class="or-label">סכום השקעה</span><span class="or-val" style="color:rgba(255,255,255,.6)">3.0M NIS</span></div>
+        <div class="output-row"><span class="or-label">רווח</span><span class="or-val" id="out-profit">20.2M NIS</span></div>
+        <div class="output-row highlight"><span class="or-label">תשואה על ההשקעה</span><span class="or-val" id="out-coc">7.7x</span></div>
+      </div>
+    </div>
+    <div class="invest-benefits">
+      <div class="invest-benefit reveal reveal-delay-1"><h4>רווחים אמיתיים, לא הבטחות</h4><p>זו לא השקעה לפני הכנסות. IPC כבר ב-41 מיליון ש״ח הכנסות עם שולי EBIT של 25% ובצמיחה.</p></div>
+      <div class="invest-benefit reveal reveal-delay-2"><h4>רוח גבית של $350 מיליארד</h4><p>EdTech הגלובלי בשגשוג. AI הוא המאיץ. אנחנו רוכבים על הגל עם מכונה שכבר עובדת.</p></div>
+      <div class="invest-benefit reveal reveal-delay-3"><h4>ה-GCC הבא בתור</h4><p>שוק של $4.5B, 15.5M סטודנטים פוטנציאליים, קורסים כבר בערבית. הסכמי אברהם פתחו את הדלת. אנחנו עוברים דרכה.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label reveal">צרו קשר</span>
+    <h2 class="section-title reveal reveal-delay-1" style="color:#fff">מעוניינים? בואו נדבר.</h2>
+    <div class="contact-layout">
+      <div class="contact-info reveal reveal-delay-2">
+        <p>מעוניינים בעסקה? יש שאלות על המבנה, השוק או הצוות? שלחו לנו הודעה. נשמח לשתף חומרים נוספים, להדריך אתכם במודל, או לתאם שיחה עם המנכ״ל.</p>
+        <p>כל השיחות סודיות.</p>
+      </div>
+      <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="return submitContact(event)" action="https://formsubmit.co/ajax/invest@prytek.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="שם מלא" required>
+          <input type="text" name="company" placeholder="חברה / קרן">
+        </div>
+        <input type="email" name="email" placeholder="כתובת דוא״ל" required>
+        <input type="text" name="phone" placeholder="מספר טלפון">
+        <textarea name="message" rows="4" placeholder="ההודעה או השאלות שלכם..."></textarea>
+        <button type="submit">שליחת פנייה</button>
+      </form>
+      <div class="form-success" id="formSuccess"><h4>תודה על ההתעניינות.</h4><p>ניצור קשר תוך 24 שעות. בינתיים, תזכורת לתנאים: <strong style="color:var(--gold)">3M ש״ח עבור 7.7% לאחר דילול</strong> &middot; עד 5 שנים &middot; יציאה ב-8-10x EBITDA &middot; סגירת הסבב מאי 2026.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-logo">ipc<span>.</span></div>
+    <p>Israel Professional College</p>
+    <div class="footer-conf">סודי &middot; לצרכי דיון בלבד</div>
+  </div>
+</footer>
+
+<script>
+// PARTICLES (hero only, gold on dark)
+(function(){
+  const c=document.getElementById('hero-canvas'),ctx=c.getContext('2d');let w,h,pts=[];
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+  window.addEventListener('resize',resize);resize();
+  class P{constructor(){this.reset()}reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+.5;this.a=Math.random()*.3+.1}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${this.a})`;ctx.fill()}}
+  for(let i=0;i<60;i++)pts.push(new P());
+  function loop(){ctx.clearRect(0,0,w,h);pts.forEach(p=>{p.update();p.draw()});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<140){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(201,168,76,${.05*(1-d/140)})`;ctx.lineWidth=.5;ctx.stroke()}}requestAnimationFrame(loop)}loop();
+})();
+
+// HERO SPARKLINE (revenue growth: 23M -> 32M -> 41M)
+(function(){
+  const sp=document.getElementById('heroSparkline');
+  if(!sp)return;
+  const vals=[23,32,41];const max=45;
+  vals.forEach((v,i)=>{
+    const bar=document.createElement('div');bar.className='sp-bar';
+    bar.style.height='0';bar.title=v+'M';
+    setTimeout(()=>{bar.style.height=Math.round(v/max*28)+'px'},800+i*300);
+    sp.appendChild(bar);
+  });
+})();
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');animateCounters(e.target);animateBars(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// NAV + FLOATING CTA
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+  const cta=document.getElementById('floatingCta');
+  cta.classList.toggle('visible',window.scrollY>window.innerHeight);
+});
+
+// COUNTERS
+const counted=new Set();
+function animateCounters(el){
+  el.querySelectorAll('[data-count]').forEach(c=>{
+    if(counted.has(c))return;counted.add(c);
+    const t=parseFloat(c.dataset.count),s=c.dataset.suffix||'',p=c.dataset.prefix||'',d=parseInt(c.dataset.decimals)||0,sep=c.dataset.separator==='true',dur=1400,st=performance.now();
+    function tick(now){const pr=Math.min((now-st)/dur,1),ease=1-Math.pow(1-pr,3);let v=t*ease,disp=d>0?v.toFixed(d):sep?Math.round(v).toLocaleString():Math.round(v).toString();c.textContent=p+disp+s;if(pr<1)requestAnimationFrame(tick)}
+    requestAnimationFrame(tick);
+  });
+}
+
+// BARS - convert percentage to pixels based on 250px container
+const barDone=new Set();
+const BAR_MAX_PX=250;
+function animateBars(el){
+  el.querySelectorAll('.chart-bar[data-height]').forEach(b=>{
+    if(barDone.has(b))return;barDone.add(b);
+    const pct=parseFloat(b.dataset.height)/100;
+    const px=Math.round(pct*BAR_MAX_PX);
+    setTimeout(()=>{b.style.height=px+'px'},80);
+  });
+  el.querySelectorAll('.chart-bar-stack[data-height]').forEach(b=>{
+    if(barDone.has(b))return;barDone.add(b);
+    const pct=parseFloat(b.dataset.height)/100;
+    const px=Math.round(pct*BAR_MAX_PX);
+    setTimeout(()=>{b.style.height=px+'px'},80);
+  });
+}
+
+// FIN TOGGLE
+function showFinView(v,btn){
+  document.querySelectorAll('.fin-view').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.fin-toggle-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('fin-'+v).classList.add('active');btn.classList.add('active');
+  const ct=document.getElementById('fin-'+v);
+  ct.querySelectorAll('.chart-bar[data-height]').forEach(b=>{b.style.height='0';barDone.delete(b);const px=Math.round(parseFloat(b.dataset.height)/100*BAR_MAX_PX);setTimeout(()=>{b.style.height=px+'px';barDone.add(b)},80)});
+  ct.querySelectorAll('.chart-bar-stack[data-height]').forEach(b=>{b.style.height='0';barDone.delete(b);const px=Math.round(parseFloat(b.dataset.height)/100*BAR_MAX_PX);setTimeout(()=>{b.style.height=px+'px';barDone.add(b)},80)});
+}
+
+// INVESTMENT CALCULATOR
+function calcInvest(){
+  const multiple=parseFloat(document.getElementById('slider-multiple').value);
+  const ebitda=parseFloat(document.getElementById('slider-ebitda').value);
+  const investment=3; // 3M NIS fixed
+  const stake=0.077; // 7.7% post-dilution and ESOP
+  const ev=multiple*ebitda;
+  const share=ev*stake;
+  const profit=share-investment;
+  const coc=share/investment;
+  document.getElementById('val-multiple').textContent=multiple.toFixed(1)+'x';
+  document.getElementById('val-ebitda').textContent=ebitda.toFixed(1)+'M';
+  document.getElementById('out-ev').textContent=ev.toFixed(1)+'M NIS';
+  document.getElementById('out-share').textContent=share.toFixed(1)+'M NIS';
+  document.getElementById('out-profit').textContent=profit.toFixed(1)+'M NIS';
+  document.getElementById('out-coc').textContent=coc.toFixed(1)+'x';
+}
+calcInvest();
+
+// GROWTH DRIVER SELECTOR
+function showGrowth(idx,card){
+  document.querySelectorAll('.gd-card').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.gd-content').forEach(c=>c.classList.remove('active'));
+  card.classList.add('active');
+  const panel=document.getElementById('gd-'+idx);
+  panel.classList.add('active');
+  animateCounters(panel);
+  // Trigger SVG animation if M&A panel
+  if(idx===2){const svg=document.getElementById('triSvg');if(svg)svg.classList.add('animated')}
+}
+
+// VISION UNIT TABS
+function showUnit(idx,btn){
+  document.querySelectorAll('.unit-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.unit-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('unit-'+idx).classList.add('active');
+  // Animate counters in newly visible panel
+  animateCounters(document.getElementById('unit-'+idx));
+}
+
+// TRIANGLE DIAGRAM - nodes linked to M&A phases
+// idx 0 = Reskilling (top) -> Phase 2 (B2B Trainings)
+// idx 1 = Undergraduate (bottom-left) -> Phase 1 (K12)
+// idx 2 = Talent Placement (bottom-right) -> Phase 3 (Bolt-ons)
+const triDetails=[
+  {title:'הכשרה מחדש / B2B / B2G / White-labeling',text:'תוכניות שדרוג מיומנויות ארגוניות דרך <strong>ערוצי B2B ו-B2G</strong>. שותפויות white-label מאפשרות סקייל מהיר ללא בניית מותגים חדשים. סטודנטים חוזרים באופן רציף להכשרה מחדש ככל שתעשיות מתפתחות.',phase:1},
+  {title:'הערכת תואר ראשון (K12)',text:'חברות <strong>K12 והכנה למבחנים</strong> מזינות את ראש המשפך. סטודנטים נכנסים למערכת האקולוגית מוקדם דרך הכנה לבגרויות, ואז זורמים באופן טבעי להכשרה מקצועית וקורסים מקצועיים.',phase:0},
+  {title:'הערכה והשמת כישרונות',text:'<strong>סוכנות השמה</strong> מורשית (משרד העבודה #3142) סוגרת את המעגל. בוגרים מוערכים, מותאמים ל-100+ שותפי גיוס, ומושמים בקריירה \u2014 מניע שביעות רצון מעסיקים ופייפליין הפניות חזרה למערכת.',phase:2}
+];
+function showTriDetail(idx){
+  document.querySelectorAll('.tri-node').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.tri-node')[idx].classList.add('active');
+  const d=triDetails[idx];
+  document.getElementById('triDetail').innerHTML='<p><strong style="color:var(--gold)">'+d.title+'</strong><br>'+d.text+'</p>';
+  // Highlight matching M&A phase
+  document.querySelectorAll('.mna-phase').forEach((p,i)=>{
+    p.classList.toggle('phase-highlight',i===d.phase);
+  });
+}
+// Animate SVG lines on scroll
+const triObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)document.getElementById('triSvg').classList.add('animated')})},{threshold:.3});
+const tw=document.getElementById('triWrap');
+if(tw)triObs.observe(tw);
+
+// HIGHLIGHT 2030 TERMINAL YEAR BARS
+document.querySelectorAll('.chart-bar-label').forEach(l=>{
+  if(l.textContent.trim()==='2030F') l.closest('.chart-bar-group').classList.add('terminal');
+});
+
+// CONTACT FORM - sends via FormSubmit.co (no signup needed)
+function submitContact(e){
+  e.preventDefault();
+  const f=document.getElementById('contactForm');
+  const btn=f.querySelector('button');
+  btn.textContent='שולח...';btn.disabled=true;
+  const data=new FormData(f);
+  data.append('_subject','פנייה להשקעה ב-IPC');
+  data.append('_template','table');
+  fetch('https://formsubmit.co/ajax/invest@prytek.com',{
+    method:'POST',
+    body:data,
+    headers:{'Accept':'application/json'}
+  }).then(r=>r.json()).then(data=>{
+    if(data.success){
+      f.style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+    } else {
+      btn.textContent='שליחת פנייה';btn.disabled=false;
+      alert('לא ניתן לשלוח. אנא שלחו לנו דוא״ל ישירות.');
+    }
+  }).catch(()=>{
+    btn.textContent='שליחת פנייה';btn.disabled=false;
+    alert('שגיאת רשת. אנא נסו שוב.');
+  });
+  return false;
+}
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'})})});
+</script>
+</body>
+</html>
