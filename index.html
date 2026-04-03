@@ -891,7 +891,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       <div class="ai-growth-cards">
         <div class="ai-card"><div class="ai-icon">&#128200;</div><h4>Strengthening Core Sales</h4><p>Higher conversion through AI-enhanced value proposition and competitive differentiation</p></div>
         <div class="ai-card"><div class="ai-icon">&#128640;</div><h4>AI Upsell Engine</h4><p>Selling AI add-on courses to existing student base, increasing lifetime value per student</p></div>
-        <div class="ai-card"><div class="ai-icon">&#127919;</div><h4>Revenue Impact</h4><p>AI-driven courses projected to reach</p><div class="ai-highlight" data-count="30" data-suffix="%">0</div><p style="margin-top:.2rem">of revenue in 2026-2027</p></div>
+        <div class="ai-card"><div class="ai-icon">&#127919;</div><h4>Revenue Impact</h4><p>AI-driven courses projected to reach</p><div class="ai-highlight">30-40%</div><p style="margin-top:.2rem">of revenue in 2026-2027</p></div>
       </div>
     </div>
 
@@ -1318,10 +1318,14 @@ function showGrowth(idx,card){
   card.classList.add('active');
   const panel=document.getElementById('gd-'+idx);
   panel.classList.add('active');
+  // Reset and re-trigger counters in this panel
+  panel.querySelectorAll('[data-count]').forEach(c=>{counted.delete(c)});
   animateCounters(panel);
-  // Trigger SVG animation if M&A panel
   if(idx===2){const svg=document.getElementById('triSvg');if(svg)svg.classList.add('animated')}
 }
+// Fire counters on initially active growth panel
+const initGd=document.getElementById('gd-0');
+if(initGd){const gdObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)animateCounters(e.target)})},{threshold:.2});gdObs.observe(initGd)}
 
 // VISION UNIT TABS
 function showUnit(idx,btn){
