@@ -34,6 +34,26 @@ body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:h
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}.reveal-delay-5{transition-delay:.5s}
 
+/* LANGUAGE SWITCH */
+.lang-switch{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:flex;gap:.3rem}
+.lang-switch a{font-family:var(--font-mono);font-size:.6rem;color:rgba(255,255,255,.4);text-decoration:none;padding:.2rem .5rem;border:1px solid transparent;transition:all .3s}
+.lang-switch a.active{color:var(--gold);border-color:rgba(201,168,76,.3)}
+.lang-switch a:hover{color:var(--gold)}
+
+/* HERO LOGO + SPARKLINE */
+.hero-logo{height:50px;margin-bottom:1.5rem;opacity:.9}
+.hero-sparkline{display:inline-flex;align-items:flex-end;gap:3px;margin-left:1.5rem;vertical-align:middle}
+.hero-sparkline .sp-bar{width:8px;border-radius:2px 2px 0 0;background:var(--gold);transition:height 1s ease}
+
+/* TESTIMONIAL PHOTO */
+.testimonial-photo{width:80px;height:80px;border-radius:50%;margin:0 auto 1.2rem;overflow:hidden;border:2px solid var(--gold)}
+.testimonial-photo img{width:100%;height:100%;object-fit:cover}
+
+/* FORM SUCCESS IMPROVED */
+.form-success{display:none;background:rgba(45,212,168,.08);border:1px solid var(--teal);padding:2rem;text-align:center;color:var(--teal)}
+.form-success h4{font-family:var(--font-heading);font-size:1.1rem;margin-bottom:.5rem;color:#fff}
+.form-success p{font-size:.85rem;color:rgba(255,255,255,.6)}
+
 /* URGENCY TICKER */
 .urgency-bar{
   position:fixed;top:0;left:0;right:0;z-index:200;
@@ -440,7 +460,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 <body>
 
 <!-- URGENCY TICKER -->
-<div class="urgency-bar"><span class="ub-dot"></span>ROUND CLOSING MAY 2026 &mdash; LIMITED ALLOCATION</div>
+<div class="urgency-bar" style="position:relative"><span class="ub-dot"></span>ROUND CLOSING MAY 2026 &mdash; LIMITED ALLOCATION<div class="lang-switch"><a href="index.html" class="active">EN</a><a href="he.html">HE</a></div></div>
 
 <!-- FLOATING CTA -->
 <a href="#contact" class="floating-cta" id="floatingCta">Request Access</a>
@@ -466,11 +486,12 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="container hero-content">
-    <div class="hero-badge reveal">CONFIDENTIAL &middot; MARCH 2026</div>
-    <h1 class="hero-title reveal reveal-delay-1">The AI Reskilling Wave Is Here.<br><em>We're Already Profitable.</em></h1>
-    <p class="hero-sub reveal reveal-delay-2">Israel's #1 and largest vocational education platform. 25% EBIT margin. 92% recommendation rate. Now scaling to the $4.5B Arab-speaking market.</p>
-    <div class="hero-kpis reveal reveal-delay-3">
-      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">Revenue 2025A</div></div>
+    <img src="images/ipc_logo.png" alt="IPC" class="hero-logo reveal">
+    <div class="hero-badge reveal reveal-delay-1">CONFIDENTIAL &middot; MARCH 2026</div>
+    <h1 class="hero-title reveal reveal-delay-2">The AI Reskilling Wave Is Here.<br><em>We're Already Profitable<br>and Biggest on the Market.</em></h1>
+    <p class="hero-sub reveal reveal-delay-3">Israel's #1 vocational platform. NIS 41M revenue. 25% EBIT margin. 92% of students recommend us. Now taking this machine to the $4.5B Arab-speaking market.</p>
+    <div class="hero-kpis reveal reveal-delay-4">
+      <div class="hero-kpi"><div class="hero-kpi-value" data-count="41" data-suffix="M NIS">0</div><div class="hero-kpi-label">Revenue 2025A <span class="hero-sparkline" id="heroSparkline"></span></div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="10.2" data-suffix="M NIS" data-decimals="1">0</div><div class="hero-kpi-label">EBIT 2025A</div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="7200" data-suffix="+" data-separator="true">0</div><div class="hero-kpi-label">Students per Year</div></div>
       <div class="hero-kpi"><div class="hero-kpi-value" data-count="25" data-suffix="+">0</div><div class="hero-kpi-label">Programs</div></div>
@@ -517,6 +538,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 <!-- TESTIMONIAL -->
 <div class="testimonial">
   <div class="container testimonial-inner reveal">
+    <div class="testimonial-photo"><img src="images/shay_piron.png" alt="Rabbi Shay Moshe Piron"></div>
     <blockquote>&ldquo;IPC College is more than an academic institution &mdash; it is a new path in the world of employment and professional training in Israel. We don't just teach &mdash; we unlock each student's potential and create equal opportunities for all.&rdquo;</blockquote>
     <cite>
       <span class="cite-name">Rabbi Shay Moshe Piron</span>
@@ -758,7 +780,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
   <div class="container">
     <span class="section-label reveal">Timing</span>
     <h2 class="section-title reveal reveal-delay-1">Why Now?</h2>
-    <p class="section-sub reveal reveal-delay-2">Three forces are converging to create a once-in-a-decade entry point</p>
+    <p class="section-sub reveal reveal-delay-2">Three things are happening at the same time. This window won't stay open.</p>
     <div class="whynow-grid">
       <div class="whynow-card reveal reveal-delay-1">
         <span class="wn-num">01</span>
@@ -1027,9 +1049,9 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       </div>
     </div>
     <div class="invest-benefits">
-      <div class="invest-benefit reveal reveal-delay-1"><h4>Profitable EdTech Equity</h4><p>Equity in a profitable, growing EdTech company with proven unit economics and strong cash generation</p></div>
-      <div class="invest-benefit reveal reveal-delay-2"><h4>$350B+ Global Market</h4><p>Exposure to the massive global EdTech market with AI-driven growth accelerating demand</p></div>
-      <div class="invest-benefit reveal reveal-delay-3"><h4>New Markets Access</h4><p>Access to $4.5B GCC market expansion via strategic partnerships and Abraham Accords</p></div>
+      <div class="invest-benefit reveal reveal-delay-1"><h4>Real Profits, Not Promises</h4><p>This isn't a pre-revenue bet. IPC is already at NIS 41M revenue with 25% EBIT margins and growing.</p></div>
+      <div class="invest-benefit reveal reveal-delay-2"><h4>$350B Tailwind</h4><p>Global EdTech is booming. AI is the accelerant. We're riding the wave with a machine that already works.</p></div>
+      <div class="invest-benefit reveal reveal-delay-3"><h4>GCC Is Next</h4><p>$4.5B market, 15.5M potential students, courses already in Arabic. Abraham Accords opened the door. We're walking through it.</p></div>
     </div>
   </div>
 </section>
@@ -1041,8 +1063,8 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
     <h2 class="section-title reveal reveal-delay-1" style="color:#fff">Interested? Let's Talk.</h2>
     <div class="contact-layout">
       <div class="contact-info reveal reveal-delay-2">
-        <p>We welcome inquiries from qualified investors interested in joining IPC's growth story. Whether you have questions about the opportunity, want to review additional materials, or are ready to discuss terms, we'd love to hear from you.</p>
-        <p>All inquiries are treated as strictly confidential.</p>
+        <p>Interested in the deal? Have questions about the structure, the market, or the team? Drop us a line. We're happy to share additional materials, walk you through the model, or set up a call with the CEO.</p>
+        <p>All conversations are confidential.</p>
       </div>
       <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="return submitContact(event)" action="https://formsubmit.co/ajax/invest@prytek.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
@@ -1056,7 +1078,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
         <textarea name="message" rows="4" placeholder="Your message or questions..."></textarea>
         <button type="submit">Send Inquiry</button>
       </form>
-      <div class="form-success" id="formSuccess">Thank you for your interest. We will be in touch shortly.</div>
+      <div class="form-success" id="formSuccess"><h4>Thank you for your interest.</h4><p>We'll be in touch within 24 hours. In the meantime, here's a reminder of the terms: <strong style="color:var(--gold)">3M NIS for 7.7% post-dilution</strong> &middot; Up to 5 years &middot; 8-10x EBITDA exit &middot; Round closing May 2026.</p></div>
     </div>
   </div>
 </section>
@@ -1078,6 +1100,19 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
   class P{constructor(){this.reset()}reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+.5;this.a=Math.random()*.3+.1}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${this.a})`;ctx.fill()}}
   for(let i=0;i<60;i++)pts.push(new P());
   function loop(){ctx.clearRect(0,0,w,h);pts.forEach(p=>{p.update();p.draw()});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<140){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(201,168,76,${.05*(1-d/140)})`;ctx.lineWidth=.5;ctx.stroke()}}requestAnimationFrame(loop)}loop();
+})();
+
+// HERO SPARKLINE (revenue growth: 23M -> 32M -> 41M)
+(function(){
+  const sp=document.getElementById('heroSparkline');
+  if(!sp)return;
+  const vals=[23,32,41];const max=45;
+  vals.forEach((v,i)=>{
+    const bar=document.createElement('div');bar.className='sp-bar';
+    bar.style.height='0';bar.title=v+'M';
+    setTimeout(()=>{bar.style.height=Math.round(v/max*28)+'px'},800+i*300);
+    sp.appendChild(bar);
+  });
 })();
 
 // SCROLL REVEAL
