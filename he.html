@@ -9,7 +9,7 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px}
-body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:hidden;line-height:1.65}
+body{background:#fff;color:#2c3e50;font-family:'Helvetica Neue',Helvetica,-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden;line-height:1.65}
 ::selection{background:#c9a84c;color:#fff}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:#f0f0f0}
@@ -22,8 +22,8 @@ body{background:#fff;color:#2c3e50;font-family:'Figtree',sans-serif;overflow-x:h
   --white:#ffffff;--red:#c0392b;
   --font-display:'Instrument Serif',serif;
   --font-heading:'Syne',sans-serif;
-  --font-body:'Figtree',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
+  --font-body:'Helvetica Neue',Helvetica,-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'Helvetica Neue',Helvetica,monospace;
 }
 
 .container{max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3.5rem)}
@@ -302,6 +302,38 @@ section:nth-child(even){background:var(--card-bg)}
 .mna-target-label{font-size:.8rem;color:var(--text-light)}
 @media(max-width:900px){.ai-growth-cards,.gcc-layout{grid-template-columns:1fr}.mna-phase{grid-template-columns:1fr}.mna-targets{flex-direction:column}}
 
+/* MOBILE FIXES */
+@media(max-width:600px){
+  section{padding:3.5rem 0}
+  .section-title{font-size:1.6rem}
+  .hero-title{font-size:2rem}
+  .hero-kpis{gap:1.2rem}
+  .hero-kpi-value{font-size:1.4rem}
+  .peers-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -1rem;padding:0 1rem}
+  .peers-table{min-width:550px;font-size:.75rem}
+  .peers-table th,.peers-table td{padding:.5rem .6rem}
+  .discount-visual{flex-direction:column;padding:1.2rem}
+  .discount-stat .ds-val{font-size:2rem}
+  .upside-drivers{grid-template-columns:1fr!important}
+  .invest-dashboard{grid-template-columns:1fr!important}
+  .input-row .slider-val{min-width:45px;font-size:.9rem}
+  .gd-selector{grid-template-columns:1fr!important}
+  .gd-card{padding:1rem}
+  .vision-split{grid-template-columns:1fr!important}
+  .triangle-wrap{height:350px;max-width:100%}
+  .tri-node{min-width:130px;padding:.6rem .8rem}
+  .tri-node h4{font-size:.75rem}
+  .tri-center{width:90px;height:90px}
+  .tri-center span{font-size:.8rem}
+  .fin-charts-row{grid-template-columns:1fr!important}
+  .chart-bar-value{font-size:.45rem}
+  .stack-value{font-size:.45rem!important}
+  .team-grid{grid-template-columns:1fr!important}
+  .marquee-track img{height:35px}
+  .fin-kpi-row{grid-template-columns:1fr 1fr}
+  .fin-kpi .fk-val{font-size:1.5rem;min-width:70px}
+}
+
 /* PLATFORM TRIANGLE */
 .triangle-wrap{position:relative;width:100%;max-width:650px;margin:2rem auto 2.5rem;height:440px}
 .tri-phase-tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;display:block}
@@ -514,7 +546,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
 <body>
 
 <!-- FLOATING CTA -->
-<a href="#contact" class="floating-cta" id="floatingCta">Request Access</a>
+<a href="#investment" class="floating-cta" id="floatingCta">השקיעו עכשיו</a>
 
 <!-- SITE HEADER: urgency + nav together -->
 <div class="site-header" id="siteHeader">
@@ -532,7 +564,7 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       <li><a href="#financials">Financials</a></li>
       <li><a href="#team">Team</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Contact Us</a>
+    <a href="#investment" class="nav-cta">השקיעו</a>
   </div>
   </nav>
 </div><!-- /site-header -->
@@ -1191,33 +1223,6 @@ footer .footer-conf{font-family:var(--font-mono);font-size:.6rem;letter-spacing:
       <div class="invest-benefit reveal reveal-delay-1"><h4>Real Profits, Not Promises</h4><p>This isn't a pre-revenue bet. IPC is already at NIS 41M revenue with 25% EBIT margins and growing.</p></div>
       <div class="invest-benefit reveal reveal-delay-2"><h4>$350B Tailwind</h4><p>Global EdTech is booming. AI is the accelerant. We're riding the wave with a machine that already works.</p></div>
       <div class="invest-benefit reveal reveal-delay-3"><h4>GCC Is Next</h4><p>$4.5B market, 15.5M potential students, courses already in Arabic. Abraham Accords opened the door. We're walking through it.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <span class="section-label reveal">Get in Touch</span>
-    <h2 class="section-title reveal reveal-delay-1" style="color:#fff">Interested? Let's Talk.</h2>
-    <div class="contact-layout">
-      <div class="contact-info reveal reveal-delay-2">
-        <p>Interested in the deal? Have questions about the structure, the market, or the team? Drop us a line. We're happy to share additional materials, walk you through the model, or set up a call with the CEO.</p>
-        <p>All conversations are confidential.</p>
-      </div>
-      <form class="contact-form reveal reveal-delay-3" id="contactForm" onsubmit="return submitContact(event)" action="https://formsubmit.co/ajax/invest@prytek.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" style="display:none">
-        <div class="form-row">
-          <input type="text" name="name" placeholder="Full Name" required>
-          <input type="text" name="company" placeholder="Company / Fund">
-        </div>
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="text" name="phone" placeholder="Phone Number">
-        <textarea name="message" rows="4" placeholder="Your message or questions..."></textarea>
-        <button type="submit">Send Inquiry</button>
-      </form>
-      <div class="form-success" id="formSuccess"><h4>Thank you for your interest.</h4><p>We'll be in touch within 24 hours. In the meantime, here's a reminder of the terms: <strong style="color:var(--gold)">3M NIS for 7.7% post-dilution</strong> &middot; Up to 5 years &middot; 8-10x EBITDA exit &middot; Round closing May 2026.</p></div>
     </div>
   </div>
 </section>
