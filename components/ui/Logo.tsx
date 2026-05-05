@@ -13,47 +13,38 @@ export default function Logo({ className = "", height = 24 }: { className?: stri
       role="img"
       aria-label="Ownera Capital"
     >
-      {/* Icon — stylized "O" with upward arrow, representing ownership transition */}
-      <g transform="translate(0, 2)">
-        {/* Outer ring */}
-        <circle cx="14" cy="14" r="12" stroke="currentColor" strokeWidth="2.5" fill="none" />
-        {/* Arrow cutting through — upward momentum */}
-        <path
-          d="M14 22 L14 6 M10 10 L14 5 L18 10"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
+      {/* Icon — two overlapping squares: ownership transfer */}
+      <g transform="translate(2, 4)">
+        <rect x="0" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2" fill="none" />
+        <rect x="6" y="0" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="2" fill="currentColor" fillOpacity="0.15" />
       </g>
 
       {/* OWNERA — bold */}
       <text
-        x="38"
-        y="20"
+        x="34"
+        y="21"
         fill="currentColor"
         style={{
           fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-          fontSize: "19px",
+          fontSize: "18px",
           fontWeight: 700,
-          letterSpacing: "0.15em",
+          letterSpacing: "0.14em",
         }}
       >
         OWNERA
       </text>
 
-      {/* CAPITAL — lighter weight */}
+      {/* CAPITAL — light */}
       <text
-        x="160"
-        y="20"
+        x="150"
+        y="21"
         fill="currentColor"
-        opacity="0.5"
+        opacity="0.4"
         style={{
           fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-          fontSize: "19px",
+          fontSize: "18px",
           fontWeight: 300,
-          letterSpacing: "0.15em",
+          letterSpacing: "0.14em",
         }}
       >
         CAPITAL
