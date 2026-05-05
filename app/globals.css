@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #1A1A1A;
+  --color-secondary: #6B6560;
+  --color-subtle: #8A8480;
+  --color-champagne: #C4B089;
+  --color-champagne-light: #D4C5A0;
+  --color-surface: #FAF8F5;
+  --color-dark: #0A0A0A;
+  --color-warm-white: #FDFCFA;
+  --color-background: #FDFCFA;
+  --color-foreground: #1A1A1A;
+
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --text-hero: clamp(40px, 6vw, 72px);
+  --text-hero--line-height: 1.05;
+  --text-hero--font-weight: 200;
+
+  --text-hero-sub: clamp(24px, 3.5vw, 40px);
+  --text-hero-sub--line-height: 1.15;
+  --text-hero-sub--font-weight: 500;
+
+  --text-section: clamp(28px, 4vw, 48px);
+  --text-section--line-height: 1.1;
+  --text-section--font-weight: 500;
+
+  --text-body: 17px;
+  --text-body--line-height: 1.6;
+  --text-body--font-weight: 400;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* {
+  font-family: inherit;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #1A1A1A;
+  background: #0A0A0A;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #C4B089;
+  color: #1A1A1A;
+}
+
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(80px, -60px) scale(1.1); }
+  50% { transform: translate(-40px, 80px) scale(0.95); }
+  75% { transform: translate(60px, 40px) scale(1.05); }
+}
+
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-70px, 50px) scale(1.08); }
+  50% { transform: translate(60px, -70px) scale(0.92); }
+  75% { transform: translate(-30px, -40px) scale(1.03); }
+}
+
+@keyframes drift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, 70px) scale(1.06); }
+  66% { transform: translate(-80px, -30px) scale(0.97); }
+}
