@@ -54,7 +54,7 @@ export default function SectorsPage() {
                   {/* Multiples badge */}
                   <div className="absolute right-4 top-4">
                     <span className="text-xs text-champagne/60">
-                      {sector.multiples} EV/EBITDA
+                      {sector.multiples}
                     </span>
                   </div>
                 </div>
