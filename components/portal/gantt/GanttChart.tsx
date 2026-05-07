@@ -170,6 +170,9 @@ export default function GanttChart({
   const [newMilestoneTitle, setNewMilestoneTitle] = useState("");
   const [newMilestoneDate, setNewMilestoneDate] = useState("");
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+  const [dragSourceId, setDragSourceId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [dragOverPos, setDragOverPos] = useState<"above" | "below" | null>(null);
 
   const selectedTask = selectedTaskId
     ? tasks.find((t) => t.id === selectedTaskId) ?? null
@@ -255,6 +258,32 @@ export default function GanttChart({
       await deleteGanttTask(taskId);
     },
     [tasks, onTasksChange]
+  );
+
+  const handleReorder = useCallback(
+    async (sourceId: string, targetId: string, position: "above" | "below") => {
+      const ordered = [...parentTasks];
+      const srcIdx = ordered.findIndex((t) => t.id === sourceId);
+      let tgtIdx = ordered.findIndex((t) => t.id === targetId);
+      if (srcIdx === -1 || tgtIdx === -1 || srcIdx === tgtIdx) return;
+
+      const [moved] = ordered.splice(srcIdx, 1);
+      // Recalculate target index after removal
+      tgtIdx = ordered.findIndex((t) => t.id === targetId);
+      const insertIdx = position === "below" ? tgtIdx + 1 : tgtIdx;
+      ordered.splice(insertIdx, 0, moved);
+
+      // Build new tasks array with updated sort_order
+      const childTasks = tasks.filter((t) => t.parent_id);
+      const reordered = ordered.map((t, i) => ({ ...t, sort_order: i }));
+      onTasksChange([...reordered, ...childTasks]);
+
+      // Persist sort_order for each moved task
+      for (const t of reordered) {
+        await updateGanttTask(t.id, { sort_order: t.sort_order });
+      }
+    },
+    [parentTasks, tasks, onTasksChange]
   );
 
   const handleAddTask = useCallback(async () => {
@@ -460,6 +489,28 @@ export default function GanttChart({
                     setExpanded((prev) => new Set(prev).add(task.id));
                   }}
                   onDeleteTask={() => handleDeleteTask(task.id)}
+                  isDragOver={dragOverId === task.id ? dragOverPos : null}
+                  onRowDragStart={() => setDragSourceId(task.id)}
+                  onRowDragOver={(pos) => {
+                    if (dragSourceId && dragSourceId !== task.id) {
+                      setDragOverId(task.id);
+                      setDragOverPos(pos);
+                    }
+                  }}
+                  onRowDragLeave={() => {
+                    if (dragOverId === task.id) {
+                      setDragOverId(null);
+                      setDragOverPos(null);
+                    }
+                  }}
+                  onRowDrop={() => {
+                    if (dragSourceId && dragOverId && dragOverPos) {
+                      handleReorder(dragSourceId, dragOverId, dragOverPos);
+                    }
+                    setDragSourceId(null);
+                    setDragOverId(null);
+                    setDragOverPos(null);
+                  }}
                 />
                 {isExp &&
                   children.map((child) => {

@@ -17,6 +17,11 @@ interface GanttTaskRowProps {
   onBarDragEnd?: (newLeft: number, newWidth: number) => void;
   onAddSubTask?: () => void;
   onDeleteTask?: () => void;
+  isDragOver?: "above" | "below" | null;
+  onRowDragStart?: () => void;
+  onRowDragOver?: (position: "above" | "below") => void;
+  onRowDragLeave?: () => void;
+  onRowDrop?: () => void;
 }
 
 export default function GanttTaskRow({
@@ -32,16 +37,51 @@ export default function GanttTaskRow({
   onBarDragEnd,
   onAddSubTask,
   onDeleteTask,
+  isDragOver,
+  onRowDragStart,
+  onRowDragOver,
+  onRowDragLeave,
+  onRowDrop,
 }: GanttTaskRowProps) {
   return (
     <div
       className={cn(
-        "group flex min-h-[44px] border-b border-white/[0.03] transition-colors",
+        "group relative flex min-h-[44px] border-b border-white/[0.03] transition-colors",
         isParent && "bg-white/[0.02]",
-        "hover:bg-white/[0.02]"
+        "hover:bg-white/[0.02]",
+        isDragOver === "above" && "border-t-2 border-t-champagne",
+        isDragOver === "below" && "border-b-2 border-b-champagne"
       )}
+      onDragOver={(e) => {
+        if (!onRowDragOver) return;
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        onRowDragOver(e.clientY < midY ? "above" : "below");
+      }}
+      onDragLeave={onRowDragLeave}
+      onDrop={(e) => {
+        e.preventDefault();
+        onRowDrop?.();
+      }}
     >
-      <div className="flex w-[220px] flex-shrink-0 items-start gap-2 px-4 py-2">
+      <div className="flex w-[220px] flex-shrink-0 items-start gap-1 px-4 py-2">
+        {/* Drag handle */}
+        {isParent && onRowDragStart && (
+          <div
+            draggable
+            onDragStart={(e) => {
+              e.dataTransfer.effectAllowed = "move";
+              onRowDragStart();
+            }}
+            className="mt-1 flex h-4 w-4 flex-shrink-0 cursor-grab items-center justify-center text-[10px] text-[#4B5563] opacity-0 transition-opacity active:cursor-grabbing group-hover:opacity-100"
+            title="Drag to reorder"
+          >
+            ⠿
+          </div>
+        )}
+        {!isParent && <span className="w-4 flex-shrink-0" />}
+
         {isParent ? (
           <button
             onClick={onToggleExpand}
