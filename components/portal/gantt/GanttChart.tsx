@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import type { GanttTask, Milestone } from "@/lib/portal/types";
-import { dateToPercent, percentToDate } from "@/lib/portal/utils";
+import { dateToPercent } from "@/lib/portal/utils";
 import {
   updateGanttTask,
   createGanttTask,
@@ -13,6 +13,7 @@ import {
 import GanttToolbar from "./GanttToolbar";
 import GanttTaskRow from "./GanttTaskRow";
 import GanttMilestone from "./GanttMilestone";
+import GanttTaskPanel from "./GanttTaskPanel";
 
 type TimeScale = "day" | "month" | "quarter";
 
@@ -168,6 +169,11 @@ export default function GanttChart({
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newMilestoneTitle, setNewMilestoneTitle] = useState("");
   const [newMilestoneDate, setNewMilestoneDate] = useState("");
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
+  const selectedTask = selectedTaskId
+    ? tasks.find((t) => t.id === selectedTaskId) ?? null
+    : null;
 
   const parentTasks = useMemo(
     () => tasks.filter((t) => !t.parent_id),
@@ -202,36 +208,23 @@ export default function GanttChart({
 
   // --- Handlers ---
 
-  const handleDragEnd = useCallback(
-    async (task: GanttTask, newLeft: number, newWidth: number) => {
-      const newStart = percentToDate(newLeft, rangeStart, rangeEnd);
-      const newEnd = percentToDate(newLeft + newWidth, rangeStart, rangeEnd);
-      const startStr = newStart.toISOString().split("T")[0];
-      const endStr = newEnd.toISOString().split("T")[0];
-
+  const handlePanelSave = useCallback(
+    async (updates: {
+      title: string;
+      start_date: string;
+      end_date: string;
+      progress: number;
+    }) => {
+      if (!selectedTaskId) return;
       onTasksChange(
         tasks.map((t) =>
-          t.id === task.id
-            ? { ...t, start_date: startStr, end_date: endStr }
-            : t
+          t.id === selectedTaskId ? { ...t, ...updates } : t
         )
       );
-      await updateGanttTask(task.id, {
-        start_date: startStr,
-        end_date: endStr,
-      });
+      await updateGanttTask(selectedTaskId, updates);
+      setSelectedTaskId(null);
     },
-    [tasks, rangeStart, rangeEnd, onTasksChange]
-  );
-
-  const handleEditTask = useCallback(
-    async (taskId: string, title: string) => {
-      onTasksChange(
-        tasks.map((t) => (t.id === taskId ? { ...t, title } : t))
-      );
-      await updateGanttTask(taskId, { title });
-    },
-    [tasks, onTasksChange]
+    [selectedTaskId, tasks, onTasksChange]
   );
 
   const handleDeleteTask = useCallback(
@@ -437,13 +430,12 @@ export default function GanttChart({
                   widthPercent={width}
                   barColor={color}
                   lpVisible={task.lp_visible}
-                  onBarDragEnd={(l, w) => handleDragEnd(task, l, w)}
+                  onBarClick={() => setSelectedTaskId(task.id)}
                   onAddSubTask={() => {
                     clearAdding();
                     setAddingSubTaskFor(task.id);
                     setExpanded((prev) => new Set(prev).add(task.id));
                   }}
-                  onEditTask={(title) => handleEditTask(task.id, title)}
                   onDeleteTask={() => handleDeleteTask(task.id)}
                 />
                 {isExp &&
@@ -467,8 +459,7 @@ export default function GanttChart({
                         widthPercent={Math.max(2, cr - cl)}
                         barColor={color}
                         lpVisible={child.lp_visible}
-                        onBarDragEnd={(l, w) => handleDragEnd(child, l, w)}
-                        onEditTask={(title) => handleEditTask(child.id, title)}
+                        onBarClick={() => setSelectedTaskId(child.id)}
                         onDeleteTask={() => handleDeleteTask(child.id)}
                       />
                     );
@@ -691,6 +682,19 @@ export default function GanttChart({
           │ Today
         </div>
       </div>
+
+      {/* Task detail panel */}
+      {selectedTask && (
+        <GanttTaskPanel
+          task={selectedTask}
+          onSave={handlePanelSave}
+          onDelete={() => {
+            handleDeleteTask(selectedTask.id);
+            setSelectedTaskId(null);
+          }}
+          onClose={() => setSelectedTaskId(null)}
+        />
+      )}
     </div>
   );
 }
