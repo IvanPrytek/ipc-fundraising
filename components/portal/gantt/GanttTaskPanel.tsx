@@ -5,6 +5,7 @@ import type { GanttTask } from "@/lib/portal/types";
 
 interface GanttTaskPanelProps {
   task: GanttTask;
+  hasChildren: boolean;
   onSave: (updates: {
     title: string;
     start_date: string;
@@ -18,6 +19,7 @@ interface GanttTaskPanelProps {
 
 export default function GanttTaskPanel({
   task,
+  hasChildren,
   onSave,
   onDelete,
   onClose,
@@ -84,45 +86,76 @@ export default function GanttTaskPanel({
             </div>
 
             {/* Dates */}
-            <div className="grid grid-cols-2 gap-3">
+            {hasChildren ? (
               <div>
-                <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
-                  Start Date
-                </label>
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full rounded-lg bg-white/5 px-3 py-2.5 text-[14px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
-                />
+                <div className="mb-1.5 text-[11px] uppercase tracking-wider text-[#86868B]">
+                  Dates (auto-calculated from sub-tasks)
+                </div>
+                <div className="rounded-lg bg-white/[0.03] px-4 py-3">
+                  <div className="flex justify-between text-[12px]">
+                    <span className="text-[#86868B]">Start</span>
+                    <span className="text-[#e5e5e5]">
+                      {new Date(startDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </span>
+                  </div>
+                  <div className="mt-1.5 flex justify-between text-[12px]">
+                    <span className="text-[#86868B]">End</span>
+                    <span className="text-[#e5e5e5]">
+                      {new Date(endDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                    </span>
+                  </div>
+                  <div className="mt-1.5 flex justify-between text-[12px]">
+                    <span className="text-[#86868B]">Duration</span>
+                    <span className="text-[#e5e5e5]">
+                      {Math.max(1, Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)))} days
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
-                  End Date
-                </label>
-                <input
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full rounded-lg bg-white/5 px-3 py-2.5 text-[14px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
-                />
-              </div>
-            </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
+                      Start Date
+                    </label>
+                    <input
+                      type="date"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      className="w-full rounded-lg bg-white/5 px-3 py-2.5 text-[14px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
+                      End Date
+                    </label>
+                    <input
+                      type="date"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      className="w-full rounded-lg bg-white/5 px-3 py-2.5 text-[14px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
+                    />
+                  </div>
+                </div>
 
-            {/* Duration display */}
-            {startDate && endDate && (
-              <div className="text-[12px] text-[#86868B]">
-                Duration:{" "}
-                {Math.max(
-                  1,
-                  Math.ceil(
-                    (new Date(endDate).getTime() -
-                      new Date(startDate).getTime()) /
-                      (1000 * 60 * 60 * 24)
-                  )
-                )}{" "}
-                days
-              </div>
+                {/* Duration display */}
+                {startDate && endDate && (
+                  <div className="text-[12px] text-[#86868B]">
+                    Duration:{" "}
+                    {Math.max(
+                      1,
+                      Math.ceil(
+                        (new Date(endDate).getTime() -
+                          new Date(startDate).getTime()) /
+                          (1000 * 60 * 60 * 24)
+                      )
+                    )}{" "}
+                    days
+                  </div>
+                )}
+              </>
+
             )}
 
             {/* Responsible */}

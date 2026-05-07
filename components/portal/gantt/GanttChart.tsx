@@ -196,6 +196,37 @@ export default function GanttChart({
 
   // --- Handlers ---
 
+  // Recalculate parent dates from children and persist
+  const syncParentDates = useCallback(
+    async (parentId: string, updatedTasks: GanttTask[]) => {
+      const children = updatedTasks.filter((t) => t.parent_id === parentId);
+      if (children.length === 0) return updatedTasks;
+
+      const earliest = children.reduce(
+        (min, c) => (c.start_date < min ? c.start_date : min),
+        children[0].start_date
+      );
+      const latest = children.reduce(
+        (max, c) => (c.end_date > max ? c.end_date : max),
+        children[0].end_date
+      );
+
+      const result = updatedTasks.map((t) =>
+        t.id === parentId
+          ? { ...t, start_date: earliest, end_date: latest }
+          : t
+      );
+
+      await updateGanttTask(parentId, {
+        start_date: earliest,
+        end_date: latest,
+      });
+
+      return result;
+    },
+    []
+  );
+
   const handlePanelSave = useCallback(
     async (updates: {
       title: string;
@@ -205,15 +236,23 @@ export default function GanttChart({
       notes: string;
     }) => {
       if (!selectedTaskId) return;
-      onTasksChange(
-        tasks.map((t) =>
-          t.id === selectedTaskId ? { ...t, ...updates } : t
-        )
+      const task = tasks.find((t) => t.id === selectedTaskId);
+
+      let updated = tasks.map((t) =>
+        t.id === selectedTaskId ? { ...t, ...updates } : t
       );
+
       await updateGanttTask(selectedTaskId, updates);
+
+      // If this is a sub-task, sync the parent dates
+      if (task?.parent_id) {
+        updated = await syncParentDates(task.parent_id, updated);
+      }
+
+      onTasksChange(updated);
       setSelectedTaskId(null);
     },
-    [selectedTaskId, tasks, onTasksChange]
+    [selectedTaskId, tasks, onTasksChange, syncParentDates]
   );
 
   const handleDragEnd = useCallback(
@@ -223,19 +262,25 @@ export default function GanttChart({
       const startStr = newStart.toISOString().split("T")[0];
       const endStr = newEnd.toISOString().split("T")[0];
 
-      onTasksChange(
-        tasks.map((t) =>
-          t.id === task.id
-            ? { ...t, start_date: startStr, end_date: endStr }
-            : t
-        )
+      let updated = tasks.map((t) =>
+        t.id === task.id
+          ? { ...t, start_date: startStr, end_date: endStr }
+          : t
       );
+
       await updateGanttTask(task.id, {
         start_date: startStr,
         end_date: endStr,
       });
+
+      // If this is a sub-task, sync the parent
+      if (task.parent_id) {
+        updated = await syncParentDates(task.parent_id, updated);
+      }
+
+      onTasksChange(updated);
     },
-    [tasks, rangeStart, rangeEnd, onTasksChange]
+    [tasks, rangeStart, rangeEnd, onTasksChange, syncParentDates]
   );
 
   const handleDeleteTask = useCallback(
@@ -337,13 +382,15 @@ export default function GanttChart({
       });
 
       if (task) {
-        onTasksChange([...tasks, task]);
+        let updated = [...tasks, task];
+        updated = await syncParentDates(parentId, updated);
+        onTasksChange(updated);
         setExpanded((prev) => new Set(prev).add(parentId));
       }
       setNewTaskTitle("");
       setAddingSubTaskFor(null);
     },
-    [newTaskTitle, projectId, tasks, childMap, onTasksChange]
+    [newTaskTitle, projectId, tasks, childMap, onTasksChange, syncParentDates]
   );
 
   const handleAddMilestone = useCallback(async () => {
@@ -473,11 +520,26 @@ export default function GanttChart({
           {parentTasks.map((task, idx) => {
             const color =
               task.color ?? DEFAULT_COLORS[idx % DEFAULT_COLORS.length];
-            const left = dateToPercent(task.start_date, rangeStart, rangeEnd);
-            const right = dateToPercent(task.end_date, rangeStart, rangeEnd);
+            const children = childMap.get(task.id) ?? [];
+
+            // If parent has children, span from earliest start to latest end
+            let effectiveStart = task.start_date;
+            let effectiveEnd = task.end_date;
+            if (children.length > 0) {
+              effectiveStart = children.reduce(
+                (min, c) => (c.start_date < min ? c.start_date : min),
+                children[0].start_date
+              );
+              effectiveEnd = children.reduce(
+                (max, c) => (c.end_date > max ? c.end_date : max),
+                children[0].end_date
+              );
+            }
+
+            const left = dateToPercent(effectiveStart, rangeStart, rangeEnd);
+            const right = dateToPercent(effectiveEnd, rangeStart, rangeEnd);
             const width = Math.max(2, right - left);
             const isExp = expanded.has(task.id);
-            const children = childMap.get(task.id) ?? [];
 
             return (
               <div key={task.id}>
@@ -824,6 +886,7 @@ export default function GanttChart({
       {selectedTask && (
         <GanttTaskPanel
           task={selectedTask}
+          hasChildren={(childMap.get(selectedTask.id) ?? []).length > 0}
           onSave={handlePanelSave}
           onDelete={() => {
             handleDeleteTask(selectedTask.id);
