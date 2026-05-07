@@ -8,7 +8,7 @@ import GanttToolbar from "./GanttToolbar";
 import GanttTaskRow from "./GanttTaskRow";
 import GanttMilestone from "./GanttMilestone";
 
-type TimeScale = "month" | "quarter" | "year";
+type TimeScale = "day" | "month" | "quarter";
 
 interface GanttChartProps {
   tasks: GanttTask[];
@@ -27,9 +27,10 @@ function getTimeRange(
   let start: Date;
   let end: Date;
 
-  if (scale === "year") {
-    start = new Date(now.getFullYear(), 0, 1);
-    end = new Date(now.getFullYear(), 11, 31);
+  if (scale === "day") {
+    // Show 4 weeks centered around today
+    start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+    end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 21);
   } else if (scale === "quarter") {
     const q = Math.floor(now.getMonth() / 3);
     start = new Date(now.getFullYear(), q * 3 - 3, 1);
@@ -42,25 +43,62 @@ function getTimeRange(
   for (const t of tasks) {
     const ts = new Date(t.start_date);
     const te = new Date(t.end_date);
-    if (ts < start) start = new Date(ts.getFullYear(), ts.getMonth(), 1);
-    if (te > end) end = new Date(te.getFullYear(), te.getMonth() + 1, 0);
+    if (ts < start) {
+      start = scale === "day"
+        ? new Date(ts.getFullYear(), ts.getMonth(), ts.getDate())
+        : new Date(ts.getFullYear(), ts.getMonth(), 1);
+    }
+    if (te > end) {
+      end = scale === "day"
+        ? new Date(te.getFullYear(), te.getMonth(), te.getDate() + 1)
+        : new Date(te.getFullYear(), te.getMonth() + 1, 0);
+    }
   }
 
   for (const m of milestones) {
     const md = new Date(m.due_date);
-    if (md < start) start = new Date(md.getFullYear(), md.getMonth(), 1);
-    if (md > end) end = new Date(md.getFullYear(), md.getMonth() + 1, 0);
+    if (md < start) {
+      start = scale === "day"
+        ? new Date(md.getFullYear(), md.getMonth(), md.getDate())
+        : new Date(md.getFullYear(), md.getMonth(), 1);
+    }
+    if (md > end) {
+      end = scale === "day"
+        ? new Date(md.getFullYear(), md.getMonth(), md.getDate() + 1)
+        : new Date(md.getFullYear(), md.getMonth() + 1, 0);
+    }
   }
 
   const columns: { label: string; start: Date }[] = [];
   const cursor = new Date(start);
-  while (cursor <= end) {
-    const label = cursor.toLocaleDateString("en-US", {
-      month: "short",
-      year: scale === "year" ? undefined : "numeric",
-    });
-    columns.push({ label, start: new Date(cursor) });
-    cursor.setMonth(cursor.getMonth() + (scale === "quarter" ? 3 : 1));
+
+  if (scale === "day") {
+    while (cursor <= end) {
+      const label = cursor.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
+      columns.push({ label, start: new Date(cursor) });
+      cursor.setDate(cursor.getDate() + 1);
+    }
+  } else if (scale === "quarter") {
+    while (cursor <= end) {
+      const label = cursor.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      });
+      columns.push({ label, start: new Date(cursor) });
+      cursor.setMonth(cursor.getMonth() + 3);
+    }
+  } else {
+    while (cursor <= end) {
+      const label = cursor.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      });
+      columns.push({ label, start: new Date(cursor) });
+      cursor.setMonth(cursor.getMonth() + 1);
+    }
   }
 
   return { start, end, columns };

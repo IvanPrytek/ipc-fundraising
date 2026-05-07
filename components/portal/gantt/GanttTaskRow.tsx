@@ -34,39 +34,41 @@ export default function GanttTaskRow({
   return (
     <div
       className={cn(
-        "group flex min-h-[44px] items-center border-b border-white/[0.03] transition-colors",
+        "group flex min-h-[44px] border-b border-white/[0.03] transition-colors",
         isParent && "bg-white/[0.02]",
         "hover:bg-white/[0.02]"
       )}
     >
-      <div className="flex w-[220px] flex-shrink-0 items-center gap-2 px-4 py-2 overflow-hidden">
+      <div className="flex w-[220px] flex-shrink-0 items-start gap-2 px-4 py-2">
         {isParent ? (
           <button
             onClick={onToggleExpand}
-            className="flex h-4 w-4 flex-shrink-0 items-center justify-center text-[10px] text-[#86868B]"
+            className="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center text-[10px] text-[#86868B]"
           >
             {isExpanded ? "▼" : "▸"}
           </button>
         ) : (
-          <span className="w-4 flex-shrink-0" />
+          <span className="mt-0.5 w-4 flex-shrink-0" />
         )}
-        <span
-          className={cn(
-            "whitespace-nowrap text-[13px]",
-            isParent ? "text-[#e5e5e5]" : "pl-3 text-[12px] text-[#9CA3AF]"
-          )}
-        >
-          {task.title}
-        </span>
-        {lpVisible && (
-          <span className="flex-shrink-0 rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
-            LP
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <span
+            className={cn(
+              "text-[13px] leading-tight",
+              isParent ? "text-[#e5e5e5]" : "pl-3 text-[12px] text-[#9CA3AF]"
+            )}
+          >
+            {task.title}
           </span>
-        )}
+          {lpVisible && (
+            <span className="w-fit rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
+              LP
+            </span>
+          )}
+        </div>
         {isParent && onAddSubTask && (
           <button
             onClick={onAddSubTask}
-            className="flex-shrink-0 rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#86868B] opacity-0 transition-opacity hover:bg-white/10 hover:text-white group-hover:opacity-100"
+            className="mt-0.5 flex-shrink-0 rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#86868B] opacity-0 transition-opacity hover:bg-white/10 hover:text-white group-hover:opacity-100"
             title="Add sub-task"
           >
             +
@@ -74,7 +76,7 @@ export default function GanttTaskRow({
         )}
       </div>
 
-      <div className="relative h-[44px] flex-1">
+      <div className="relative min-h-[44px] flex-1 self-stretch">
         <GanttBar
           leftPercent={leftPercent}
           widthPercent={widthPercent}

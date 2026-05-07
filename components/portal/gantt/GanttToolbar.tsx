@@ -3,7 +3,7 @@
 import PortalButton from "@/components/portal/shared/PortalButton";
 import { cn } from "@/lib/utils";
 
-type TimeScale = "month" | "quarter" | "year";
+type TimeScale = "day" | "month" | "quarter";
 
 interface GanttToolbarProps {
   timeScale: TimeScale;
@@ -18,7 +18,7 @@ export default function GanttToolbar({
   onAddTask,
   onAddMilestone,
 }: GanttToolbarProps) {
-  const scales: TimeScale[] = ["month", "quarter", "year"];
+  const scales: TimeScale[] = ["day", "month", "quarter"];
 
   return (
     <div className="flex items-center justify-between border-b border-white/[0.06] bg-[#111] px-6 py-4">
