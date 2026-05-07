@@ -291,6 +291,17 @@ export default function GanttChart({
     [tasks, onTasksChange]
   );
 
+  const handleToggleClosed = useCallback(
+    async (taskId: string) => {
+      const task = tasks.find((t) => t.id === taskId);
+      if (!task) return;
+      const closed = !task.closed;
+      onTasksChange(tasks.map((t) => (t.id === taskId ? { ...t, closed } : t)));
+      await updateGanttTask(taskId, { closed });
+    },
+    [tasks, onTasksChange]
+  );
+
   const handleReorder = useCallback(
     async (sourceId: string, targetId: string, position: "above" | "below") => {
       const ordered = [...parentTasks];
@@ -566,6 +577,7 @@ export default function GanttChart({
                     setAddingSubTaskFor(task.id);
                     setExpanded((prev) => new Set(prev).add(task.id));
                   }}
+                  onToggleClosed={() => handleToggleClosed(task.id)}
                   onDeleteTask={() => handleDeleteTask(task.id)}
                   isDragOver={dragOverId === task.id ? dragOverPos : null}
                   onRowDragStart={() => setDragSourceId(task.id)}
@@ -613,6 +625,7 @@ export default function GanttChart({
                         lpVisible={child.lp_visible}
                         onBarClick={() => setSelectedTaskId(child.id)}
                         onBarDragEnd={(l, w) => handleDragEnd(child, l, w)}
+                        onToggleClosed={() => handleToggleClosed(child.id)}
                         onDeleteTask={() => handleDeleteTask(child.id)}
                         isDragOver={dragOverId === child.id ? dragOverPos : null}
                         onRowDragStart={() => setDragSourceId(child.id)}

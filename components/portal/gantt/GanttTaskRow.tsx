@@ -15,6 +15,7 @@ interface GanttTaskRowProps {
   lpVisible: boolean;
   onBarClick?: () => void;
   onBarDragEnd?: (newLeft: number, newWidth: number) => void;
+  onToggleClosed?: () => void;
   onAddSubTask?: () => void;
   onDeleteTask?: () => void;
   isDragOver?: "above" | "below" | null;
@@ -35,6 +36,7 @@ export default function GanttTaskRow({
   lpVisible,
   onBarClick,
   onBarDragEnd,
+  onToggleClosed,
   onAddSubTask,
   onDeleteTask,
   isDragOver,
@@ -94,15 +96,35 @@ export default function GanttTaskRow({
           <span className="mt-0.5 w-4 flex-shrink-0" />
         )}
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <span
-            onClick={onBarClick}
-            className={cn(
-              "cursor-pointer text-[13px] leading-tight hover:text-white",
-              isParent ? "text-[#e5e5e5]" : "pl-3 text-[12px] text-[#9CA3AF]"
+          <div className="flex items-center gap-1.5">
+            {onToggleClosed && (
+              <button
+                onClick={onToggleClosed}
+                className={cn(
+                  "mt-px flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded border transition-colors",
+                  task.closed
+                    ? "border-emerald-400/60 bg-emerald-400/20 text-emerald-400"
+                    : "border-white/20 hover:border-white/40"
+                )}
+              >
+                {task.closed && (
+                  <svg className="h-2.5 w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </button>
             )}
-          >
-            {task.title}
-          </span>
+            <span
+              onClick={onBarClick}
+              className={cn(
+                "cursor-pointer text-[13px] leading-tight hover:text-white",
+                isParent ? "text-[#e5e5e5]" : "pl-3 text-[12px] text-[#9CA3AF]",
+                task.closed && "text-[#4B5563] line-through"
+              )}
+            >
+              {task.title}
+            </span>
+          </div>
           <div className="flex items-center gap-1.5">
             {task.assignee && (
               <span className="w-fit rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">

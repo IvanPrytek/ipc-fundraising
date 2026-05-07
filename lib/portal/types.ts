@@ -34,6 +34,7 @@ export interface GanttTask {
   color: string | null;
   notes: string;
   assignee: string;
+  closed: boolean;
   lp_visible: boolean;
   created_at: string;
   updated_at: string;
