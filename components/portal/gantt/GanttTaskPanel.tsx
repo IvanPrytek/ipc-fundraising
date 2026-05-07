@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import type { GanttTask } from "@/lib/portal/types";
 
 interface GanttTaskPanelProps {
@@ -10,7 +9,7 @@ interface GanttTaskPanelProps {
     title: string;
     start_date: string;
     end_date: string;
-    progress: number;
+    notes: string;
   }) => void;
   onDelete: () => void;
   onClose: () => void;
@@ -25,24 +24,21 @@ export default function GanttTaskPanel({
   const [title, setTitle] = useState(task.title);
   const [startDate, setStartDate] = useState(task.start_date);
   const [endDate, setEndDate] = useState(task.end_date);
-  const [progress, setProgress] = useState(task.progress);
+  const [notes, setNotes] = useState(task.notes ?? "");
 
   const handleSave = () => {
     onSave({
       title: title.trim() || task.title,
       start_date: startDate,
       end_date: endDate,
-      progress,
+      notes,
     });
   };
 
   return (
     <>
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 z-50 bg-black/50"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 z-50 bg-black/50" onClick={onClose} />
 
       {/* Panel */}
       <div className="fixed right-0 top-0 z-50 flex h-full w-[400px] max-w-[90vw] flex-col border-l border-white/[0.08] bg-[#111]">
@@ -126,25 +122,18 @@ export default function GanttTaskPanel({
               </div>
             )}
 
-            {/* Progress */}
+            {/* Notes */}
             <div>
               <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
-                Progress — {progress}%
+                Notes
               </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                step="5"
-                value={progress}
-                onChange={(e) => setProgress(Number(e.target.value))}
-                className="w-full accent-champagne"
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Add notes, comments, or context..."
+                rows={6}
+                className="w-full resize-y rounded-lg bg-white/5 px-3 py-2.5 text-[14px] leading-relaxed text-white outline-none placeholder:text-[#4B5563] focus:ring-1 focus:ring-champagne/50"
               />
-              <div className="mt-1 flex justify-between text-[10px] text-[#4B5563]">
-                <span>0%</span>
-                <span>50%</span>
-                <span>100%</span>
-              </div>
             </div>
 
             {/* Info */}

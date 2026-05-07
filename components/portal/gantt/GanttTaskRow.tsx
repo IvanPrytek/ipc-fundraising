@@ -92,7 +92,6 @@ export default function GanttTaskRow({
         <GanttBar
           leftPercent={leftPercent}
           widthPercent={widthPercent}
-          progress={task.progress}
           color={barColor}
           isSubTask={!isParent}
           onClick={onBarClick}

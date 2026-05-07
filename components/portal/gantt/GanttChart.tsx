@@ -213,7 +213,7 @@ export default function GanttChart({
       title: string;
       start_date: string;
       end_date: string;
-      progress: number;
+      notes: string;
     }) => {
       if (!selectedTaskId) return;
       onTasksChange(
