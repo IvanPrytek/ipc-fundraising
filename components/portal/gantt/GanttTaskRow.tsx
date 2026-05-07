@@ -103,11 +103,18 @@ export default function GanttTaskRow({
           >
             {task.title}
           </span>
-          {lpVisible && (
-            <span className="w-fit rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
-              LP
-            </span>
-          )}
+          <div className="flex items-center gap-1.5">
+            {task.assignee && (
+              <span className="w-fit rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                {task.assignee}
+              </span>
+            )}
+            {lpVisible && (
+              <span className="w-fit rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
+                LP
+              </span>
+            )}
+          </div>
         </div>
         <div className="mt-0.5 flex flex-shrink-0 items-center gap-1">
           {onDeleteTask && (

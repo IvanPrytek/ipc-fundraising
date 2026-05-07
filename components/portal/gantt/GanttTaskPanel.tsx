@@ -9,6 +9,7 @@ interface GanttTaskPanelProps {
     title: string;
     start_date: string;
     end_date: string;
+    assignee: string;
     notes: string;
   }) => void;
   onDelete: () => void;
@@ -24,6 +25,7 @@ export default function GanttTaskPanel({
   const [title, setTitle] = useState(task.title);
   const [startDate, setStartDate] = useState(task.start_date);
   const [endDate, setEndDate] = useState(task.end_date);
+  const [assignee, setAssignee] = useState(task.assignee ?? "");
   const [notes, setNotes] = useState(task.notes ?? "");
 
   const handleSave = () => {
@@ -31,6 +33,7 @@ export default function GanttTaskPanel({
       title: title.trim() || task.title,
       start_date: startDate,
       end_date: endDate,
+      assignee,
       notes,
     });
   };
@@ -121,6 +124,19 @@ export default function GanttTaskPanel({
                 days
               </div>
             )}
+
+            {/* Responsible */}
+            <div>
+              <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
+                Responsible
+              </label>
+              <input
+                value={assignee}
+                onChange={(e) => setAssignee(e.target.value)}
+                placeholder="Assign to..."
+                className="w-full rounded-lg bg-white/5 px-3 py-2.5 text-[14px] text-white outline-none placeholder:text-[#4B5563] focus:ring-1 focus:ring-champagne/50"
+              />
+            </div>
 
             {/* Notes */}
             <div>

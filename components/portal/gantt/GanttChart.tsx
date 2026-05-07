@@ -201,6 +201,7 @@ export default function GanttChart({
       title: string;
       start_date: string;
       end_date: string;
+      assignee: string;
       notes: string;
     }) => {
       if (!selectedTaskId) return;

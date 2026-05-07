@@ -95,6 +95,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <Link
+              href="/portal/lp/lp-xyz98765"
+              className="hidden rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-white/70 transition-all duration-300 hover:border-white/30 hover:text-white md:block"
+            >
+              Investor Portal
+            </Link>
+            <Link
               href="/contact"
               className="hidden rounded-full bg-white px-4 py-1.5 text-[13px] font-medium text-[#0A0A0A] transition-opacity duration-300 hover:opacity-80 md:block"
             >
@@ -135,6 +141,13 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/portal/lp/lp-xyz98765"
+              onClick={() => setIsOpen(false)}
+              className="text-[15px] text-champagne transition-colors duration-300 hover:text-champagne-light"
+            >
+              Investor Portal
+            </Link>
           </div>
         </div>
       </nav>
