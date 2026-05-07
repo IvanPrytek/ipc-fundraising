@@ -14,6 +14,7 @@ interface GanttTaskRowProps {
   barColor: string;
   lpVisible: boolean;
   onBarClick?: () => void;
+  onBarDragEnd?: (newLeft: number, newWidth: number) => void;
   onAddSubTask?: () => void;
   onDeleteTask?: () => void;
 }
@@ -28,6 +29,7 @@ export default function GanttTaskRow({
   barColor,
   lpVisible,
   onBarClick,
+  onBarDragEnd,
   onAddSubTask,
   onDeleteTask,
 }: GanttTaskRowProps) {
@@ -95,6 +97,7 @@ export default function GanttTaskRow({
           color={barColor}
           isSubTask={!isParent}
           onClick={onBarClick}
+          onDragEnd={onBarDragEnd}
         />
       </div>
     </div>

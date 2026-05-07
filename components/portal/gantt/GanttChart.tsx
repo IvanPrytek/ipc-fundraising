@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import type { GanttTask, Milestone } from "@/lib/portal/types";
-import { dateToPercent } from "@/lib/portal/utils";
+import { dateToPercent, percentToDate } from "@/lib/portal/utils";
 import {
   updateGanttTask,
   createGanttTask,
@@ -227,6 +227,28 @@ export default function GanttChart({
     [selectedTaskId, tasks, onTasksChange]
   );
 
+  const handleDragEnd = useCallback(
+    async (task: GanttTask, newLeft: number, newWidth: number) => {
+      const newStart = percentToDate(newLeft, rangeStart, rangeEnd);
+      const newEnd = percentToDate(newLeft + newWidth, rangeStart, rangeEnd);
+      const startStr = newStart.toISOString().split("T")[0];
+      const endStr = newEnd.toISOString().split("T")[0];
+
+      onTasksChange(
+        tasks.map((t) =>
+          t.id === task.id
+            ? { ...t, start_date: startStr, end_date: endStr }
+            : t
+        )
+      );
+      await updateGanttTask(task.id, {
+        start_date: startStr,
+        end_date: endStr,
+      });
+    },
+    [tasks, rangeStart, rangeEnd, onTasksChange]
+  );
+
   const handleDeleteTask = useCallback(
     async (taskId: string) => {
       onTasksChange(tasks.filter((t) => t.id !== taskId && t.parent_id !== taskId));
@@ -431,6 +453,7 @@ export default function GanttChart({
                   barColor={color}
                   lpVisible={task.lp_visible}
                   onBarClick={() => setSelectedTaskId(task.id)}
+                  onBarDragEnd={(l, w) => handleDragEnd(task, l, w)}
                   onAddSubTask={() => {
                     clearAdding();
                     setAddingSubTaskFor(task.id);
@@ -460,6 +483,7 @@ export default function GanttChart({
                         barColor={color}
                         lpVisible={child.lp_visible}
                         onBarClick={() => setSelectedTaskId(child.id)}
+                        onBarDragEnd={(l, w) => handleDragEnd(child, l, w)}
                         onDeleteTask={() => handleDeleteTask(child.id)}
                       />
                     );
