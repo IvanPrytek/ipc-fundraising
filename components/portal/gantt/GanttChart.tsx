@@ -742,15 +742,34 @@ export default function GanttChart({
             </div>
           )}
 
+          {/* Milestone vertical lines */}
+          {milestones.map((m) => {
+            const pos = dateToPercent(m.due_date, rangeStart, rangeEnd);
+            if (pos <= 0 || pos >= 100) return null;
+            return (
+              <div
+                key={`line-${m.id}`}
+                className="pointer-events-none absolute top-0 bottom-0 z-[5]"
+                style={{
+                  left: `calc(220px + (100% - 220px) * ${pos / 100})`,
+                  width: "1px",
+                  backgroundImage: "repeating-linear-gradient(to bottom, #C4B08966 0px, #C4B08966 4px, transparent 4px, transparent 8px)",
+                }}
+              />
+            );
+          })}
+
           {/* Today line */}
           {todayPercent > 0 && todayPercent < 100 && (
             <div
-              className="pointer-events-none absolute top-0 bottom-0 z-10 w-0.5 bg-red-500"
+              className="pointer-events-none absolute top-0 bottom-0 z-[6]"
               style={{
                 left: `calc(220px + (100% - 220px) * ${todayPercent / 100})`,
+                width: "1px",
+                background: "rgba(239, 68, 68, 0.4)",
               }}
             >
-              <div className="absolute -top-0 -left-3.5 text-[9px] font-semibold text-red-500">
+              <div className="absolute -top-0 -left-3.5 text-[8px] text-red-400/70">
                 Today
               </div>
             </div>
@@ -788,11 +807,16 @@ export default function GanttChart({
           </div>
         ))}
         <div className="flex items-center gap-1.5 text-[11px] text-[#86868B]">
-          <div className="h-3 w-3 rotate-45 rounded-sm border-2 border-champagne" />
+          <div className="h-3 w-3 rotate-45 rounded-sm border border-champagne/60" />
           Milestone
         </div>
-        <div className="flex items-center gap-1.5 text-[11px] text-red-400">
-          │ Today
+        <div className="flex items-center gap-1.5 text-[11px] text-[#86868B]">
+          <div className="h-3 w-px bg-red-400/40" />
+          Today
+        </div>
+        <div className="flex items-center gap-1.5 text-[11px] text-[#86868B]">
+          <div className="h-3 w-px" style={{ backgroundImage: "repeating-linear-gradient(to bottom, #C4B08966 0px, #C4B08966 2px, transparent 2px, transparent 4px)" }} />
+          Milestone date
         </div>
       </div>
 
