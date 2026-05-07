@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.3",
     "clsx": "^2.1.1",
     "dotted-map": "^3.1.0",
     "framer-motion": "^12.38.0",
