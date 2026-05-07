@@ -15,7 +15,7 @@ import GanttTaskRow from "./GanttTaskRow";
 import GanttMilestone from "./GanttMilestone";
 import GanttTaskPanel from "./GanttTaskPanel";
 
-type TimeScale = "day" | "month" | "quarter";
+type TimeScale = "day" | "week";
 
 interface GanttChartProps {
   tasks: GanttTask[];
@@ -28,11 +28,22 @@ interface GanttChartProps {
 interface DayColumn {
   day: number;
   date: Date;
+  isWeekend: boolean;
 }
 
 interface MonthGroup {
   label: string;
   days: DayColumn[];
+}
+
+interface WeekGroup {
+  label: string;
+  start: Date;
+}
+
+function isWeekend(d: Date): boolean {
+  const dow = d.getDay();
+  return dow === 0 || dow === 6;
 }
 
 function getTimeRange(
@@ -49,102 +60,76 @@ function getTimeRange(
   let start: Date;
   let end: Date;
 
-  if (scale === "day") {
+  if (scale === "week") {
+    // Show ~12 weeks centered around today
+    start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 14);
+    end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 70);
+  } else {
+    // Daily: 4 weeks centered around today
     start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
     end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 21);
-  } else if (scale === "quarter") {
-    const q = Math.floor(now.getMonth() / 3);
-    start = new Date(now.getFullYear(), q * 3 - 3, 1);
-    end = new Date(now.getFullYear(), q * 3 + 6, 0);
-  } else {
-    start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    end = new Date(now.getFullYear(), now.getMonth() + 5, 0);
   }
 
+  // Extend range to fit tasks and milestones
   for (const t of tasks) {
     const ts = new Date(t.start_date);
     const te = new Date(t.end_date);
-    if (ts < start) {
-      start =
-        scale === "day"
-          ? new Date(ts.getFullYear(), ts.getMonth(), ts.getDate())
-          : new Date(ts.getFullYear(), ts.getMonth(), 1);
-    }
-    if (te > end) {
-      end =
-        scale === "day"
-          ? new Date(te.getFullYear(), te.getMonth(), te.getDate() + 1)
-          : new Date(te.getFullYear(), te.getMonth() + 1, 0);
-    }
+    if (ts < start) start = new Date(ts.getFullYear(), ts.getMonth(), ts.getDate());
+    if (te > end) end = new Date(te.getFullYear(), te.getMonth(), te.getDate() + 1);
   }
-
   for (const m of milestones) {
     const md = new Date(m.due_date);
-    if (md < start) {
-      start =
-        scale === "day"
-          ? new Date(md.getFullYear(), md.getMonth(), md.getDate())
-          : new Date(md.getFullYear(), md.getMonth(), 1);
-    }
-    if (md > end) {
-      end =
-        scale === "day"
-          ? new Date(md.getFullYear(), md.getMonth(), md.getDate() + 1)
-          : new Date(md.getFullYear(), md.getMonth() + 1, 0);
-    }
+    if (md < start) start = new Date(md.getFullYear(), md.getMonth(), md.getDate());
+    if (md > end) end = new Date(md.getFullYear(), md.getMonth(), md.getDate() + 1);
   }
 
   const columns: { label: string; start: Date }[] = [];
   const cursor = new Date(start);
 
   if (scale === "day") {
-    // Build month-grouped day columns
+    // Daily view: weekdays only, grouped by month
     const dayMonthGroups: MonthGroup[] = [];
     let currentGroup: MonthGroup | null = null;
 
     while (cursor <= end) {
-      const monthLabel = cursor.toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      });
-      const dayNum = cursor.getDate();
+      if (!isWeekend(cursor)) {
+        const monthLabel = cursor.toLocaleDateString("en-US", {
+          month: "short",
+          year: "numeric",
+        });
+        const dayNum = cursor.getDate();
 
-      if (!currentGroup || currentGroup.label !== monthLabel) {
-        currentGroup = { label: monthLabel, days: [] };
-        dayMonthGroups.push(currentGroup);
+        if (!currentGroup || currentGroup.label !== monthLabel) {
+          currentGroup = { label: monthLabel, days: [] };
+          dayMonthGroups.push(currentGroup);
+        }
+        currentGroup.days.push({ day: dayNum, date: new Date(cursor), isWeekend: false });
+
+        columns.push({
+          label: `${dayNum}`,
+          start: new Date(cursor),
+        });
       }
-      currentGroup.days.push({ day: dayNum, date: new Date(cursor) });
-
-      // Also push to flat columns for percent calculations
-      columns.push({
-        label: `${dayNum}`,
-        start: new Date(cursor),
-      });
-
       cursor.setDate(cursor.getDate() + 1);
     }
 
     return { start, end, columns, dayMonthGroups };
   }
 
-  if (scale === "quarter") {
-    while (cursor <= end) {
-      const label = cursor.toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      });
-      columns.push({ label, start: new Date(cursor) });
-      cursor.setMonth(cursor.getMonth() + 3);
-    }
-  } else {
-    while (cursor <= end) {
-      const label = cursor.toLocaleDateString("en-US", {
-        month: "short",
-        year: "numeric",
-      });
-      columns.push({ label, start: new Date(cursor) });
-      cursor.setMonth(cursor.getMonth() + 1);
-    }
+  // Weekly view: each column is a week (Mon start)
+  // Align start to Monday
+  while (cursor.getDay() !== 1) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  start = new Date(cursor);
+
+  while (cursor <= end) {
+    const weekStart = new Date(cursor);
+    const weekEnd = new Date(cursor);
+    weekEnd.setDate(weekEnd.getDate() + 4); // Friday
+    const label = `${weekStart.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+    columns.push({ label, start: weekStart });
+    cursor.setDate(cursor.getDate() + 7);
   }
 
   return { start, end, columns };
@@ -159,7 +144,7 @@ export default function GanttChart({
   onTasksChange,
   onMilestonesChange,
 }: GanttChartProps) {
-  const [timeScale, setTimeScale] = useState<TimeScale>("month");
+  const [timeScale, setTimeScale] = useState<TimeScale>("week");
   const [expanded, setExpanded] = useState<Set<string>>(
     new Set(tasks.filter((t) => !t.parent_id).map((t) => t.id))
   );
@@ -419,19 +404,25 @@ export default function GanttChart({
                   </div>
                 ))}
               </div>
-              {/* Day numbers row */}
+              {/* Day numbers + weekday row */}
               <div className="flex pb-1.5">
                 {dayMonthGroups.flatMap((group) =>
                   group.days.map((d) => {
                     const isToday =
                       d.date.toDateString() === new Date().toDateString();
+                    const dayName = d.date.toLocaleDateString("en-US", { weekday: "narrow" });
                     return (
                       <div
                         key={d.date.toISOString()}
-                        className="flex-1 text-center"
+                        className="flex flex-1 flex-col items-center"
                       >
                         <span
-                          className={`text-[9px] ${isToday ? "font-bold text-red-400" : "text-[#4B5563]"}`}
+                          className={`text-[8px] ${isToday ? "text-red-400" : "text-[#4B5563]"}`}
+                        >
+                          {dayName}
+                        </span>
+                        <span
+                          className={`text-[10px] ${isToday ? "font-bold text-red-400" : "text-[#86868B]"}`}
                         >
                           {d.day}
                         </span>
