@@ -52,7 +52,7 @@ export default function GanttTaskRow({
         )}
         <span
           className={cn(
-            "truncate text-[13px]",
+            "whitespace-nowrap text-[13px]",
             isParent ? "text-[#e5e5e5]" : "pl-3 text-[12px] text-[#9CA3AF]"
           )}
         >
