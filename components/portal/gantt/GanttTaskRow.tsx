@@ -39,34 +39,34 @@ export default function GanttTaskRow({
         "hover:bg-white/[0.02]"
       )}
     >
-      <div className="flex w-[220px] flex-shrink-0 items-center gap-2 px-4 py-2">
+      <div className="flex w-[220px] flex-shrink-0 items-center gap-2 px-4 py-2 overflow-hidden">
         {isParent ? (
           <button
             onClick={onToggleExpand}
-            className="flex h-4 w-4 items-center justify-center text-[10px] text-[#86868B]"
+            className="flex h-4 w-4 flex-shrink-0 items-center justify-center text-[10px] text-[#86868B]"
           >
             {isExpanded ? "▼" : "▸"}
           </button>
         ) : (
-          <span className="w-4" />
+          <span className="w-4 flex-shrink-0" />
         )}
         <span
           className={cn(
-            "text-[13px]",
+            "truncate text-[13px]",
             isParent ? "text-[#e5e5e5]" : "pl-3 text-[12px] text-[#9CA3AF]"
           )}
         >
           {task.title}
         </span>
         {lpVisible && (
-          <span className="ml-1 rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
+          <span className="flex-shrink-0 rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
             LP
           </span>
         )}
         {isParent && onAddSubTask && (
           <button
             onClick={onAddSubTask}
-            className="ml-auto hidden rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#86868B] hover:bg-white/10 hover:text-white group-hover:block"
+            className="flex-shrink-0 rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#86868B] opacity-0 transition-opacity hover:bg-white/10 hover:text-white group-hover:opacity-100"
             title="Add sub-task"
           >
             +
