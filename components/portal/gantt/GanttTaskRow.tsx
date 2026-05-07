@@ -15,6 +15,7 @@ interface GanttTaskRowProps {
   lpVisible: boolean;
   onBarDragEnd?: (newLeft: number, newWidth: number) => void;
   onBarClick?: () => void;
+  onAddSubTask?: () => void;
 }
 
 export default function GanttTaskRow({
@@ -28,11 +29,12 @@ export default function GanttTaskRow({
   lpVisible,
   onBarDragEnd,
   onBarClick,
+  onAddSubTask,
 }: GanttTaskRowProps) {
   return (
     <div
       className={cn(
-        "flex min-h-[44px] items-center border-b border-white/[0.03] transition-colors",
+        "group flex min-h-[44px] items-center border-b border-white/[0.03] transition-colors",
         isParent && "bg-white/[0.02]",
         "hover:bg-white/[0.02]"
       )}
@@ -60,6 +62,15 @@ export default function GanttTaskRow({
           <span className="ml-1 rounded bg-champagne/15 px-1.5 py-0.5 text-[10px] text-champagne">
             LP
           </span>
+        )}
+        {isParent && onAddSubTask && (
+          <button
+            onClick={onAddSubTask}
+            className="ml-auto hidden rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-[#86868B] hover:bg-white/10 hover:text-white group-hover:block"
+            title="Add sub-task"
+          >
+            +
+          </button>
         )}
       </div>
 

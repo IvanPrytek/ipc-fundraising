@@ -9,12 +9,14 @@ interface GanttToolbarProps {
   timeScale: TimeScale;
   onTimeScaleChange: (scale: TimeScale) => void;
   onAddTask: () => void;
+  onAddMilestone: () => void;
 }
 
 export default function GanttToolbar({
   timeScale,
   onTimeScaleChange,
   onAddTask,
+  onAddMilestone,
 }: GanttToolbarProps) {
   const scales: TimeScale[] = ["month", "quarter", "year"];
 
@@ -38,6 +40,9 @@ export default function GanttToolbar({
             </button>
           ))}
         </div>
+        <PortalButton onClick={onAddMilestone}>
+          + Milestone
+        </PortalButton>
         <PortalButton variant="accent" onClick={onAddTask}>
           + Add Task
         </PortalButton>
