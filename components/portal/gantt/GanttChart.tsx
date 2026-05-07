@@ -3,7 +3,13 @@
 import { useState, useMemo, useCallback } from "react";
 import type { GanttTask, Milestone } from "@/lib/portal/types";
 import { dateToPercent, percentToDate } from "@/lib/portal/utils";
-import { updateGanttTask, createGanttTask, createMilestone } from "@/lib/portal/queries";
+import {
+  updateGanttTask,
+  createGanttTask,
+  deleteGanttTask,
+  createMilestone,
+  deleteMilestone,
+} from "@/lib/portal/queries";
 import GanttToolbar from "./GanttToolbar";
 import GanttTaskRow from "./GanttTaskRow";
 import GanttMilestone from "./GanttMilestone";
@@ -18,17 +24,31 @@ interface GanttChartProps {
   onMilestonesChange: (milestones: Milestone[]) => void;
 }
 
+interface DayColumn {
+  day: number;
+  date: Date;
+}
+
+interface MonthGroup {
+  label: string;
+  days: DayColumn[];
+}
+
 function getTimeRange(
   tasks: GanttTask[],
   milestones: Milestone[],
   scale: TimeScale
-): { start: Date; end: Date; columns: { label: string; start: Date }[] } {
+): {
+  start: Date;
+  end: Date;
+  columns: { label: string; start: Date }[];
+  dayMonthGroups?: MonthGroup[];
+} {
   const now = new Date();
   let start: Date;
   let end: Date;
 
   if (scale === "day") {
-    // Show 4 weeks centered around today
     start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
     end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 21);
   } else if (scale === "quarter") {
@@ -44,28 +64,32 @@ function getTimeRange(
     const ts = new Date(t.start_date);
     const te = new Date(t.end_date);
     if (ts < start) {
-      start = scale === "day"
-        ? new Date(ts.getFullYear(), ts.getMonth(), ts.getDate())
-        : new Date(ts.getFullYear(), ts.getMonth(), 1);
+      start =
+        scale === "day"
+          ? new Date(ts.getFullYear(), ts.getMonth(), ts.getDate())
+          : new Date(ts.getFullYear(), ts.getMonth(), 1);
     }
     if (te > end) {
-      end = scale === "day"
-        ? new Date(te.getFullYear(), te.getMonth(), te.getDate() + 1)
-        : new Date(te.getFullYear(), te.getMonth() + 1, 0);
+      end =
+        scale === "day"
+          ? new Date(te.getFullYear(), te.getMonth(), te.getDate() + 1)
+          : new Date(te.getFullYear(), te.getMonth() + 1, 0);
     }
   }
 
   for (const m of milestones) {
     const md = new Date(m.due_date);
     if (md < start) {
-      start = scale === "day"
-        ? new Date(md.getFullYear(), md.getMonth(), md.getDate())
-        : new Date(md.getFullYear(), md.getMonth(), 1);
+      start =
+        scale === "day"
+          ? new Date(md.getFullYear(), md.getMonth(), md.getDate())
+          : new Date(md.getFullYear(), md.getMonth(), 1);
     }
     if (md > end) {
-      end = scale === "day"
-        ? new Date(md.getFullYear(), md.getMonth(), md.getDate() + 1)
-        : new Date(md.getFullYear(), md.getMonth() + 1, 0);
+      end =
+        scale === "day"
+          ? new Date(md.getFullYear(), md.getMonth(), md.getDate() + 1)
+          : new Date(md.getFullYear(), md.getMonth() + 1, 0);
     }
   }
 
@@ -73,15 +97,36 @@ function getTimeRange(
   const cursor = new Date(start);
 
   if (scale === "day") {
+    // Build month-grouped day columns
+    const dayMonthGroups: MonthGroup[] = [];
+    let currentGroup: MonthGroup | null = null;
+
     while (cursor <= end) {
-      const label = cursor.toLocaleDateString("en-US", {
+      const monthLabel = cursor.toLocaleDateString("en-US", {
         month: "short",
-        day: "numeric",
+        year: "numeric",
       });
-      columns.push({ label, start: new Date(cursor) });
+      const dayNum = cursor.getDate();
+
+      if (!currentGroup || currentGroup.label !== monthLabel) {
+        currentGroup = { label: monthLabel, days: [] };
+        dayMonthGroups.push(currentGroup);
+      }
+      currentGroup.days.push({ day: dayNum, date: new Date(cursor) });
+
+      // Also push to flat columns for percent calculations
+      columns.push({
+        label: `${dayNum}`,
+        start: new Date(cursor),
+      });
+
       cursor.setDate(cursor.getDate() + 1);
     }
-  } else if (scale === "quarter") {
+
+    return { start, end, columns, dayMonthGroups };
+  }
+
+  if (scale === "quarter") {
     while (cursor <= end) {
       const label = cursor.toLocaleDateString("en-US", {
         month: "short",
@@ -124,7 +169,10 @@ export default function GanttChart({
   const [newMilestoneTitle, setNewMilestoneTitle] = useState("");
   const [newMilestoneDate, setNewMilestoneDate] = useState("");
 
-  const parentTasks = useMemo(() => tasks.filter((t) => !t.parent_id), [tasks]);
+  const parentTasks = useMemo(
+    () => tasks.filter((t) => !t.parent_id),
+    [tasks]
+  );
   const childMap = useMemo(() => {
     const map = new Map<string, GanttTask[]>();
     for (const t of tasks) {
@@ -137,17 +185,22 @@ export default function GanttChart({
     return map;
   }, [tasks]);
 
-  const { start: rangeStart, end: rangeEnd, columns } = getTimeRange(
-    tasks,
-    milestones,
-    timeScale
-  );
+  const {
+    start: rangeStart,
+    end: rangeEnd,
+    columns,
+    dayMonthGroups,
+  } = getTimeRange(tasks, milestones, timeScale);
 
   const todayPercent = dateToPercent(
     new Date().toISOString().split("T")[0],
     rangeStart,
     rangeEnd
   );
+
+  const totalDayCols = columns.length;
+
+  // --- Handlers ---
 
   const handleDragEnd = useCallback(
     async (task: GanttTask, newLeft: number, newWidth: number) => {
@@ -156,17 +209,37 @@ export default function GanttChart({
       const startStr = newStart.toISOString().split("T")[0];
       const endStr = newEnd.toISOString().split("T")[0];
 
-      const updated = tasks.map((t) =>
-        t.id === task.id ? { ...t, start_date: startStr, end_date: endStr } : t
+      onTasksChange(
+        tasks.map((t) =>
+          t.id === task.id
+            ? { ...t, start_date: startStr, end_date: endStr }
+            : t
+        )
       );
-      onTasksChange(updated);
-
       await updateGanttTask(task.id, {
         start_date: startStr,
         end_date: endStr,
       });
     },
     [tasks, rangeStart, rangeEnd, onTasksChange]
+  );
+
+  const handleEditTask = useCallback(
+    async (taskId: string, title: string) => {
+      onTasksChange(
+        tasks.map((t) => (t.id === taskId ? { ...t, title } : t))
+      );
+      await updateGanttTask(taskId, { title });
+    },
+    [tasks, onTasksChange]
+  );
+
+  const handleDeleteTask = useCallback(
+    async (taskId: string) => {
+      onTasksChange(tasks.filter((t) => t.id !== taskId && t.parent_id !== taskId));
+      await deleteGanttTask(taskId);
+    },
+    [tasks, onTasksChange]
   );
 
   const handleAddTask = useCallback(async () => {
@@ -243,35 +316,98 @@ export default function GanttChart({
     onMilestonesChange,
   ]);
 
+  const handleDeleteMilestone = useCallback(
+    async (milestoneId: string) => {
+      onMilestonesChange(milestones.filter((m) => m.id !== milestoneId));
+      await deleteMilestone(milestoneId);
+    },
+    [milestones, onMilestonesChange]
+  );
+
+  const clearAdding = () => {
+    setAddingTask(false);
+    setAddingMilestone(false);
+    setAddingSubTaskFor(null);
+    setNewTaskTitle("");
+  };
+
   return (
     <div className="overflow-hidden rounded-xl border border-white/[0.06]">
       <GanttToolbar
         timeScale={timeScale}
         onTimeScaleChange={setTimeScale}
         onAddTask={() => {
+          clearAdding();
           setAddingTask(true);
-          setAddingMilestone(false);
-          setAddingSubTaskFor(null);
         }}
         onAddMilestone={() => {
+          clearAdding();
           setAddingMilestone(true);
-          setAddingTask(false);
-          setAddingSubTaskFor(null);
         }}
       />
 
       <div className="overflow-x-auto">
-        <div className="relative min-w-[800px]">
+        <div
+          className="relative"
+          style={{
+            minWidth:
+              timeScale === "day"
+                ? `${Math.max(800, 220 + totalDayCols * 36)}px`
+                : "800px",
+          }}
+        >
           {/* Column headers */}
-          <div className="flex border-b border-white/[0.06] pb-2 pl-[220px] pt-3">
-            {columns.map((col, i) => (
-              <div key={i} className="flex-1 text-center">
-                <span className="text-[11px] uppercase tracking-wider text-[#86868B]">
-                  {col.label}
-                </span>
+          {timeScale === "day" && dayMonthGroups ? (
+            <div className="border-b border-white/[0.06] pl-[220px]">
+              {/* Month row */}
+              <div className="flex">
+                {dayMonthGroups.map((group) => (
+                  <div
+                    key={group.label}
+                    className="border-r border-white/[0.04] text-center"
+                    style={{
+                      width: `${(group.days.length / totalDayCols) * 100}%`,
+                    }}
+                  >
+                    <span className="text-[11px] font-medium uppercase tracking-wider text-[#86868B]">
+                      {group.label}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+              {/* Day numbers row */}
+              <div className="flex pb-1.5">
+                {dayMonthGroups.flatMap((group) =>
+                  group.days.map((d) => {
+                    const isToday =
+                      d.date.toDateString() === new Date().toDateString();
+                    return (
+                      <div
+                        key={d.date.toISOString()}
+                        className="flex-1 text-center"
+                      >
+                        <span
+                          className={`text-[9px] ${isToday ? "font-bold text-red-400" : "text-[#4B5563]"}`}
+                        >
+                          {d.day}
+                        </span>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="flex border-b border-white/[0.06] pb-2 pl-[220px] pt-3">
+              {columns.map((col, i) => (
+                <div key={i} className="flex-1 text-center">
+                  <span className="text-[11px] uppercase tracking-wider text-[#86868B]">
+                    {col.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Task rows */}
           {parentTasks.map((task, idx) => {
@@ -303,12 +439,12 @@ export default function GanttChart({
                   lpVisible={task.lp_visible}
                   onBarDragEnd={(l, w) => handleDragEnd(task, l, w)}
                   onAddSubTask={() => {
+                    clearAdding();
                     setAddingSubTaskFor(task.id);
-                    setAddingTask(false);
-                    setAddingMilestone(false);
-                    setNewTaskTitle("");
                     setExpanded((prev) => new Set(prev).add(task.id));
                   }}
+                  onEditTask={(title) => handleEditTask(task.id, title)}
+                  onDeleteTask={() => handleDeleteTask(task.id)}
                 />
                 {isExp &&
                   children.map((child) => {
@@ -332,6 +468,8 @@ export default function GanttChart({
                         barColor={color}
                         lpVisible={child.lp_visible}
                         onBarDragEnd={(l, w) => handleDragEnd(child, l, w)}
+                        onEditTask={(title) => handleEditTask(child.id, title)}
+                        onDeleteTask={() => handleDeleteTask(child.id)}
                       />
                     );
                   })}
@@ -341,14 +479,16 @@ export default function GanttChart({
                   <div className="flex items-center border-b border-white/[0.03] bg-white/[0.01] px-4 py-2">
                     <div className="flex w-[220px] items-center gap-2">
                       <span className="w-4" />
-                      <span className="pl-3 text-[10px] text-[#86868B]">↳</span>
+                      <span className="pl-3 text-[10px] text-[#86868B]">
+                        ↳
+                      </span>
                       <input
                         autoFocus
                         value={newTaskTitle}
                         onChange={(e) => setNewTaskTitle(e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") handleAddSubTask(task.id);
-                          if (e.key === "Escape") setAddingSubTaskFor(null);
+                          if (e.key === "Escape") clearAdding();
                         }}
                         placeholder="Sub-task name..."
                         className="w-full rounded bg-transparent text-[12px] text-white outline-none placeholder:text-[#4B5563]"
@@ -362,7 +502,7 @@ export default function GanttChart({
                         Add
                       </button>
                       <button
-                        onClick={() => setAddingSubTaskFor(null)}
+                        onClick={clearAdding}
                         className="text-[11px] text-[#86868B]"
                       >
                         Cancel
@@ -387,16 +527,23 @@ export default function GanttChart({
                 return (
                   <div
                     key={m.id}
-                    className="flex min-h-[44px] items-center border-b border-white/[0.03]"
+                    className="group flex min-h-[44px] items-center border-b border-white/[0.03] hover:bg-white/[0.02]"
                   >
                     <div className="flex w-[220px] flex-shrink-0 items-center gap-2 px-4 py-2">
                       <span className="w-4 text-center text-[10px] text-champagne">
                         ◇
                       </span>
-                      <span className="text-[13px] text-[#e5e5e5]">
+                      <span className="flex-1 text-[13px] text-[#e5e5e5]">
                         {m.title}
                       </span>
-                      <span className="ml-auto text-[10px] text-[#86868B]">
+                      <button
+                        onClick={() => handleDeleteMilestone(m.id)}
+                        className="rounded px-1 py-0.5 text-[10px] text-[#86868B] opacity-0 transition-opacity hover:text-red-400 group-hover:opacity-100"
+                        title="Delete milestone"
+                      >
+                        ✕
+                      </button>
+                      <span className="text-[10px] text-[#86868B]">
                         {new Date(m.due_date).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -426,7 +573,7 @@ export default function GanttChart({
                   onChange={(e) => setNewTaskTitle(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleAddTask();
-                    if (e.key === "Escape") setAddingTask(false);
+                    if (e.key === "Escape") clearAdding();
                   }}
                   placeholder="Task name..."
                   className="w-full rounded bg-transparent text-[13px] text-white outline-none placeholder:text-[#4B5563]"
@@ -440,7 +587,7 @@ export default function GanttChart({
                   Add
                 </button>
                 <button
-                  onClick={() => setAddingTask(false)}
+                  onClick={clearAdding}
                   className="text-[11px] text-[#86868B]"
                 >
                   Cancel
@@ -462,7 +609,7 @@ export default function GanttChart({
                   onChange={(e) => setNewMilestoneTitle(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleAddMilestone();
-                    if (e.key === "Escape") setAddingMilestone(false);
+                    if (e.key === "Escape") clearAdding();
                   }}
                   placeholder="Milestone name..."
                   className="w-full rounded bg-transparent text-[13px] text-white outline-none placeholder:text-[#4B5563]"
@@ -482,7 +629,7 @@ export default function GanttChart({
                   Add
                 </button>
                 <button
-                  onClick={() => setAddingMilestone(false)}
+                  onClick={clearAdding}
                   className="text-[11px] text-[#86868B]"
                 >
                   Cancel
