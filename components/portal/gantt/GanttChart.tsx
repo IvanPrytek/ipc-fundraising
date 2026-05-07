@@ -271,6 +271,30 @@ export default function GanttChart({
     [parentTasks, tasks, onTasksChange]
   );
 
+  const handleReorderSubTasks = useCallback(
+    async (parentId: string, sourceId: string, targetId: string, position: "above" | "below") => {
+      const children = childMap.get(parentId) ?? [];
+      const ordered = [...children];
+      const srcIdx = ordered.findIndex((t) => t.id === sourceId);
+      let tgtIdx = ordered.findIndex((t) => t.id === targetId);
+      if (srcIdx === -1 || tgtIdx === -1 || srcIdx === tgtIdx) return;
+
+      const [moved] = ordered.splice(srcIdx, 1);
+      tgtIdx = ordered.findIndex((t) => t.id === targetId);
+      const insertIdx = position === "below" ? tgtIdx + 1 : tgtIdx;
+      ordered.splice(insertIdx, 0, moved);
+
+      const reordered = ordered.map((t, i) => ({ ...t, sort_order: i }));
+      const nonChildren = tasks.filter((t) => t.parent_id !== parentId);
+      onTasksChange([...nonChildren, ...reordered]);
+
+      for (const t of reordered) {
+        await updateGanttTask(t.id, { sort_order: t.sort_order });
+      }
+    },
+    [childMap, tasks, onTasksChange]
+  );
+
   const handleAddTask = useCallback(async () => {
     if (!newTaskTitle.trim()) return;
     const now = new Date();
@@ -527,6 +551,28 @@ export default function GanttChart({
                         onBarClick={() => setSelectedTaskId(child.id)}
                         onBarDragEnd={(l, w) => handleDragEnd(child, l, w)}
                         onDeleteTask={() => handleDeleteTask(child.id)}
+                        isDragOver={dragOverId === child.id ? dragOverPos : null}
+                        onRowDragStart={() => setDragSourceId(child.id)}
+                        onRowDragOver={(pos) => {
+                          if (dragSourceId && dragSourceId !== child.id) {
+                            setDragOverId(child.id);
+                            setDragOverPos(pos);
+                          }
+                        }}
+                        onRowDragLeave={() => {
+                          if (dragOverId === child.id) {
+                            setDragOverId(null);
+                            setDragOverPos(null);
+                          }
+                        }}
+                        onRowDrop={() => {
+                          if (dragSourceId && dragOverId && dragOverPos) {
+                            handleReorderSubTasks(task.id, dragSourceId, dragOverId, dragOverPos);
+                          }
+                          setDragSourceId(null);
+                          setDragOverId(null);
+                          setDragOverPos(null);
+                        }}
                       />
                     );
                   })}

@@ -67,7 +67,7 @@ export default function GanttTaskRow({
     >
       <div className="flex w-[220px] flex-shrink-0 items-start gap-1 px-4 py-2">
         {/* Drag handle */}
-        {isParent && onRowDragStart && (
+        {onRowDragStart ? (
           <div
             draggable
             onDragStart={(e) => {
@@ -79,8 +79,9 @@ export default function GanttTaskRow({
           >
             ⠿
           </div>
+        ) : (
+          <span className="w-4 flex-shrink-0" />
         )}
-        {!isParent && <span className="w-4 flex-shrink-0" />}
 
         {isParent ? (
           <button
