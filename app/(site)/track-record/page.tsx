@@ -50,7 +50,7 @@ export default function TrackRecordPage() {
             </h1>
             <p className="mt-8 max-w-2xl text-body leading-relaxed text-white/55">
               We measure success by the businesses that thrive after
-              transition — and the management teams that grow into ownership.
+              transition, and the management teams that grow into ownership
             </p>
           </FadeIn>
 

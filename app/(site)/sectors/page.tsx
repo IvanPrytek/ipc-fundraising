@@ -30,8 +30,9 @@ export default function SectorsPage() {
             </p>
             <h1 className="mt-4 text-section text-white">Where we invest</h1>
             <p className="mt-8 max-w-2xl text-body leading-relaxed text-white/55">
-              Stable cash flows. Fragmented markets. Founder-led businesses
-              where management continuity is essential to value.
+              We invest where operators matter most. Stable businesses,
+              recurring revenues, and markets where consolidation creates
+              value
             </p>
           </FadeIn>
 
@@ -84,7 +85,7 @@ export default function SectorsPage() {
                 href="/contact"
                 className="text-white/60 transition-colors duration-500 hover:text-white"
               >
-                Talk to us.
+                Talk to us
               </a>
             </p>
           </div>

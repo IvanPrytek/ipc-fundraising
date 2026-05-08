@@ -15,26 +15,25 @@ export default function AboutPage() {
           <div className="mt-20 max-w-2xl space-y-6">
             <FadeIn>
               <p className="text-body leading-relaxed text-white/55">
-                We believe the best ownership transitions happen when the people
-                who know the business best are at the centre of the deal.
-                Whether that&apos;s the existing management team stepping up, or
-                a founder finding the right successor while staying involved.
+                We back management teams who buy the businesses they run,
+                and we help founders find the right successor when there
+                isn&apos;t one inside the company
               </p>
             </FadeIn>
             <FadeIn delay={0.05}>
               <p className="text-body leading-relaxed text-white/55">
-                For founders who aren&apos;t ready to walk away, our Management
-                Buy-In path offers partial liquidity, continued equity
-                participation, and a handpicked successor. You get cash off
-                the table — and you stay part of the story.
+                Not every founder wants a clean exit. Our MBI path offers
+                liquidity, retained equity, and a successor you&apos;ve chosen.
+                You stay involved on your terms
               </p>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-body leading-relaxed text-white/55">
-                We are not financial engineers. We invest in the
-                lower-mid-market — where relationships matter, where operational
-                excellence drives returns, and where the founder&apos;s legacy
-                is worth preserving.
+                We help founders get liquidity while ensuring their business
+                continues thriving under the right leadership. Lower mid-market.
+                Relationship-driven. We invest where operational excellence
+                drives returns and where the founder&apos;s legacy is worth
+                preserving
               </p>
             </FadeIn>
           </div>
@@ -60,14 +59,13 @@ export default function AboutPage() {
           <div className="mt-20 border-t border-white/[0.06] pt-10">
             <FadeIn>
               <p className="text-sm text-white/35">
-                Institutional investors —{" "}
+                Institutional investors,{" "}
                 <a
                   href="/contact"
                   className="text-white/55 transition-colors duration-500 hover:text-white"
                 >
                   contact us directly
                 </a>
-                .
               </p>
             </FadeIn>
           </div>
