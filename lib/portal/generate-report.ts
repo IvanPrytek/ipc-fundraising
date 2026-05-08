@@ -1,20 +1,27 @@
 import { jsPDF } from "jspdf";
 import type { GanttTask } from "./types";
 
+function toLocalDateStr(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function getWeekRange(weekCommencing?: string): { start: string; end: string } {
   let monday: Date;
   if (weekCommencing) {
-    monday = new Date(weekCommencing + "T00:00:00");
+    // Parse as local date, not UTC
+    const [y, m, d] = weekCommencing.split("-").map(Number);
+    monday = new Date(y, m - 1, d);
   } else {
     const now = new Date();
-    const day = now.getDay();
-    const diffToMonday = day === 0 ? -6 : 1 - day;
-    monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
+    const dow = now.getDay();
+    const diff = dow === 0 ? -6 : 1 - dow;
+    monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff);
   }
   const sunday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
-  const startStr = monday.toISOString().split("T")[0];
-  const endStr = sunday.toISOString().split("T")[0];
-  return { start: startStr, end: endStr };
+  return { start: toLocalDateStr(monday), end: toLocalDateStr(sunday) };
 }
 
 function formatDate(dateStr: string): string {
