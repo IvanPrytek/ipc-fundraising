@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import FadeIn from "@/components/ui/FadeIn";
 
 export default function Testimonials() {
@@ -10,10 +11,14 @@ export default function Testimonials() {
           <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:gap-14">
             {/* Photo */}
             <div className="shrink-0">
-              <div className="h-20 w-20 overflow-hidden rounded-full bg-white/[0.06] ring-1 ring-white/10">
-                <div className="flex h-full w-full items-center justify-center text-2xl font-extralight text-white/20">
-                  DA
-                </div>
+              <div className="h-20 w-20 overflow-hidden rounded-full ring-1 ring-white/10">
+                <Image
+                  src="/doron-alter.png"
+                  alt="Doron Alter"
+                  width={80}
+                  height={80}
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
 
