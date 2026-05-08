@@ -24,18 +24,18 @@ export default function Logo({ className = "", height = 24 }: { className?: stri
         />
       </svg>
 
-      {/* OWNERA CAPITAL — Stolzl via next/font CSS variable */}
+      {/* OWNERA CAPITAL — Sharp Grotesk */}
       <span
         style={{
-          fontFamily: "var(--font-stolzl), 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          fontFamily: "var(--font-logo), 'Helvetica Neue', Helvetica, Arial, sans-serif",
           fontSize: `${fontSize}px`,
           letterSpacing: "0.15em",
           lineHeight: 1,
           whiteSpace: "nowrap",
         }}
       >
-        <span style={{ fontWeight: 700 }}>OWNERA</span>
-        <span style={{ fontWeight: 300, opacity: 0.45, marginLeft: "0.25em" }}>
+        <span style={{ fontWeight: 600 }}>OWNERA</span>
+        <span style={{ fontWeight: 400, opacity: 0.45, marginLeft: "0.25em" }}>
           CAPITAL
         </span>
       </span>

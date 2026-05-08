@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const stolzl = localFont({
+const logoFont = localFont({
   src: [
-    { path: "../public/fonts/Stolzl-Light.otf", weight: "300", style: "normal" },
-    { path: "../public/fonts/Stolzl-Book.otf", weight: "400", style: "normal" },
-    { path: "../public/fonts/Stolzl-Medium.otf", weight: "500", style: "normal" },
-    { path: "../public/fonts/Stolzl-Bold.otf", weight: "700", style: "normal" },
+    { path: "../public/fonts/SharpGrotesk-Book20.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/SharpGrotesk-SemiBold20.ttf", weight: "600", style: "normal" },
   ],
-  variable: "--font-stolzl",
+  variable: "--font-logo",
   display: "swap",
 });
 
@@ -25,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={stolzl.variable}>
+    <html lang="en" className={logoFont.variable}>
       <body className="antialiased">{children}</body>
     </html>
   );
