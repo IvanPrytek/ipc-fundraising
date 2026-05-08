@@ -18,7 +18,7 @@ const FAQS = [
   },
   {
     q: "What changes after close?",
-    a: "Day-to-day? You run the business. We provide board-level governance, capital for growth, and a network of operators who've been where you are. We're not looking over your shoulder — we're in the background.",
+    a: "Day-to-day? You run the business. We provide board-level governance, capital for growth, and a network of operators who've been where you are. Support in the background, not over your shoulder.",
   },
   {
     q: "Can we bring the deal to you?",
@@ -39,16 +39,16 @@ export default function ForTeamsPage() {
               For Management Teams
             </p>
             <h1 className="mt-4 text-section text-white">
-              You know the business better than anyone. Now own it.
+              You know the business better than anyone. Now own it
             </h1>
           </FadeIn>
 
           <div className="mt-12 max-w-2xl">
             <FadeIn delay={0.05}>
               <p className="text-body leading-relaxed text-white/50">
-                You&apos;ve been running the operations, managing the clients,
-                leading the team. When the founder is ready to exit, you&apos;re
-                the natural successor. You just need the capital and structure.
+                You run the day-to-day. You know the clients, the team, the
+                operations. When it&apos;s time for a transition, you
+                shouldn&apos;t be sidelined. You should be the buyer
               </p>
             </FadeIn>
           </div>
@@ -66,8 +66,8 @@ export default function ForTeamsPage() {
                   <p className="text-sm text-champagne/60">Acquisition capital</p>
                   <p className="mt-3 text-[15px] leading-relaxed text-white/40">
                     We fund the buyout. You don&apos;t need to personally
-                    finance the purchase — we provide equity and arrange
-                    the debt.
+                    finance the purchase. We provide equity and arrange
+                    the debt
                   </p>
                 </div>
               </div>
@@ -76,8 +76,8 @@ export default function ForTeamsPage() {
                 <div>
                   <p className="text-sm text-champagne/60">Deal structuring</p>
                   <p className="mt-3 text-[15px] leading-relaxed text-white/40">
-                    Legal, financial, tax — we handle the complexity. You focus
-                    on running the business through the transition.
+                    Legal, financial, tax. We handle the complexity so you
+                    can focus on running the business through the transition
                   </p>
                 </div>
               </div>
@@ -87,8 +87,8 @@ export default function ForTeamsPage() {
                   <p className="text-sm text-champagne/60">Governance, not oversight</p>
                   <p className="mt-3 text-[15px] leading-relaxed text-white/40">
                     Board-level guidance, strategic planning, and a network of
-                    operators who&apos;ve done this before. We&apos;re not
-                    looking over your shoulder.
+                    operators who&apos;ve done this before. Support in the
+                    background, not over your shoulder
                   </p>
                 </div>
               </div>

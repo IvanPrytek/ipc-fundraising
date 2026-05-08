@@ -10,7 +10,7 @@ import { Wallet, PieChart, UserSearch, Armchair } from "lucide-react";
 const FAQS = [
   {
     q: "Will my employees trust the new owner?",
-    a: "That's usually the first concern — and it should be. We don't parachute in a stranger. The incoming operator meets your team, understands the culture, and earns trust before anything changes. In most of our transitions, employee turnover stays at or below historical levels.",
+    a: "That's the first concern for most founders, and it should be. We don't parachute in a stranger. The incoming operator meets your team, understands the culture, and earns trust before anything changes. In most of our transitions, employee turnover stays at or below historical levels.",
   },
   {
     q: "Do I have to leave?",
@@ -18,11 +18,11 @@ const FAQS = [
   },
   {
     q: "How do you find the right person?",
-    a: "Our operator network is built over years — executives who've run $10M–$200M businesses in similar industries. We introduce 2–3 vetted candidates. You choose.",
+    a: "Our operator network is built over years. Executives who've run $10M to $200M businesses in similar industries. We introduce 2 to 3 vetted candidates. You choose.",
   },
   {
     q: "What if the deal falls apart mid-process?",
-    a: "No fees, no obligations until close. If fit isn't right, we part ways. We've walked away from deals — and so have founders. That's how it should work.",
+    a: "No fees, no obligations until close. If the fit isn't right, we part ways. We've walked away from deals, and so have founders. That's how it should work.",
   },
 ];
 
@@ -45,17 +45,16 @@ export default function ForOwnersPage() {
               For Business Owners
             </p>
             <h1 className="mt-4 text-section text-white">
-              Your business deserves a succession plan, not a fire sale.
+              Your business deserves a succession plan, not a fire sale
             </h1>
           </FadeIn>
 
           <div className="mt-12 max-w-2xl">
             <FadeIn delay={0.05}>
               <p className="text-body leading-relaxed text-white/50">
-                You&apos;ve built something real. When you&apos;re ready to step
-                back — partially or fully — we help you find the right operator,
-                structure the right deal, and protect what you&apos;ve spent
-                decades building.
+                Decades of work deserve more than a quick sale. We find the
+                right successor, structure the right deal, and make sure your
+                legacy continues
               </p>
             </FadeIn>
           </div>
@@ -74,7 +73,7 @@ export default function ForOwnersPage() {
                   <p className="mt-3 text-[15px] leading-relaxed text-white/40">
                     Cash at close. You don&apos;t wait for a second event to
                     access the value you&apos;ve created. Typical founder
-                    take-home: 60–80% of enterprise value.
+                    take-home: 60 to 80% of enterprise value
                   </p>
                 </div>
               </div>
@@ -106,8 +105,8 @@ export default function ForOwnersPage() {
                   <p className="text-sm text-champagne/60">Your involvement</p>
                   <p className="mt-3 text-[15px] leading-relaxed text-white/40">
                     Advisory role, board seat, or clean break. Most founders
-                    stay 12–24 months. Some stay longer. We don&apos;t have a
-                    template — we have a conversation.
+                    stay 12 to 24 months. Some stay longer. No template,
+                    just a conversation about what works for you
                   </p>
                 </div>
               </div>
