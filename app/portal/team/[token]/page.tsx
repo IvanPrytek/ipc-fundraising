@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, useMemo } from "react";
 import { validateToken, getGanttTasks, getMilestones, getStatusUpdates, getFundMetrics, getProject } from "@/lib/portal/queries";
 import { formatShortDate, getQuarterLabel } from "@/lib/portal/utils";
 import { generateWeeklyReport } from "@/lib/portal/generate-report";
@@ -8,6 +8,21 @@ import { StatusBadge, StatusDot } from "@/components/portal/shared/StatusBadge";
 import PortalButton from "@/components/portal/shared/PortalButton";
 import Link from "next/link";
 import type { GanttTask, Milestone, StatusUpdate, FundMetrics } from "@/lib/portal/types";
+
+function getThisMonday(): string {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff);
+  return monday.toISOString().split("T")[0];
+}
+
+function getThisSunday(): string {
+  const mon = getThisMonday();
+  const d = new Date(mon + "T00:00:00");
+  d.setDate(d.getDate() + 6);
+  return d.toISOString().split("T")[0];
+}
 
 export default function TeamDashboard({
   params,
@@ -18,18 +33,11 @@ export default function TeamDashboard({
   const [projectId, setProjectId] = useState<string | null>(null);
   const [projectName, setProjectName] = useState("Portfolio");
   const [allTasks, setAllTasks] = useState<GanttTask[]>([]);
-  const [tasks, setTasks] = useState<GanttTask[]>([]);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [updates, setUpdates] = useState<StatusUpdate[]>([]);
   const [metrics, setMetrics] = useState<FundMetrics | null>(null);
   const [showWeekPicker, setShowWeekPicker] = useState(false);
-  const [reportWeek, setReportWeek] = useState(() => {
-    const now = new Date();
-    const day = now.getDay();
-    const diff = day === 0 ? -6 : 1 - day;
-    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff);
-    return monday.toISOString().split("T")[0];
-  });
+  const [reportWeek, setReportWeek] = useState(getThisMonday);
 
   useEffect(() => {
     async function load() {
@@ -46,13 +54,29 @@ export default function TeamDashboard({
       ]);
       if (proj) setProjectName(proj.name);
       setAllTasks(t);
-      setTasks(t.filter((task) => !task.parent_id));
-      setMilestones(m.slice(0, 5));
+      setMilestones(m);
       setUpdates(u.slice(0, 1));
       setMetrics(f);
     }
     load();
   }, [token]);
+
+  const weekStart = getThisMonday();
+  const weekEnd = getThisSunday();
+
+  // Tasks due this week (end_date falls within Mon-Sun)
+  const tasksDueThisWeek = useMemo(() => {
+    return allTasks.filter(
+      (t) => !t.closed && t.end_date >= weekStart && t.end_date <= weekEnd
+    );
+  }, [allTasks, weekStart, weekEnd]);
+
+  // Milestones due this week
+  const milestonesDueThisWeek = useMemo(() => {
+    return milestones.filter(
+      (m) => m.status !== "completed" && m.due_date >= weekStart && m.due_date <= weekEnd
+    );
+  }, [milestones, weekStart, weekEnd]);
 
   const basePath = `/portal/team/${token}`;
 
@@ -78,7 +102,7 @@ export default function TeamDashboard({
                   type="date"
                   value={reportWeek}
                   onChange={(e) => {
-                    const d = new Date(e.target.value);
+                    const d = new Date(e.target.value + "T00:00:00");
                     const day = d.getDay();
                     const diff = day === 0 ? -6 : 1 - day;
                     d.setDate(d.getDate() + diff);
@@ -87,7 +111,7 @@ export default function TeamDashboard({
                   className="mb-3 w-full rounded bg-white/5 px-3 py-2 text-[13px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
                 />
                 <p className="mb-3 text-[11px] text-[#86868B]">
-                  w/c {new Date(reportWeek).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                  w/c {new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                 </p>
                 <PortalButton
                   variant="accent"
@@ -110,84 +134,55 @@ export default function TeamDashboard({
         </div>
       </div>
 
-      {/* Gantt Preview */}
+      {/* Tasks Due This Week */}
       <section className="mb-8">
         <div className="mb-4 text-[10px] font-semibold uppercase tracking-[2px] text-champagne">
-          Pipeline Overview
+          Due This Week
         </div>
-        <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-          {tasks.length === 0 ? (
-            <p className="py-8 text-center text-[13px] text-[#86868B]">
-              No tasks yet.{" "}
-              <Link href={`${basePath}/gantt`} className="text-champagne hover:underline">
-                Add your first task
-              </Link>
-            </p>
-          ) : (
-            <div className="space-y-2">
-              {tasks.map((task) => {
-                const barColor =
-                  task.color ?? (task.progress === 100 ? "#10B981" : "#3B82F6");
-                return (
-                  <div key={task.id} className="flex items-center gap-3">
-                    <span className="w-[140px] truncate text-right text-[12px] text-[#86868B]">
-                      {task.title}
-                    </span>
-                    <div className="relative h-6 flex-1 rounded bg-white/[0.03]">
-                      <div
-                        className="absolute left-0 top-0 h-full rounded"
-                        style={{
-                          width: `${task.progress}%`,
-                          background: barColor,
-                          minWidth: task.progress > 0 ? "8px" : "0",
-                        }}
-                      />
-                      <span className="absolute inset-0 flex items-center px-2 text-[10px] font-medium text-white/70">
-                        {task.progress}%
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
+        <div className="space-y-1.5">
+          {tasksDueThisWeek.length === 0 && milestonesDueThisWeek.length === 0 ? (
+            <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
+              <p className="py-4 text-center text-[13px] text-[#86868B]">
+                Nothing due this week
+              </p>
             </div>
-          )}
-        </div>
-      </section>
-
-      {/* Milestones */}
-      <section className="mb-8">
-        <div className="mb-4 flex items-center justify-between">
-          <div className="text-[10px] font-semibold uppercase tracking-[2px] text-champagne">
-            Milestones
-          </div>
-          <Link
-            href={`${basePath}/milestones`}
-            className="text-[12px] text-[#86868B] hover:text-white"
-          >
-            View all →
-          </Link>
-        </div>
-        <div className="space-y-1">
-          {milestones.length === 0 ? (
-            <p className="py-4 text-center text-[13px] text-[#86868B]">
-              No milestones yet.
-            </p>
           ) : (
-            milestones.map((m) => (
-              <div
-                key={m.id}
-                className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3"
-              >
-                <StatusDot status={m.status} />
-                <span className="flex-1 text-[13px] text-[#e5e5e5]">
-                  {m.title}
-                </span>
-                <StatusBadge status={m.status} />
-                <span className="text-[11px] text-[#86868B]">
-                  {formatShortDate(m.due_date)}
-                </span>
-              </div>
-            ))
+            <>
+              {tasksDueThisWeek.map((task) => (
+                <div
+                  key={task.id}
+                  className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3"
+                >
+                  <div className="flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded border border-white/20" />
+                  <span className="flex-1 text-[13px] text-[#e5e5e5]">
+                    {task.title}
+                  </span>
+                  {task.assignee && (
+                    <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                      {task.assignee}
+                    </span>
+                  )}
+                  <span className="text-[11px] text-[#86868B]">
+                    {formatShortDate(task.end_date)}
+                  </span>
+                </div>
+              ))}
+              {milestonesDueThisWeek.map((m) => (
+                <div
+                  key={m.id}
+                  className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3"
+                >
+                  <span className="flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center text-[10px] text-champagne">◇</span>
+                  <span className="flex-1 text-[13px] text-[#e5e5e5]">
+                    {m.title}
+                  </span>
+                  <StatusBadge status={m.status} />
+                  <span className="text-[11px] text-[#86868B]">
+                    {formatShortDate(m.due_date)}
+                  </span>
+                </div>
+              ))}
+            </>
           )}
         </div>
       </section>

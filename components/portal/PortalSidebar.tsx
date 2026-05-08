@@ -21,7 +21,6 @@ interface PortalSidebarProps {
 const TEAM_NAV: NavItem[] = [
   { label: "Dashboard", href: "", icon: "◫" },
   { label: "Gantt Chart", href: "/gantt", icon: "▧" },
-  { label: "Milestones", href: "/milestones", icon: "◈" },
   { label: "Status Updates", href: "/updates", icon: "◱" },
   { label: "Documents", href: "/documents", icon: "◰" },
 ];
@@ -32,7 +31,6 @@ const TEAM_NAV_BOTTOM: NavItem[] = [
 
 const LP_NAV: NavItem[] = [
   { label: "Overview", href: "", icon: "◫" },
-  { label: "Milestones", href: "/milestones", icon: "◈" },
   { label: "Documents", href: "/documents", icon: "◰" },
 ];
 
