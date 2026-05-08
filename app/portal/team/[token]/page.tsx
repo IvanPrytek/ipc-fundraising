@@ -21,16 +21,15 @@ function parseLocal(s: string): Date {
   return new Date(y, m - 1, d);
 }
 
-function getMondayOf(date: Date): string {
+function getSundayOf(date: Date): string {
   const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  const day = d.getDay();
-  const diff = day === 0 ? -6 : 1 - day;
-  d.setDate(d.getDate() + diff);
+  const dow = d.getDay(); // 0=Sun
+  d.setDate(d.getDate() - dow); // back to Sunday
   return toLocalStr(d);
 }
 
-function getSundayOf(monday: string): string {
-  const d = parseLocal(monday);
+function getSaturdayOf(sunday: string): string {
+  const d = parseLocal(sunday);
   d.setDate(d.getDate() + 6);
   return toLocalStr(d);
 }
@@ -41,11 +40,11 @@ function shiftWeek(monday: string, delta: number): string {
   return toLocalStr(d);
 }
 
-function formatWeekRange(monday: string): string {
-  const start = parseLocal(monday).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  const sun = parseLocal(monday);
-  sun.setDate(sun.getDate() + 6);
-  const end = sun.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+function formatWeekRange(sunday: string): string {
+  const start = parseLocal(sunday).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  const sat = parseLocal(sunday);
+  sat.setDate(sat.getDate() + 6);
+  const end = sat.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   return `${start} – ${end}`;
 }
 
@@ -63,9 +62,9 @@ export default function TeamDashboard({
   const [metrics, setMetrics] = useState<FundMetrics | null>(null);
   const [showWeekPicker, setShowWeekPicker] = useState(false);
 
-  const thisMonday = getMondayOf(new Date());
-  const [dashboardWeek, setDashboardWeek] = useState(thisMonday);
-  const [reportWeek, setReportWeek] = useState(thisMonday);
+  const thisWeekStart = getSundayOf(new Date());
+  const [dashboardWeek, setDashboardWeek] = useState(thisWeekStart);
+  const [reportWeek, setReportWeek] = useState(thisWeekStart);
 
   useEffect(() => {
     async function load() {
@@ -90,8 +89,8 @@ export default function TeamDashboard({
   }, [token]);
 
   const weekStart = dashboardWeek;
-  const weekEnd = getSundayOf(dashboardWeek);
-  const isThisWeek = dashboardWeek === thisMonday;
+  const weekEnd = getSaturdayOf(dashboardWeek);
+  const isThisWeek = dashboardWeek === thisWeekStart;
 
   // Group tasks: parents with their sub-tasks due in selected week
   const taskGroups = useMemo(() => {
@@ -163,7 +162,7 @@ export default function TeamDashboard({
                   </button>
                 </div>
                 <p className="mb-4 text-center text-[11px] text-[#86868B]">
-                  {reportWeek === thisMonday ? "This week" : `w/c ${parseLocal(reportWeek).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`}
+                  {reportWeek === thisWeekStart ? "This week" : `w/c ${parseLocal(reportWeek).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`}
                 </p>
                 <PortalButton
                   variant="accent"
@@ -211,7 +210,7 @@ export default function TeamDashboard({
             </button>
             {!isThisWeek && (
               <button
-                onClick={() => setDashboardWeek(thisMonday)}
+                onClick={() => setDashboardWeek(thisWeekStart)}
                 className="rounded px-2 py-0.5 text-[10px] text-champagne hover:text-champagne-light"
               >
                 Today

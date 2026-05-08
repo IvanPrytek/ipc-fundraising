@@ -9,19 +9,17 @@ function toLocalDateStr(d: Date): string {
 }
 
 function getWeekRange(weekCommencing?: string): { start: string; end: string } {
-  let monday: Date;
+  let sunday: Date;
   if (weekCommencing) {
-    // Parse as local date, not UTC
     const [y, m, d] = weekCommencing.split("-").map(Number);
-    monday = new Date(y, m - 1, d);
+    sunday = new Date(y, m - 1, d);
   } else {
     const now = new Date();
-    const dow = now.getDay();
-    const diff = dow === 0 ? -6 : 1 - dow;
-    monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff);
+    const dow = now.getDay(); // 0=Sun
+    sunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dow);
   }
-  const sunday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
-  return { start: toLocalDateStr(monday), end: toLocalDateStr(sunday) };
+  const saturday = new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + 6);
+  return { start: toLocalDateStr(sunday), end: toLocalDateStr(saturday) };
 }
 
 function formatDate(dateStr: string): string {
