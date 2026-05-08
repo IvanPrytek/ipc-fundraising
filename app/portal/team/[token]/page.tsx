@@ -64,11 +64,29 @@ export default function TeamDashboard({
   const weekStart = getThisMonday();
   const weekEnd = getThisSunday();
 
-  // Tasks due this week (end_date falls within Mon-Sun)
-  const tasksDueThisWeek = useMemo(() => {
-    return allTasks.filter(
-      (t) => !t.closed && t.end_date >= weekStart && t.end_date <= weekEnd
-    );
+  // Group tasks: parents with their sub-tasks due this week
+  const taskGroupsDueThisWeek = useMemo(() => {
+    const parentTasks = allTasks.filter((t) => !t.parent_id);
+    const childMap = new Map<string, GanttTask[]>();
+    for (const t of allTasks) {
+      if (t.parent_id) {
+        const children = childMap.get(t.parent_id) ?? [];
+        children.push(t);
+        childMap.set(t.parent_id, children);
+      }
+    }
+
+    const groups: { parent: GanttTask; children: GanttTask[] }[] = [];
+    for (const parent of parentTasks) {
+      const parentDue = !parent.closed && parent.end_date >= weekStart && parent.end_date <= weekEnd;
+      const childrenDue = (childMap.get(parent.id) ?? []).filter(
+        (c) => !c.closed && c.end_date >= weekStart && c.end_date <= weekEnd
+      );
+      if (parentDue || childrenDue.length > 0) {
+        groups.push({ parent, children: childrenDue });
+      }
+    }
+    return groups;
   }, [allTasks, weekStart, weekEnd]);
 
   // Milestones due this week
@@ -160,7 +178,7 @@ export default function TeamDashboard({
           Due This Week
         </div>
         <div className="space-y-1.5">
-          {tasksDueThisWeek.length === 0 && milestonesDueThisWeek.length === 0 ? (
+          {taskGroupsDueThisWeek.length === 0 && milestonesDueThisWeek.length === 0 ? (
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
               <p className="py-4 text-center text-[13px] text-[#86868B]">
                 Nothing due this week
@@ -168,23 +186,55 @@ export default function TeamDashboard({
             </div>
           ) : (
             <>
-              {tasksDueThisWeek.map((task) => (
-                <div
-                  key={task.id}
-                  className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3"
-                >
-                  <div className="flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded border border-white/20" />
-                  <span className="flex-1 text-[13px] text-[#e5e5e5]">
-                    {task.title}
-                  </span>
-                  {task.assignee && (
-                    <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
-                      {task.assignee}
+              {taskGroupsDueThisWeek.map(({ parent, children }) => (
+                <div key={parent.id}>
+                  {/* Parent task */}
+                  <div className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3">
+                    <div className={`flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded border ${parent.closed ? "border-emerald-400/60 bg-emerald-400/20" : "border-white/20"}`}>
+                      {parent.closed && (
+                        <svg className="h-2.5 w-2.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                    <span className={`flex-1 text-[13px] font-medium ${parent.closed ? "text-[#4B5563] line-through" : "text-[#e5e5e5]"}`}>
+                      {parent.title}
                     </span>
-                  )}
-                  <span className="text-[11px] text-[#86868B]">
-                    {formatShortDate(task.end_date)}
-                  </span>
+                    {parent.assignee && (
+                      <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                        {parent.assignee}
+                      </span>
+                    )}
+                    <span className="text-[11px] text-[#86868B]">
+                      {formatShortDate(parent.end_date)}
+                    </span>
+                  </div>
+                  {/* Sub-tasks */}
+                  {children.map((child) => (
+                    <div
+                      key={child.id}
+                      className="ml-6 flex items-center gap-3 border-l border-white/[0.06] px-4 py-2.5"
+                    >
+                      <div className={`flex h-3 w-3 flex-shrink-0 items-center justify-center rounded border ${child.closed ? "border-emerald-400/60 bg-emerald-400/20" : "border-white/15"}`}>
+                        {child.closed && (
+                          <svg className="h-2 w-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </div>
+                      <span className={`flex-1 text-[12px] ${child.closed ? "text-[#4B5563] line-through" : "text-[#9CA3AF]"}`}>
+                        {child.title}
+                      </span>
+                      {child.assignee && (
+                        <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                          {child.assignee}
+                        </span>
+                      )}
+                      <span className="text-[10px] text-[#86868B]">
+                        {formatShortDate(child.end_date)}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               ))}
               {milestonesDueThisWeek.map((m) => (
