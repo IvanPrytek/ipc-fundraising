@@ -4,24 +4,37 @@ import { use, useEffect, useState, useMemo } from "react";
 import { validateToken, getGanttTasks, getMilestones, getStatusUpdates, getFundMetrics, getProject } from "@/lib/portal/queries";
 import { formatShortDate, getQuarterLabel } from "@/lib/portal/utils";
 import { generateWeeklyReport } from "@/lib/portal/generate-report";
-import { StatusBadge, StatusDot } from "@/components/portal/shared/StatusBadge";
+import { StatusBadge } from "@/components/portal/shared/StatusBadge";
 import PortalButton from "@/components/portal/shared/PortalButton";
 import Link from "next/link";
 import type { GanttTask, Milestone, StatusUpdate, FundMetrics } from "@/lib/portal/types";
 
-function getThisMonday(): string {
-  const now = new Date();
-  const day = now.getDay();
+function getMondayOf(date: Date): string {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const day = d.getDay();
   const diff = day === 0 ? -6 : 1 - day;
-  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff);
-  return monday.toISOString().split("T")[0];
+  d.setDate(d.getDate() + diff);
+  return d.toISOString().split("T")[0];
 }
 
-function getThisSunday(): string {
-  const mon = getThisMonday();
-  const d = new Date(mon + "T00:00:00");
+function getSundayOf(monday: string): string {
+  const d = new Date(monday + "T00:00:00");
   d.setDate(d.getDate() + 6);
   return d.toISOString().split("T")[0];
+}
+
+function shiftWeek(monday: string, delta: number): string {
+  const d = new Date(monday + "T00:00:00");
+  d.setDate(d.getDate() + delta * 7);
+  return d.toISOString().split("T")[0];
+}
+
+function formatWeekRange(monday: string): string {
+  const start = new Date(monday + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  const sun = new Date(monday + "T00:00:00");
+  sun.setDate(sun.getDate() + 6);
+  const end = sun.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return `${start} – ${end}`;
 }
 
 export default function TeamDashboard({
@@ -37,7 +50,10 @@ export default function TeamDashboard({
   const [updates, setUpdates] = useState<StatusUpdate[]>([]);
   const [metrics, setMetrics] = useState<FundMetrics | null>(null);
   const [showWeekPicker, setShowWeekPicker] = useState(false);
-  const [reportWeek, setReportWeek] = useState(getThisMonday);
+
+  const thisMonday = getMondayOf(new Date());
+  const [dashboardWeek, setDashboardWeek] = useState(thisMonday);
+  const [reportWeek, setReportWeek] = useState(thisMonday);
 
   useEffect(() => {
     async function load() {
@@ -61,11 +77,12 @@ export default function TeamDashboard({
     load();
   }, [token]);
 
-  const weekStart = getThisMonday();
-  const weekEnd = getThisSunday();
+  const weekStart = dashboardWeek;
+  const weekEnd = getSundayOf(dashboardWeek);
+  const isThisWeek = dashboardWeek === thisMonday;
 
-  // Group tasks: parents with their sub-tasks due this week
-  const taskGroupsDueThisWeek = useMemo(() => {
+  // Group tasks: parents with their sub-tasks due in selected week
+  const taskGroups = useMemo(() => {
     const parentTasks = allTasks.filter((t) => !t.parent_id);
     const childMap = new Map<string, GanttTask[]>();
     for (const t of allTasks) {
@@ -89,8 +106,8 @@ export default function TeamDashboard({
     return groups;
   }, [allTasks, weekStart, weekEnd]);
 
-  // Milestones due this week
-  const milestonesDueThisWeek = useMemo(() => {
+  // Milestones due in selected week
+  const milestonesThisWeek = useMemo(() => {
     return milestones.filter(
       (m) => m.status !== "completed" && m.due_date >= weekStart && m.due_date <= weekEnd
     );
@@ -118,37 +135,23 @@ export default function TeamDashboard({
                 </label>
                 <div className="mb-3 flex items-center justify-between">
                   <button
-                    onClick={() => {
-                      const d = new Date(reportWeek + "T00:00:00");
-                      d.setDate(d.getDate() - 7);
-                      setReportWeek(d.toISOString().split("T")[0]);
-                    }}
+                    onClick={() => setReportWeek(shiftWeek(reportWeek, -1))}
                     className="rounded px-2 py-1 text-[14px] text-[#86868B] hover:bg-white/5 hover:text-white"
                   >
                     ←
                   </button>
                   <span className="text-[14px] font-medium text-white">
-                    {new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                    {" – "}
-                    {(() => {
-                      const sun = new Date(reportWeek + "T00:00:00");
-                      sun.setDate(sun.getDate() + 6);
-                      return sun.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-                    })()}
+                    {formatWeekRange(reportWeek)}
                   </span>
                   <button
-                    onClick={() => {
-                      const d = new Date(reportWeek + "T00:00:00");
-                      d.setDate(d.getDate() + 7);
-                      setReportWeek(d.toISOString().split("T")[0]);
-                    }}
+                    onClick={() => setReportWeek(shiftWeek(reportWeek, 1))}
                     className="rounded px-2 py-1 text-[14px] text-[#86868B] hover:bg-white/5 hover:text-white"
                   >
                     →
                   </button>
                 </div>
                 <p className="mb-4 text-center text-[11px] text-[#86868B]">
-                  {reportWeek === getThisMonday() ? "This week" : `w/c ${new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`}
+                  {reportWeek === thisMonday ? "This week" : `w/c ${new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`}
                 </p>
                 <PortalButton
                   variant="accent"
@@ -172,13 +175,40 @@ export default function TeamDashboard({
         </div>
       </div>
 
-      {/* Tasks Due This Week */}
+      {/* Due This Week — with week navigation */}
       <section className="mb-8">
-        <div className="mb-4 text-[10px] font-semibold uppercase tracking-[2px] text-champagne">
-          Due This Week
+        <div className="mb-4 flex items-center justify-between">
+          <div className="text-[10px] font-semibold uppercase tracking-[2px] text-champagne">
+            {isThisWeek ? "Due This Week" : "Due Week Of"}
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setDashboardWeek(shiftWeek(dashboardWeek, -1))}
+              className="rounded px-2 py-0.5 text-[13px] text-[#86868B] hover:bg-white/5 hover:text-white"
+            >
+              ←
+            </button>
+            <span className="text-[12px] text-white/60">
+              {formatWeekRange(dashboardWeek)}
+            </span>
+            <button
+              onClick={() => setDashboardWeek(shiftWeek(dashboardWeek, 1))}
+              className="rounded px-2 py-0.5 text-[13px] text-[#86868B] hover:bg-white/5 hover:text-white"
+            >
+              →
+            </button>
+            {!isThisWeek && (
+              <button
+                onClick={() => setDashboardWeek(thisMonday)}
+                className="rounded px-2 py-0.5 text-[10px] text-champagne hover:text-champagne-light"
+              >
+                Today
+              </button>
+            )}
+          </div>
         </div>
         <div className="space-y-1.5">
-          {taskGroupsDueThisWeek.length === 0 && milestonesDueThisWeek.length === 0 ? (
+          {taskGroups.length === 0 && milestonesThisWeek.length === 0 ? (
             <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
               <p className="py-4 text-center text-[13px] text-[#86868B]">
                 Nothing due this week
@@ -186,9 +216,8 @@ export default function TeamDashboard({
             </div>
           ) : (
             <>
-              {taskGroupsDueThisWeek.map(({ parent, children }) => (
+              {taskGroups.map(({ parent, children }) => (
                 <div key={parent.id}>
-                  {/* Parent task */}
                   <div className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3">
                     <div className={`flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded border ${parent.closed ? "border-emerald-400/60 bg-emerald-400/20" : "border-white/20"}`}>
                       {parent.closed && (
@@ -209,7 +238,6 @@ export default function TeamDashboard({
                       {formatShortDate(parent.end_date)}
                     </span>
                   </div>
-                  {/* Sub-tasks */}
                   {children.map((child) => (
                     <div
                       key={child.id}
@@ -237,7 +265,7 @@ export default function TeamDashboard({
                   ))}
                 </div>
               ))}
-              {milestonesDueThisWeek.map((m) => (
+              {milestonesThisWeek.map((m) => (
                 <div
                   key={m.id}
                   className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3"

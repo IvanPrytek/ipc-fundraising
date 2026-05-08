@@ -192,43 +192,32 @@ export function generateWeeklyReport(
   doc.line(margin, y, margin + 30, y);
   y += 8;
 
-  const openThisWeek = parentTasks.filter(
-    (t) => !t.closed && isDueThisWeek(t)
-  );
+  // Build grouped open tasks: parent with due sub-tasks
+  const openGroups: { parent: GanttTask; children: GanttTask[] }[] = [];
+  for (const parent of parentTasks) {
+    const parentDue = !parent.closed && isDueThisWeek(parent);
+    const childrenDue = (childMap.get(parent.id) ?? []).filter(
+      (c) => !c.closed && isDueThisWeek(c)
+    );
+    if (parentDue || childrenDue.length > 0) {
+      openGroups.push({ parent, children: childrenDue });
+    }
+  }
 
-  if (openThisWeek.length === 0) {
+  if (openGroups.length === 0) {
     doc.setFontSize(9);
     doc.setTextColor(...grayText);
     doc.setFont("helvetica", "normal");
     doc.text("No open tasks due this week", margin, y);
     y += 10;
   } else {
-    for (const task of openThisWeek) {
-      drawTask(task, 0, true);
-      const children = (childMap.get(task.id) ?? []).filter(
-        (c) => !c.closed
-      );
+    for (const { parent, children } of openGroups) {
+      drawTask(parent, 0, true);
       for (const child of children) {
         drawTask(child, 8, true);
       }
       y += 2;
     }
-  }
-
-  // Also check sub-tasks that are due this week even if parent isn't
-  const openSubTasksThisWeek = allTasks.filter(
-    (t) => t.parent_id && !t.closed && isDueThisWeek(t)
-  );
-  const parentIdsAlreadyShown = new Set(openThisWeek.map((t) => t.id));
-  const additionalSubTasks = openSubTasksThisWeek.filter(
-    (t) => !parentIdsAlreadyShown.has(t.parent_id!)
-  );
-
-  if (additionalSubTasks.length > 0) {
-    for (const sub of additionalSubTasks) {
-      drawTask(sub, 8, true);
-    }
-    y += 2;
   }
 
   y += 6;
