@@ -1,8 +1,9 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
-import { validateToken, getGanttTasks, getMilestones, getStatusUpdates, getFundMetrics } from "@/lib/portal/queries";
+import { validateToken, getGanttTasks, getMilestones, getStatusUpdates, getFundMetrics, getProject } from "@/lib/portal/queries";
 import { formatShortDate, getQuarterLabel } from "@/lib/portal/utils";
+import { generateWeeklyReport } from "@/lib/portal/generate-report";
 import { StatusBadge, StatusDot } from "@/components/portal/shared/StatusBadge";
 import PortalButton from "@/components/portal/shared/PortalButton";
 import Link from "next/link";
@@ -15,6 +16,8 @@ export default function TeamDashboard({
 }) {
   const { token } = use(params);
   const [projectId, setProjectId] = useState<string | null>(null);
+  const [projectName, setProjectName] = useState("Portfolio");
+  const [allTasks, setAllTasks] = useState<GanttTask[]>([]);
   const [tasks, setTasks] = useState<GanttTask[]>([]);
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [updates, setUpdates] = useState<StatusUpdate[]>([]);
@@ -26,12 +29,15 @@ export default function TeamDashboard({
       if (!link?.project_id) return;
       setProjectId(link.project_id);
 
-      const [t, m, u, f] = await Promise.all([
+      const [proj, t, m, u, f] = await Promise.all([
+        getProject(link.project_id),
         getGanttTasks(link.project_id),
         getMilestones(link.project_id),
         getStatusUpdates(link.project_id),
         getFundMetrics(link.project_id),
       ]);
+      if (proj) setProjectName(proj.name);
+      setAllTasks(t);
       setTasks(t.filter((task) => !task.parent_id));
       setMilestones(m.slice(0, 5));
       setUpdates(u.slice(0, 1));
@@ -51,6 +57,11 @@ export default function TeamDashboard({
           <p className="mt-1 text-[13px] text-[#86868B]">{getQuarterLabel()}</p>
         </div>
         <div className="flex gap-2">
+          <PortalButton
+            onClick={() => generateWeeklyReport(allTasks, projectName)}
+          >
+            ↓ Weekly Report
+          </PortalButton>
           <Link href={`${basePath}/gantt`}>
             <PortalButton variant="accent">+ Add Task</PortalButton>
           </Link>
