@@ -94,27 +94,47 @@ export default function TeamDashboard({
               ↓ Weekly Report
             </PortalButton>
             {showWeekPicker && (
-              <div className="absolute right-0 top-full z-20 mt-2 rounded-lg border border-white/[0.08] bg-[#111] p-4 shadow-xl">
-                <label className="mb-2 block text-[11px] uppercase tracking-wider text-[#86868B]">
+              <div className="absolute right-0 top-full z-20 mt-2 w-[240px] rounded-lg border border-white/[0.08] bg-[#111] p-4 shadow-xl">
+                <label className="mb-3 block text-[11px] uppercase tracking-wider text-[#86868B]">
                   Week commencing
                 </label>
-                <input
-                  type="date"
-                  value={reportWeek}
-                  onChange={(e) => {
-                    const d = new Date(e.target.value + "T00:00:00");
-                    const day = d.getDay();
-                    const diff = day === 0 ? -6 : 1 - day;
-                    d.setDate(d.getDate() + diff);
-                    setReportWeek(d.toISOString().split("T")[0]);
-                  }}
-                  className="mb-3 w-full rounded bg-white/5 px-3 py-2 text-[13px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
-                />
-                <p className="mb-3 text-[11px] text-[#86868B]">
-                  w/c {new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                <div className="mb-3 flex items-center justify-between">
+                  <button
+                    onClick={() => {
+                      const d = new Date(reportWeek + "T00:00:00");
+                      d.setDate(d.getDate() - 7);
+                      setReportWeek(d.toISOString().split("T")[0]);
+                    }}
+                    className="rounded px-2 py-1 text-[14px] text-[#86868B] hover:bg-white/5 hover:text-white"
+                  >
+                    ←
+                  </button>
+                  <span className="text-[14px] font-medium text-white">
+                    {new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    {" – "}
+                    {(() => {
+                      const sun = new Date(reportWeek + "T00:00:00");
+                      sun.setDate(sun.getDate() + 6);
+                      return sun.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                    })()}
+                  </span>
+                  <button
+                    onClick={() => {
+                      const d = new Date(reportWeek + "T00:00:00");
+                      d.setDate(d.getDate() + 7);
+                      setReportWeek(d.toISOString().split("T")[0]);
+                    }}
+                    className="rounded px-2 py-1 text-[14px] text-[#86868B] hover:bg-white/5 hover:text-white"
+                  >
+                    →
+                  </button>
+                </div>
+                <p className="mb-4 text-center text-[11px] text-[#86868B]">
+                  {reportWeek === getThisMonday() ? "This week" : `w/c ${new Date(reportWeek + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`}
                 </p>
                 <PortalButton
                   variant="accent"
+                  className="w-full"
                   onClick={() => {
                     generateWeeklyReport(allTasks, projectName, reportWeek);
                     setShowWeekPicker(false);
