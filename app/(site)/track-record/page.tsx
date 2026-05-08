@@ -61,9 +61,9 @@ export default function TrackRecordPage() {
                     The Opportunity
                   </p>
                   <p className="mt-2 text-[15px] leading-relaxed text-white/45">
-                    The founders were ready to focus on a new venture and willing
-                    to sell on attractive terms. The market remained resilient but
-                    highly fragmented, with no dominant leader
+                    The CEO brought us the business he was already running. We
+                    added the strategic vision, the deal structure, and the
+                    network to consolidate the market around it
                   </p>
                 </div>
 
