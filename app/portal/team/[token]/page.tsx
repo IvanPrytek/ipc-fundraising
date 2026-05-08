@@ -22,6 +22,14 @@ export default function TeamDashboard({
   const [milestones, setMilestones] = useState<Milestone[]>([]);
   const [updates, setUpdates] = useState<StatusUpdate[]>([]);
   const [metrics, setMetrics] = useState<FundMetrics | null>(null);
+  const [showWeekPicker, setShowWeekPicker] = useState(false);
+  const [reportWeek, setReportWeek] = useState(() => {
+    const now = new Date();
+    const day = now.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diff);
+    return monday.toISOString().split("T")[0];
+  });
 
   useEffect(() => {
     async function load() {
@@ -56,12 +64,43 @@ export default function TeamDashboard({
           <h1 className="text-xl font-medium text-white">Dashboard</h1>
           <p className="mt-1 text-[13px] text-[#86868B]">{getQuarterLabel()}</p>
         </div>
-        <div className="flex gap-2">
-          <PortalButton
-            onClick={() => generateWeeklyReport(allTasks, projectName)}
-          >
-            ↓ Weekly Report
-          </PortalButton>
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <PortalButton onClick={() => setShowWeekPicker(!showWeekPicker)}>
+              ↓ Weekly Report
+            </PortalButton>
+            {showWeekPicker && (
+              <div className="absolute right-0 top-full z-20 mt-2 rounded-lg border border-white/[0.08] bg-[#111] p-4 shadow-xl">
+                <label className="mb-2 block text-[11px] uppercase tracking-wider text-[#86868B]">
+                  Week commencing
+                </label>
+                <input
+                  type="date"
+                  value={reportWeek}
+                  onChange={(e) => {
+                    const d = new Date(e.target.value);
+                    const day = d.getDay();
+                    const diff = day === 0 ? -6 : 1 - day;
+                    d.setDate(d.getDate() + diff);
+                    setReportWeek(d.toISOString().split("T")[0]);
+                  }}
+                  className="mb-3 w-full rounded bg-white/5 px-3 py-2 text-[13px] text-white outline-none focus:ring-1 focus:ring-champagne/50"
+                />
+                <p className="mb-3 text-[11px] text-[#86868B]">
+                  w/c {new Date(reportWeek).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                </p>
+                <PortalButton
+                  variant="accent"
+                  onClick={() => {
+                    generateWeeklyReport(allTasks, projectName, reportWeek);
+                    setShowWeekPicker(false);
+                  }}
+                >
+                  Download PDF
+                </PortalButton>
+              </div>
+            )}
+          </div>
           <Link href={`${basePath}/gantt`}>
             <PortalButton variant="accent">+ Add Task</PortalButton>
           </Link>

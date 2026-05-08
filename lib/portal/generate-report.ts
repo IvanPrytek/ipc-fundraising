@@ -1,16 +1,20 @@
 import { jsPDF } from "jspdf";
 import type { GanttTask } from "./types";
 
-function getWeekRange(): { start: string; end: string; startDate: Date; endDate: Date } {
-  const now = new Date();
-  const day = now.getDay();
-  const diffToMonday = day === 0 ? -6 : 1 - day;
-  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
+function getWeekRange(weekCommencing?: string): { start: string; end: string } {
+  let monday: Date;
+  if (weekCommencing) {
+    monday = new Date(weekCommencing + "T00:00:00");
+  } else {
+    const now = new Date();
+    const day = now.getDay();
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+    monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
+  }
   const sunday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
-  // Return as YYYY-MM-DD strings for reliable date-only comparison
   const startStr = monday.toISOString().split("T")[0];
   const endStr = sunday.toISOString().split("T")[0];
-  return { start: startStr, end: endStr, startDate: monday, endDate: sunday };
+  return { start: startStr, end: endStr };
 }
 
 function formatDate(dateStr: string): string {
@@ -23,7 +27,8 @@ function formatDate(dateStr: string): string {
 
 export function generateWeeklyReport(
   allTasks: GanttTask[],
-  projectName: string
+  projectName: string,
+  weekCommencing?: string
 ) {
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -57,7 +62,7 @@ export function generateWeeklyReport(
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...grayText);
-  const { start, end, startDate, endDate } = getWeekRange();
+  const { start, end } = getWeekRange(weekCommencing);
   const weekLabel = `${formatDate(start)} – ${formatDate(end)}`;
   doc.text(`${projectName}  |  ${weekLabel}`, margin, y);
   y += 6;
