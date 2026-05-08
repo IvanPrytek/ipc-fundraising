@@ -86,7 +86,6 @@ export const NAV_LINKS = [
   { label: "For Owners", href: "/for-owners" },
   { label: "For Teams", href: "/for-teams" },
   { label: "Track Record", href: "/track-record" },
-  { label: "Team", href: "/team" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
