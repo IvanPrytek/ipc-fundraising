@@ -112,6 +112,7 @@ export default function ForTeamsPage() {
             <div className="mt-10 overflow-x-auto">
               <div className="min-w-[500px]">
                 {/* Month axis: 1–6 */}
+                <div className="mb-1 text-[10px] text-white/20">Months</div>
                 <div className="grid grid-cols-6 border-b border-white/[0.06] pb-3">
                   {Array.from({ length: 6 }, (_, i) => (
                     <div key={i} className="text-center text-[11px] text-white/25">

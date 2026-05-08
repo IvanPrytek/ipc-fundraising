@@ -121,6 +121,7 @@ export default function ForOwnersPage() {
             <div className="mt-10 overflow-x-auto">
               <div className="min-w-[600px]">
                 {/* Month axis: 1–9 */}
+                <div className="mb-1 text-[10px] text-white/20">Months</div>
                 <div className="grid grid-cols-9 border-b border-white/[0.06] pb-3">
                   {Array.from({ length: 9 }, (_, i) => (
                     <div key={i} className="text-center text-[11px] text-white/25">
