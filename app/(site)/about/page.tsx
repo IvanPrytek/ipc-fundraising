@@ -36,25 +36,24 @@ export default function AboutPage() {
           <div className="mt-20 max-w-2xl space-y-6">
             <FadeIn>
               <p className="text-body leading-relaxed text-white/55">
-                We back management teams who buy the businesses they run,
-                and we help founders find the right successor when there
-                isn&apos;t one inside the company
+                We sit at the intersection of two moments: a founder ready to
+                step back and a management team ready to step up. Our job is
+                to make sure both sides get it right
               </p>
             </FadeIn>
             <FadeIn delay={0.05}>
               <p className="text-body leading-relaxed text-white/55">
-                Not every founder wants a clean exit. Our MBI path offers
-                liquidity, retained equity, and a successor you&apos;ve chosen.
-                You stay involved on your terms
+                Our deals start with people, not spreadsheets. Who stays, who
+                leads, how the culture survives the transition. The financial
+                structure follows
               </p>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-body leading-relaxed text-white/55">
-                We help founders get liquidity while ensuring their business
-                continues thriving under the right leadership. Lower mid-market.
-                Relationship-driven. We invest where operational excellence
-                drives returns and where the founder&apos;s legacy is worth
-                preserving
+                We focus on the lower mid-market, where businesses are built on
+                relationships, not systems. Where operational excellence drives
+                returns and where getting the transition right matters more than
+                getting it fast
               </p>
             </FadeIn>
           </div>
@@ -69,9 +68,9 @@ export default function AboutPage() {
           <FadeIn>
             <h2 className="text-section text-white">Who we are</h2>
             <p className="mt-8 max-w-2xl text-body leading-relaxed text-white/55">
-              Operators, investors, and advisors with decades in the lower
-              mid-market. Every side of a management transition, from every
-              seat at the table
+              We&apos;ve been founders, operators, and investors. That
+              experience shapes how we approach every deal: with empathy for
+              the seller, respect for the team, and discipline on the numbers
             </p>
           </FadeIn>
 
