@@ -18,8 +18,10 @@ export default function Hero() {
         >
           <TextRotate
             texts={[
-              "Step up to ownership.",
-              "Exit without walking away.",
+              "Step up to ownership",
+              "Exit without walking away",
+              "Own what you've built",
+              "Exit on your terms",
             ]}
             mainClassName="text-hero font-extralight tracking-tight overflow-hidden justify-center"
             staggerFrom="last"

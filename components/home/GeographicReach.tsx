@@ -75,7 +75,7 @@ export default function GeographicReach() {
     <section className="px-6 py-28 text-white">
       <div className="mx-auto max-w-5xl text-center">
         <h2 className="text-section text-white">
-          Three markets. One approach.
+          Three markets. One approach
         </h2>
 
         <div className="relative mx-auto mt-16 aspect-[2/1] w-full max-w-4xl overflow-hidden">

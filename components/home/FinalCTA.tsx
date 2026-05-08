@@ -7,9 +7,8 @@ export default function FinalCTA() {
     <section className="px-6 pb-40 pt-20 text-white">
       <div className="mx-auto max-w-xl">
         <p className="text-[15px] leading-relaxed text-white/40">
-          Whether you&apos;re exploring options or ready to move — we start
-          every relationship the same way. A conversation. No pitch decks.
-          No obligations.
+          Every relationship starts the same way: a conversation. No pitch
+          decks. No pressure
         </p>
         <div className="mt-8">
           <Link
