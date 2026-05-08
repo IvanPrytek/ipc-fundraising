@@ -46,7 +46,7 @@ export default function TrackRecordPage() {
               Track Record
             </p>
             <h1 className="mt-4 text-section text-white">
-              Selected transactions.
+              Selected transactions
             </h1>
             <p className="mt-8 max-w-2xl text-body leading-relaxed text-white/55">
               We measure success by the businesses that thrive after

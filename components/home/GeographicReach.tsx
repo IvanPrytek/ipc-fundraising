@@ -46,7 +46,7 @@ function createCurvedPath(
   return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
 }
 
-const LABEL_OFFSETS: Record<string, { dx: number; dy: number; anchor: string }> = {
+const LABEL_OFFSETS: Record<string, { dx: number; dy: number; anchor: "start" | "middle" | "end" }> = {
   "United States": { dx: -12, dy: -16, anchor: "end" },
   "Europe & UK": { dx: 0, dy: -20, anchor: "middle" },
   "Israel": { dx: 14, dy: 6, anchor: "start" },

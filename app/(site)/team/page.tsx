@@ -31,7 +31,7 @@ export default function TeamPage() {
             <p className="text-xs font-medium uppercase tracking-widest text-champagne/70">
               Team
             </p>
-            <h1 className="mt-4 text-section text-white">Who we are.</h1>
+            <h1 className="mt-4 text-section text-white">Who we are</h1>
             <p className="mt-8 max-w-2xl text-body leading-relaxed text-white/55">
               Operators, investors, and advisors who&apos;ve spent their careers
               in the lower mid-market. We&apos;ve been on every side of a

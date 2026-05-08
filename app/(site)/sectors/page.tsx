@@ -28,7 +28,7 @@ export default function SectorsPage() {
             <p className="text-xs font-medium uppercase tracking-widest text-champagne/70">
               Investment Focus
             </p>
-            <h1 className="mt-4 text-section text-white">Where we invest.</h1>
+            <h1 className="mt-4 text-section text-white">Where we invest</h1>
             <p className="mt-8 max-w-2xl text-body leading-relaxed text-white/55">
               Stable cash flows. Fragmented markets. Founder-led businesses
               where management continuity is essential to value.
@@ -51,12 +51,6 @@ export default function SectorsPage() {
                     style={{ filter: "brightness(0.5) saturate(0.3)" }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-                  {/* Multiples badge */}
-                  <div className="absolute right-4 top-4">
-                    <span className="text-xs text-champagne/60">
-                      {sector.multiples}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Content */}

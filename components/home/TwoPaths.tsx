@@ -40,7 +40,7 @@ export default function TwoPaths() {
     <section id="two-paths" className="px-6 py-28 text-white">
       <div className="mx-auto max-w-4xl">
         <FadeIn>
-          <h2 className="text-section text-white">How we partner.</h2>
+          <h2 className="text-section text-white">How we partner</h2>
         </FadeIn>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2">

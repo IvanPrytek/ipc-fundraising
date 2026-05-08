@@ -19,7 +19,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-white/30 transition-colors duration-500 hover:text-white/70"
+                  className="relative z-10 text-sm text-white/30 transition-colors duration-500 hover:text-white/70"
                 >
                   {link.label}
                 </Link>

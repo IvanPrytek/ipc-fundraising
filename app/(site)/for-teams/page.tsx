@@ -56,7 +56,7 @@ export default function ForTeamsPage() {
           {/* What we bring — same 2x2 grid as for-owners */}
           <div className="mt-32">
             <FadeIn>
-              <h2 className="text-xl text-white">What we bring.</h2>
+              <h2 className="text-xl text-white">What we bring</h2>
             </FadeIn>
 
             <div className="mt-14 grid gap-12 md:grid-cols-2">

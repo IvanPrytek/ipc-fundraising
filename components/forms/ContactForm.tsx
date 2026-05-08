@@ -28,7 +28,7 @@ export default function ContactForm() {
   if (submitted) {
     return (
       <div className="py-16">
-        <h3 className="text-2xl font-light text-white">Thank you.</h3>
+        <h3 className="text-2xl font-light text-white">Thank you</h3>
         <p className="mt-4 text-[15px] text-white/50">
           We&apos;ll be in touch within one business day.
         </p>

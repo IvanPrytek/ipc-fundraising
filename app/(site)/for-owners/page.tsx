@@ -63,7 +63,7 @@ export default function ForOwnersPage() {
           {/* The deal — equal 2x2 grid */}
           <div className="mt-32">
             <FadeIn>
-              <h2 className="text-xl text-white">The deal, from your side.</h2>
+              <h2 className="text-xl text-white">The deal, from your side</h2>
             </FadeIn>
 
             <div className="mt-14 grid gap-12 md:grid-cols-2">

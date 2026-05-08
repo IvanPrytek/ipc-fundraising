@@ -9,7 +9,7 @@ export default function AboutPage() {
       <section className="px-6 pb-20 pt-16">
         <div className="mx-auto max-w-4xl">
           <FadeIn>
-            <h1 className="text-section text-white">About {SITE_NAME}.</h1>
+            <h1 className="text-section text-white">About {SITE_NAME}</h1>
           </FadeIn>
 
           <div className="mt-20 max-w-2xl space-y-6">
@@ -41,7 +41,7 @@ export default function AboutPage() {
 
           <div className="mt-28 border-t border-white/[0.06] pt-12">
             <FadeIn>
-              <h2 className="text-xl text-white">Where we operate.</h2>
+              <h2 className="text-xl text-white">Where we operate</h2>
             </FadeIn>
             <div className="mt-10 grid gap-8 md:grid-cols-2">
               {REGIONS.map((region, i) => (

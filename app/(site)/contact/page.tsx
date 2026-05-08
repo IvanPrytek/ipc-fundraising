@@ -8,7 +8,7 @@ export default function ContactPage() {
       <section className="px-6 pb-32 pt-16">
         <div className="mx-auto max-w-2xl">
           <FadeIn>
-            <h1 className="text-section text-white">Get in touch.</h1>
+            <h1 className="text-section text-white">Get in touch</h1>
             <p className="mt-6 text-body leading-relaxed text-white/55">
               Every conversation starts with listening. Tell us about your
               situation and we&apos;ll respond within one business day.
