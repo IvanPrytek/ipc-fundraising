@@ -1,17 +1,16 @@
 import { jsPDF } from "jspdf";
 import type { GanttTask } from "./types";
 
-function getWeekRange(): { start: Date; end: Date } {
+function getWeekRange(): { start: string; end: string; startDate: Date; endDate: Date } {
   const now = new Date();
   const day = now.getDay();
   const diffToMonday = day === 0 ? -6 : 1 - day;
-  const monday = new Date(now);
-  monday.setDate(now.getDate() + diffToMonday);
-  monday.setHours(0, 0, 0, 0);
-  const friday = new Date(monday);
-  friday.setDate(monday.getDate() + 4);
-  friday.setHours(23, 59, 59, 999);
-  return { start: monday, end: friday };
+  const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
+  const sunday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 6);
+  // Return as YYYY-MM-DD strings for reliable date-only comparison
+  const startStr = monday.toISOString().split("T")[0];
+  const endStr = sunday.toISOString().split("T")[0];
+  return { start: startStr, end: endStr, startDate: monday, endDate: sunday };
 }
 
 function formatDate(dateStr: string): string {
@@ -58,8 +57,8 @@ export function generateWeeklyReport(
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(...grayText);
-  const { start, end } = getWeekRange();
-  const weekLabel = `${formatDate(start.toISOString())} — ${formatDate(end.toISOString())}`;
+  const { start, end, startDate, endDate } = getWeekRange();
+  const weekLabel = `${formatDate(start)} – ${formatDate(end)}`;
   doc.text(`${projectName}  |  ${weekLabel}`, margin, y);
   y += 6;
 
@@ -87,10 +86,9 @@ export function generateWeeklyReport(
     }
   }
 
-  function isThisWeek(task: GanttTask): boolean {
-    const taskEnd = new Date(task.end_date);
-    const taskStart = new Date(task.start_date);
-    return taskStart <= end && taskEnd >= start;
+  function isDueThisWeek(task: GanttTask): boolean {
+    // Task is "due this week" if its end_date falls within Mon-Sun
+    return task.end_date >= start && task.end_date <= end;
   }
 
   function checkPage(needed: number) {
@@ -190,7 +188,7 @@ export function generateWeeklyReport(
   y += 8;
 
   const openThisWeek = parentTasks.filter(
-    (t) => !t.closed && isThisWeek(t)
+    (t) => !t.closed && isDueThisWeek(t)
   );
 
   if (openThisWeek.length === 0) {
@@ -214,7 +212,7 @@ export function generateWeeklyReport(
 
   // Also check sub-tasks that are due this week even if parent isn't
   const openSubTasksThisWeek = allTasks.filter(
-    (t) => t.parent_id && !t.closed && isThisWeek(t)
+    (t) => t.parent_id && !t.closed && isDueThisWeek(t)
   );
   const parentIdsAlreadyShown = new Set(openThisWeek.map((t) => t.id));
   const additionalSubTasks = openSubTasksThisWeek.filter(
@@ -288,5 +286,5 @@ export function generateWeeklyReport(
     );
   }
 
-  doc.save(`Ownera_Weekly_Report_${start.toISOString().split("T")[0]}.pdf`);
+  doc.save(`Ownera_Weekly_Report_${start}.pdf`);
 }
