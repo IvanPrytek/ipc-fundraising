@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="mx-auto max-w-5xl px-6 py-16">
         <div className="flex flex-col justify-between gap-12 md:flex-row">
           <div>
-            <span className="text-white/70"><Logo height={20} /></span>
+            <span className="text-white/70"><Logo height={28} /></span>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/25">
               The trusted PE partner for management-led ownership transitions.
             </p>

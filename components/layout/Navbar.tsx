@@ -69,7 +69,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between">
           <Link href="/" className="flex shrink-0 items-center text-white">
-            <Logo height={18} />
+            <Logo height={26} />
           </Link>
 
           <ul

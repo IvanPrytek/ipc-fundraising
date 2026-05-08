@@ -1,56 +1,43 @@
 export default function Logo({ className = "", height = 24 }: { className?: string; height?: number }) {
-  const scale = height / 32;
-  const width = Math.round(300 * scale);
+  const iconSize = height;
+  const fontSize = height * 0.7;
 
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 300 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
+    <div
+      className={`flex items-center gap-2.5 ${className}`}
       role="img"
       aria-label="Ownera Capital"
+      style={{ height }}
     >
-      {/* Prytek three-square icon — exact 2018 geometry, scaled to fit */}
-      <g transform="translate(0, 1) scale(0.44)">
+      {/* Prytek 2018 three-square icon */}
+      <svg
+        width={iconSize}
+        height={iconSize}
+        viewBox="0 0 68 68"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M42.2,17V0H0v42.3h16.9v25.5h50.7V17H42.2z M8.4,33.9V8.5h25.3V17H16.8v16.9H8.4z M33.7,25.4v8.4h-8.4v-8.4H33.7z M59.1,59.3H25.3v-17h16.9V25.4h16.9V59.3z"
           fill="currentColor"
         />
-      </g>
+      </svg>
 
-      {/* OWNERA — Stolzl Medium */}
-      <text
-        x="38"
-        y="21"
-        fill="currentColor"
+      {/* OWNERA CAPITAL — Stolzl font */}
+      <span
         style={{
           fontFamily: "'Stolzl', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-          fontSize: "17px",
-          fontWeight: 500,
-          letterSpacing: "0.18em",
+          fontSize: `${fontSize}px`,
+          letterSpacing: "0.16em",
+          lineHeight: 1,
+          whiteSpace: "nowrap",
         }}
       >
-        OWNERA
-      </text>
-
-      {/* CAPITAL — Stolzl Light */}
-      <text
-        x="155"
-        y="21"
-        fill="currentColor"
-        opacity="0.45"
-        style={{
-          fontFamily: "'Stolzl', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-          fontSize: "17px",
-          fontWeight: 300,
-          letterSpacing: "0.18em",
-        }}
-      >
-        CAPITAL
-      </text>
-    </svg>
+        <span style={{ fontWeight: 500 }}>OWNERA</span>
+        <span style={{ fontWeight: 300, opacity: 0.45, marginLeft: "0.3em" }}>
+          CAPITAL
+        </span>
+      </span>
+    </div>
   );
 }
