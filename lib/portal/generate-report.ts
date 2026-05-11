@@ -180,20 +180,6 @@ export function generateWeeklyReport(
       y += 4.5;
     }
 
-    // Notes (long, detail)
-    if (task.notes) {
-      doc.setFontSize(7.5);
-      doc.setTextColor(...grayText);
-      doc.setFont("helvetica", "italic");
-      const lines = doc.splitTextToSize(task.notes, contentWidth - indent - 10);
-      const maxLines = Math.min(lines.length, 2);
-      for (let i = 0; i < maxLines; i++) {
-        checkPage(5);
-        doc.text(lines[i], titleX, y);
-        y += 4;
-      }
-      y += 1;
-    }
   }
 
   // --- SECTION 1: Open tasks due this week ---
