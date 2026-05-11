@@ -118,6 +118,34 @@ export default function TeamDashboard({
     return groups;
   }, [allTasks, weekStart, weekEnd]);
 
+  // Ongoing tasks: overlap the week but end after it (not closed, not already "due")
+  const ongoingGroups = useMemo(() => {
+    const parentTasks = allTasks.filter((t) => !t.parent_id);
+    const childMap = new Map<string, GanttTask[]>();
+    for (const t of allTasks) {
+      if (t.parent_id) {
+        const children = childMap.get(t.parent_id) ?? [];
+        children.push(t);
+        childMap.set(t.parent_id, children);
+      }
+    }
+
+    const dueParentIds = new Set(taskGroups.map((g) => g.parent.id));
+
+    const groups: { parent: GanttTask; children: GanttTask[] }[] = [];
+    for (const parent of parentTasks) {
+      if (dueParentIds.has(parent.id)) continue;
+      const parentOngoing = !parent.closed && parent.start_date <= weekEnd && parent.end_date > weekEnd;
+      const childrenOngoing = (childMap.get(parent.id) ?? []).filter(
+        (c) => !c.closed && c.start_date <= weekEnd && c.end_date > weekEnd
+      );
+      if (parentOngoing || childrenOngoing.length > 0) {
+        groups.push({ parent, children: childrenOngoing });
+      }
+    }
+    return groups;
+  }, [allTasks, taskGroups, weekEnd]);
+
   // Milestones due in selected week
   const milestonesThisWeek = useMemo(() => {
     return milestones.filter(
@@ -323,6 +351,80 @@ export default function TeamDashboard({
           )}
         </div>
       </section>
+
+      {/* Ongoing This Week */}
+      {ongoingGroups.length > 0 && (
+        <section className="mb-8">
+          <div className="mb-4 text-[10px] font-semibold uppercase tracking-[2px] text-champagne">
+            Ongoing This Week
+          </div>
+          <div className="space-y-1.5">
+            {ongoingGroups.map(({ parent, children }) => (
+              <div key={parent.id}>
+                <div className="flex items-center gap-3 rounded-lg border border-white/[0.04] px-4 py-3">
+                  <div className={`flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded border ${parent.closed ? "border-emerald-400/60 bg-emerald-400/20" : "border-white/20"}`}>
+                    {parent.closed && (
+                      <svg className="h-2.5 w-2.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <span className={`text-[13px] font-medium ${parent.closed ? "text-[#4B5563] line-through" : "text-[#e5e5e5]"}`}>
+                      {parent.title}
+                    </span>
+                    {parent.display_notes && (
+                      <p className="mt-0.5 text-[11px] leading-snug text-[#86868B]/70 line-clamp-2">
+                        {parent.display_notes}
+                      </p>
+                    )}
+                  </div>
+                  {parent.assignee && (
+                    <span className="flex-shrink-0 rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                      {parent.assignee}
+                    </span>
+                  )}
+                  <span className="flex-shrink-0 text-[11px] text-[#86868B]">
+                    {formatShortDate(parent.end_date)}
+                  </span>
+                </div>
+                {children.map((child) => (
+                  <div
+                    key={child.id}
+                    className="ml-6 flex items-center gap-3 border-l border-white/[0.06] px-4 py-2.5"
+                  >
+                    <div className={`flex h-3 w-3 flex-shrink-0 items-center justify-center rounded border ${child.closed ? "border-emerald-400/60 bg-emerald-400/20" : "border-white/15"}`}>
+                      {child.closed && (
+                        <svg className="h-2 w-2 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className={`text-[12px] ${child.closed ? "text-[#4B5563] line-through" : "text-[#9CA3AF]"}`}>
+                        {child.title}
+                      </span>
+                      {child.display_notes && (
+                        <p className="mt-0.5 text-[11px] leading-snug text-[#86868B]/60 line-clamp-2">
+                          {child.display_notes}
+                        </p>
+                      )}
+                    </div>
+                    {child.assignee && (
+                      <span className="flex-shrink-0 rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                        {child.assignee}
+                      </span>
+                    )}
+                    <span className="flex-shrink-0 text-[10px] text-[#86868B]">
+                      {formatShortDate(child.end_date)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Latest Update */}
       {updates.length > 0 && (

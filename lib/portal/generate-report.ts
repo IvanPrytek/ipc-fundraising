@@ -97,8 +97,11 @@ export function generateWeeklyReport(
   }
 
   function isDueThisWeek(task: GanttTask): boolean {
-    // Task is "due this week" if its end_date falls within Mon-Sun
     return task.end_date >= start && task.end_date <= end;
+  }
+
+  function isOngoingThisWeek(task: GanttTask): boolean {
+    return task.start_date <= end && task.end_date > end;
   }
 
   function checkPage(needed: number) {
@@ -223,7 +226,50 @@ export function generateWeeklyReport(
 
   y += 6;
 
-  // --- SECTION 2: All closed tasks ---
+  // --- SECTION 2: Ongoing tasks this week ---
+  checkPage(20);
+  doc.setFontSize(8);
+  doc.setTextColor(...champagne);
+  doc.setFont("helvetica", "bold");
+  doc.text("ONGOING THIS WEEK", margin, y);
+  y += 3;
+  doc.setDrawColor(...champagne);
+  doc.setLineWidth(0.8);
+  doc.line(margin, y, margin + 30, y);
+  y += 8;
+
+  const dueParentIds = new Set(openGroups.map((g) => g.parent.id));
+  const ongoingGroups: { parent: GanttTask; children: GanttTask[] }[] = [];
+  for (const parent of parentTasks) {
+    if (dueParentIds.has(parent.id)) continue;
+    const parentOngoing = !parent.closed && isOngoingThisWeek(parent);
+    const childrenOngoing = (childMap.get(parent.id) ?? []).filter(
+      (c) => !c.closed && isOngoingThisWeek(c)
+    );
+    if (parentOngoing || childrenOngoing.length > 0) {
+      ongoingGroups.push({ parent, children: childrenOngoing });
+    }
+  }
+
+  if (ongoingGroups.length === 0) {
+    doc.setFontSize(9);
+    doc.setTextColor(...grayText);
+    doc.setFont("helvetica", "normal");
+    doc.text("No ongoing tasks this week", margin, y);
+    y += 10;
+  } else {
+    for (const { parent, children } of ongoingGroups) {
+      drawTask(parent, 0, true);
+      for (const child of children) {
+        drawTask(child, 8, true);
+      }
+      y += 2;
+    }
+  }
+
+  y += 6;
+
+  // --- SECTION 3: All closed tasks ---
   checkPage(20);
   doc.setFontSize(8);
   doc.setTextColor(...champagne);
@@ -306,6 +352,10 @@ export function generateTextSummary(
     return task.end_date >= start && task.end_date <= end;
   }
 
+  function isOngoing(task: GanttTask): boolean {
+    return task.start_date <= end && task.end_date > end;
+  }
+
   const lines: string[] = [];
 
   // Header
@@ -350,6 +400,44 @@ export function generateTextSummary(
   } else {
     lines.push("_No open tasks due this week_");
     lines.push("");
+  }
+
+  // Ongoing this week
+  const dueIds = new Set(openGroups.map((g) => g.parent.id));
+  const ongoingWA: { parent: GanttTask; children: GanttTask[] }[] = [];
+  for (const parent of parentTasks) {
+    if (dueIds.has(parent.id)) continue;
+    const parentOn = !parent.closed && isOngoing(parent);
+    const childrenOn = (childMap.get(parent.id) ?? []).filter(
+      (c) => !c.closed && isOngoing(c)
+    );
+    if (parentOn || childrenOn.length > 0) {
+      ongoingWA.push({ parent, children: childrenOn });
+    }
+  }
+
+  if (ongoingWA.length > 0) {
+    lines.push("*Ongoing This Week*");
+    lines.push("");
+
+    for (const { parent, children } of ongoingWA) {
+      const status = parent.closed ? "✅" : "🔄";
+      const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
+      lines.push(`${status} *${parent.title}*${assigneePart}`);
+      if (parent.display_notes) {
+        lines.push(`    📝 ${parent.display_notes}`);
+      }
+
+      for (const child of children) {
+        const childStatus = child.closed ? "✅" : "🔄";
+        const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
+        lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
+        if (child.display_notes) {
+          lines.push(`        📝 ${child.display_notes}`);
+        }
+      }
+      lines.push("");
+    }
   }
 
   // Completed tasks
