@@ -12,6 +12,7 @@ interface GanttTaskPanelProps {
     end_date: string;
     assignee: string;
     notes: string;
+    display_notes: string;
   }) => void;
   onDelete: () => void;
   onClose: () => void;
@@ -29,6 +30,7 @@ export default function GanttTaskPanel({
   const [endDate, setEndDate] = useState(task.end_date);
   const [assignee, setAssignee] = useState(task.assignee ?? "");
   const [notes, setNotes] = useState(task.notes ?? "");
+  const [displayNotes, setDisplayNotes] = useState(task.display_notes ?? "");
 
   const handleSave = () => {
     onSave({
@@ -37,6 +39,7 @@ export default function GanttTaskPanel({
       end_date: endDate,
       assignee,
       notes,
+      display_notes: displayNotes,
     });
   };
 
@@ -171,7 +174,24 @@ export default function GanttTaskPanel({
               />
             </div>
 
-            {/* Notes */}
+            {/* Display Notes (short) */}
+            <div>
+              <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
+                Display Notes
+              </label>
+              <input
+                value={displayNotes}
+                onChange={(e) => setDisplayNotes(e.target.value)}
+                placeholder="Short note shown on Gantt & dashboard..."
+                maxLength={120}
+                className="w-full rounded-lg bg-white/5 px-3 py-2.5 text-[14px] text-white outline-none placeholder:text-[#4B5563] focus:ring-1 focus:ring-champagne/50"
+              />
+              <p className="mt-1 text-[10px] text-[#86868B]/50">
+                {displayNotes.length}/120 — visible inline on rows and reports
+              </p>
+            </div>
+
+            {/* Notes (long) */}
             <div>
               <label className="mb-1.5 block text-[11px] uppercase tracking-wider text-[#86868B]">
                 Notes

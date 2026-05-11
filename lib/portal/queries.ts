@@ -64,7 +64,7 @@ export async function getGanttTasks(
 
 export async function updateGanttTask(
   taskId: string,
-  updates: Partial<Pick<GanttTask, "title" | "start_date" | "end_date" | "progress" | "sort_order" | "color" | "notes" | "assignee" | "closed" | "lp_visible">>
+  updates: Partial<Pick<GanttTask, "title" | "start_date" | "end_date" | "progress" | "sort_order" | "color" | "notes" | "display_notes" | "assignee" | "closed" | "lp_visible">>
 ): Promise<GanttTask | null> {
   const { data } = await supabase
     .from("gantt_tasks")

@@ -234,6 +234,7 @@ export default function GanttChart({
       end_date: string;
       assignee: string;
       notes: string;
+      display_notes: string;
     }) => {
       if (!selectedTaskId) return;
       const task = tasks.find((t) => t.id === selectedTaskId);

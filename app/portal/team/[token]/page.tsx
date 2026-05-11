@@ -255,9 +255,9 @@ export default function TeamDashboard({
                       <span className={`text-[13px] font-medium ${parent.closed ? "text-[#4B5563] line-through" : "text-[#e5e5e5]"}`}>
                         {parent.title}
                       </span>
-                      {parent.notes && (
+                      {parent.display_notes && (
                         <p className="mt-0.5 text-[11px] leading-snug text-[#86868B]/70 line-clamp-2">
-                          {parent.notes}
+                          {parent.display_notes}
                         </p>
                       )}
                     </div>
@@ -286,9 +286,9 @@ export default function TeamDashboard({
                         <span className={`text-[12px] ${child.closed ? "text-[#4B5563] line-through" : "text-[#9CA3AF]"}`}>
                           {child.title}
                         </span>
-                        {child.notes && (
+                        {child.display_notes && (
                           <p className="mt-0.5 text-[11px] leading-snug text-[#86868B]/60 line-clamp-2">
-                            {child.notes}
+                            {child.display_notes}
                           </p>
                         )}
                       </div>

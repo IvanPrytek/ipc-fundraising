@@ -125,9 +125,9 @@ export default function GanttTaskRow({
               {task.title}
             </span>
           </div>
-          {task.notes && (
+          {task.display_notes && (
             <p className="line-clamp-1 text-[10px] leading-snug text-[#86868B]/60">
-              {task.notes.split("\n")[0]}
+              {task.display_notes}
             </p>
           )}
           <div className="flex items-center gap-1.5">

@@ -33,6 +33,7 @@ export interface GanttTask {
   sort_order: number;
   color: string | null;
   notes: string;
+  display_notes: string;
   assignee: string;
   closed: boolean;
   lp_visible: boolean;

@@ -170,7 +170,17 @@ export function generateWeeklyReport(
 
     y += 6;
 
-    // Notes
+    // Display Notes (short, always shown)
+    if (task.display_notes) {
+      checkPage(5);
+      doc.setFontSize(7.5);
+      doc.setTextColor(...champagne);
+      doc.setFont("helvetica", "normal");
+      doc.text(task.display_notes, titleX, y);
+      y += 4.5;
+    }
+
+    // Notes (long, detail)
     if (task.notes) {
       doc.setFontSize(7.5);
       doc.setTextColor(...grayText);
@@ -337,16 +347,16 @@ export function generateTextSummary(
       const status = parent.closed ? "\u2705" : "\u2B1C";
       const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
       lines.push(`${status} *${parent.title}*${assigneePart}`);
-      if (parent.notes) {
-        lines.push(`    \u{1F4DD} ${parent.notes.split("\n")[0]}`);
+      if (parent.display_notes) {
+        lines.push(`    \u{1F4DD} ${parent.display_notes}`);
       }
 
       for (const child of children) {
         const childStatus = child.closed ? "\u2705" : "\u2B1C";
         const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
         lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
-        if (child.notes) {
-          lines.push(`        \u{1F4DD} ${child.notes.split("\n")[0]}`);
+        if (child.display_notes) {
+          lines.push(`        \u{1F4DD} ${child.display_notes}`);
         }
       }
       lines.push("");
