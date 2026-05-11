@@ -171,7 +171,7 @@ export function generateWeeklyReport(
     y += 6;
 
     // Notes
-    if (task.notes && indent === 0) {
+    if (task.notes) {
       doc.setFontSize(7.5);
       doc.setTextColor(...grayText);
       doc.setFont("helvetica", "italic");
@@ -286,4 +286,93 @@ export function generateWeeklyReport(
   }
 
   doc.save(`Ownera_Weekly_Report_${start}.pdf`);
+}
+
+export function generateTextSummary(
+  allTasks: GanttTask[],
+  projectName: string,
+  weekCommencing?: string
+): string {
+  const { start, end } = getWeekRange(weekCommencing);
+  const weekLabel = `${formatDate(start)} – ${formatDate(end)}`;
+
+  const parentTasks = allTasks.filter((t) => !t.parent_id);
+  const childMap = new Map<string, GanttTask[]>();
+  for (const t of allTasks) {
+    if (t.parent_id) {
+      const children = childMap.get(t.parent_id) ?? [];
+      children.push(t);
+      childMap.set(t.parent_id, children);
+    }
+  }
+
+  function isDue(task: GanttTask): boolean {
+    return task.end_date >= start && task.end_date <= end;
+  }
+
+  const lines: string[] = [];
+
+  // Header
+  lines.push(`*${projectName} — Weekly Update*`);
+  lines.push(`${weekLabel}`);
+  lines.push("");
+
+  // Open tasks due this week
+  const openGroups: { parent: GanttTask; children: GanttTask[] }[] = [];
+  for (const parent of parentTasks) {
+    const parentDue = !parent.closed && isDue(parent);
+    const childrenDue = (childMap.get(parent.id) ?? []).filter(
+      (c) => !c.closed && isDue(c)
+    );
+    if (parentDue || childrenDue.length > 0) {
+      openGroups.push({ parent, children: childrenDue });
+    }
+  }
+
+  if (openGroups.length > 0) {
+    lines.push("*Open Tasks Due This Week*");
+    lines.push("");
+
+    for (const { parent, children } of openGroups) {
+      const status = parent.closed ? "\u2705" : "\u2B1C";
+      const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
+      lines.push(`${status} *${parent.title}*${assigneePart}`);
+      if (parent.notes) {
+        lines.push(`    \u{1F4DD} ${parent.notes.split("\n")[0]}`);
+      }
+
+      for (const child of children) {
+        const childStatus = child.closed ? "\u2705" : "\u2B1C";
+        const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
+        lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
+        if (child.notes) {
+          lines.push(`        \u{1F4DD} ${child.notes.split("\n")[0]}`);
+        }
+      }
+      lines.push("");
+    }
+  } else {
+    lines.push("_No open tasks due this week_");
+    lines.push("");
+  }
+
+  // Completed tasks
+  const closedParents = parentTasks.filter((t) => t.closed);
+  if (closedParents.length > 0) {
+    lines.push("*Completed*");
+    lines.push("");
+    for (const task of closedParents) {
+      lines.push(`\u2705 ~${task.title}~`);
+      const closedChildren = (childMap.get(task.id) ?? []).filter((c) => c.closed);
+      for (const child of closedChildren) {
+        lines.push(`    \u2705 ~${child.title}~`);
+      }
+    }
+    lines.push("");
+  }
+
+  lines.push("---");
+  lines.push(`_Generated ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}_`);
+
+  return lines.join("\n");
 }

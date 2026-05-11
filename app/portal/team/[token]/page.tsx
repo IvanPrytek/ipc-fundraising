@@ -3,7 +3,7 @@
 import { use, useEffect, useState, useMemo } from "react";
 import { validateToken, getGanttTasks, getMilestones, getStatusUpdates, getFundMetrics, getProject } from "@/lib/portal/queries";
 import { formatShortDate, getQuarterLabel } from "@/lib/portal/utils";
-import { generateWeeklyReport } from "@/lib/portal/generate-report";
+import { generateWeeklyReport, generateTextSummary } from "@/lib/portal/generate-report";
 import { StatusBadge } from "@/components/portal/shared/StatusBadge";
 import PortalButton from "@/components/portal/shared/PortalButton";
 import Link from "next/link";
@@ -61,6 +61,7 @@ export default function TeamDashboard({
   const [updates, setUpdates] = useState<StatusUpdate[]>([]);
   const [metrics, setMetrics] = useState<FundMetrics | null>(null);
   const [showWeekPicker, setShowWeekPicker] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const thisWeekStart = getSundayOf(new Date());
   const [dashboardWeek, setDashboardWeek] = useState(thisWeekStart);
@@ -164,16 +165,29 @@ export default function TeamDashboard({
                 <p className="mb-4 text-center text-[11px] text-[#86868B]">
                   {reportWeek === thisWeekStart ? "This week" : `w/c ${parseLocal(reportWeek).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`}
                 </p>
-                <PortalButton
-                  variant="accent"
-                  className="w-full"
-                  onClick={() => {
-                    generateWeeklyReport(allTasks, projectName, reportWeek);
-                    setShowWeekPicker(false);
-                  }}
-                >
-                  Download PDF
-                </PortalButton>
+                <div className="flex flex-col gap-2">
+                  <PortalButton
+                    variant="accent"
+                    className="w-full"
+                    onClick={() => {
+                      generateWeeklyReport(allTasks, projectName, reportWeek);
+                      setShowWeekPicker(false);
+                    }}
+                  >
+                    Download PDF
+                  </PortalButton>
+                  <PortalButton
+                    className="w-full"
+                    onClick={async () => {
+                      const text = generateTextSummary(allTasks, projectName, reportWeek);
+                      await navigator.clipboard.writeText(text);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    }}
+                  >
+                    {copied ? "Copied!" : "Copy for WhatsApp"}
+                  </PortalButton>
+                </div>
               </div>
             )}
           </div>
@@ -237,15 +251,22 @@ export default function TeamDashboard({
                         </svg>
                       )}
                     </div>
-                    <span className={`flex-1 text-[13px] font-medium ${parent.closed ? "text-[#4B5563] line-through" : "text-[#e5e5e5]"}`}>
-                      {parent.title}
-                    </span>
+                    <div className="min-w-0 flex-1">
+                      <span className={`text-[13px] font-medium ${parent.closed ? "text-[#4B5563] line-through" : "text-[#e5e5e5]"}`}>
+                        {parent.title}
+                      </span>
+                      {parent.notes && (
+                        <p className="mt-0.5 text-[11px] leading-snug text-[#86868B]/70 line-clamp-2">
+                          {parent.notes}
+                        </p>
+                      )}
+                    </div>
                     {parent.assignee && (
-                      <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                      <span className="flex-shrink-0 rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
                         {parent.assignee}
                       </span>
                     )}
-                    <span className="text-[11px] text-[#86868B]">
+                    <span className="flex-shrink-0 text-[11px] text-[#86868B]">
                       {formatShortDate(parent.end_date)}
                     </span>
                   </div>
@@ -261,15 +282,22 @@ export default function TeamDashboard({
                           </svg>
                         )}
                       </div>
-                      <span className={`flex-1 text-[12px] ${child.closed ? "text-[#4B5563] line-through" : "text-[#9CA3AF]"}`}>
-                        {child.title}
-                      </span>
+                      <div className="min-w-0 flex-1">
+                        <span className={`text-[12px] ${child.closed ? "text-[#4B5563] line-through" : "text-[#9CA3AF]"}`}>
+                          {child.title}
+                        </span>
+                        {child.notes && (
+                          <p className="mt-0.5 text-[11px] leading-snug text-[#86868B]/60 line-clamp-2">
+                            {child.notes}
+                          </p>
+                        )}
+                      </div>
                       {child.assignee && (
-                        <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
+                        <span className="flex-shrink-0 rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-[#86868B]">
                           {child.assignee}
                         </span>
                       )}
-                      <span className="text-[10px] text-[#86868B]">
+                      <span className="flex-shrink-0 text-[10px] text-[#86868B]">
                         {formatShortDate(child.end_date)}
                       </span>
                     </div>
