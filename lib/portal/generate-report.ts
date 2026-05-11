@@ -380,19 +380,19 @@ export function generateTextSummary(
     lines.push("");
 
     for (const { parent, children } of openGroups) {
-      const status = parent.closed ? "✅" : "⬜";
+      const status = parent.closed ? "[x]" : "[ ]";
       const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
       lines.push(`${status} *${parent.title}*${assigneePart}`);
       if (parent.display_notes) {
-        lines.push(`    📝 ${parent.display_notes}`);
+        lines.push(`      > ${parent.display_notes}`);
       }
 
       for (const child of children) {
-        const childStatus = child.closed ? "✅" : "⬜";
+        const childStatus = child.closed ? "[x]" : "[ ]";
         const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
         lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
         if (child.display_notes) {
-          lines.push(`        📝 ${child.display_notes}`);
+          lines.push(`          > ${child.display_notes}`);
         }
       }
       lines.push("");
@@ -421,19 +421,19 @@ export function generateTextSummary(
     lines.push("");
 
     for (const { parent, children } of ongoingWA) {
-      const status = parent.closed ? "✅" : "🔄";
+      const status = parent.closed ? "[x]" : "[-]";
       const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
       lines.push(`${status} *${parent.title}*${assigneePart}`);
       if (parent.display_notes) {
-        lines.push(`    📝 ${parent.display_notes}`);
+        lines.push(`      > ${parent.display_notes}`);
       }
 
       for (const child of children) {
-        const childStatus = child.closed ? "✅" : "🔄";
+        const childStatus = child.closed ? "[x]" : "[-]";
         const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
         lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
         if (child.display_notes) {
-          lines.push(`        📝 ${child.display_notes}`);
+          lines.push(`          > ${child.display_notes}`);
         }
       }
       lines.push("");
@@ -446,10 +446,10 @@ export function generateTextSummary(
     lines.push("*Completed*");
     lines.push("");
     for (const task of closedParents) {
-      lines.push(`✅ ~${task.title}~`);
+      lines.push(`[x] ~${task.title}~`);
       const closedChildren = (childMap.get(task.id) ?? []).filter((c) => c.closed);
       for (const child of closedChildren) {
-        lines.push(`    ✅ ~${child.title}~`);
+        lines.push(`    [x] ~${child.title}~`);
       }
     }
     lines.push("");
