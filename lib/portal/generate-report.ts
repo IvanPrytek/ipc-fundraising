@@ -359,8 +359,8 @@ export function generateTextSummary(
   const lines: string[] = [];
 
   // Header
-  lines.push(`*${projectName} — Weekly Update*`);
-  lines.push(`${weekLabel}`);
+  lines.push(`\u{1F4CB} *${projectName} \u2014 Weekly Update*`);
+  lines.push(weekLabel);
   lines.push("");
 
   // Open tasks due this week
@@ -376,23 +376,23 @@ export function generateTextSummary(
   }
 
   if (openGroups.length > 0) {
-    lines.push("*Open Tasks Due This Week*");
+    lines.push("\u{1F3AF} *Due This Week*");
     lines.push("");
 
     for (const { parent, children } of openGroups) {
-      const status = parent.closed ? "[x]" : "[ ]";
-      const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
-      lines.push(`${status} *${parent.title}*${assigneePart}`);
+      const icon = parent.closed ? "\u2705" : "\u2B1C";
+      const assigneePart = parent.assignee ? `  \u2022 _${parent.assignee}_` : "";
+      lines.push(`${icon} *${parent.title}*${assigneePart}`);
       if (parent.display_notes) {
-        lines.push(`      > ${parent.display_notes}`);
+        lines.push(`     \u21B3 ${parent.display_notes}`);
       }
 
       for (const child of children) {
-        const childStatus = child.closed ? "[x]" : "[ ]";
-        const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
-        lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
+        const childIcon = child.closed ? "\u2705" : "\u2B1C";
+        const childAssignee = child.assignee ? `  \u2022 _${child.assignee}_` : "";
+        lines.push(`      ${childIcon} ${child.title}${childAssignee}`);
         if (child.display_notes) {
-          lines.push(`          > ${child.display_notes}`);
+          lines.push(`           \u21B3 ${child.display_notes}`);
         }
       }
       lines.push("");
@@ -417,45 +417,30 @@ export function generateTextSummary(
   }
 
   if (ongoingWA.length > 0) {
-    lines.push("*Ongoing This Week*");
+    lines.push("\u{1F504} *Ongoing This Week*");
     lines.push("");
 
     for (const { parent, children } of ongoingWA) {
-      const status = parent.closed ? "[x]" : "[-]";
-      const assigneePart = parent.assignee ? ` _(${parent.assignee})_` : "";
-      lines.push(`${status} *${parent.title}*${assigneePart}`);
+      const icon = parent.closed ? "\u2705" : "\u23F3";
+      const assigneePart = parent.assignee ? `  \u2022 _${parent.assignee}_` : "";
+      lines.push(`${icon} *${parent.title}*${assigneePart}`);
       if (parent.display_notes) {
-        lines.push(`      > ${parent.display_notes}`);
+        lines.push(`     \u21B3 ${parent.display_notes}`);
       }
 
       for (const child of children) {
-        const childStatus = child.closed ? "[x]" : "[-]";
-        const childAssignee = child.assignee ? ` _(${child.assignee})_` : "";
-        lines.push(`    ${childStatus} ${child.title}${childAssignee}`);
+        const childIcon = child.closed ? "\u2705" : "\u23F3";
+        const childAssignee = child.assignee ? `  \u2022 _${child.assignee}_` : "";
+        lines.push(`      ${childIcon} ${child.title}${childAssignee}`);
         if (child.display_notes) {
-          lines.push(`          > ${child.display_notes}`);
+          lines.push(`           \u21B3 ${child.display_notes}`);
         }
       }
       lines.push("");
     }
   }
 
-  // Completed tasks
-  const closedParents = parentTasks.filter((t) => t.closed);
-  if (closedParents.length > 0) {
-    lines.push("*Completed*");
-    lines.push("");
-    for (const task of closedParents) {
-      lines.push(`[x] ~${task.title}~`);
-      const closedChildren = (childMap.get(task.id) ?? []).filter((c) => c.closed);
-      for (const child of closedChildren) {
-        lines.push(`    [x] ~${child.title}~`);
-      }
-    }
-    lines.push("");
-  }
-
-  lines.push("---");
+  lines.push("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500");
   lines.push(`_Generated ${new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}_`);
 
   return lines.join("\n");
