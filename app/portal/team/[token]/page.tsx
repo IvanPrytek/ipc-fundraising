@@ -118,7 +118,7 @@ export default function TeamDashboard({
     return groups;
   }, [allTasks, weekStart, weekEnd]);
 
-  // Ongoing tasks: overlap the week but end after it (not closed, not already "due")
+  // Ongoing tasks: overlap the week but end after it (not closed, not already shown as "due")
   const ongoingGroups = useMemo(() => {
     const parentTasks = allTasks.filter((t) => !t.parent_id);
     const childMap = new Map<string, GanttTask[]>();
@@ -130,15 +130,17 @@ export default function TeamDashboard({
       }
     }
 
+    // Collect IDs of children already shown in the "due" section
+    const dueChildIds = new Set(taskGroups.flatMap((g) => g.children.map((c) => c.id)));
     const dueParentIds = new Set(taskGroups.map((g) => g.parent.id));
 
     const groups: { parent: GanttTask; children: GanttTask[] }[] = [];
     for (const parent of parentTasks) {
-      if (dueParentIds.has(parent.id)) continue;
-      const parentOngoing = !parent.closed && parent.start_date <= weekEnd && parent.end_date > weekEnd;
       const childrenOngoing = (childMap.get(parent.id) ?? []).filter(
-        (c) => !c.closed && c.start_date <= weekEnd && c.end_date > weekEnd
+        (c) => !c.closed && !dueChildIds.has(c.id) && c.start_date <= weekEnd && c.end_date > weekEnd
       );
+      // Skip the parent's own ongoing status if it's already in "due"
+      const parentOngoing = !dueParentIds.has(parent.id) && !parent.closed && parent.start_date <= weekEnd && parent.end_date > weekEnd;
       if (parentOngoing || childrenOngoing.length > 0) {
         groups.push({ parent, children: childrenOngoing });
       }
