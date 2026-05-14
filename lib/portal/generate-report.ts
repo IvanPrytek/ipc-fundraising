@@ -239,13 +239,13 @@ export function generateWeeklyReport(
   y += 8;
 
   const dueParentIds = new Set(openGroups.map((g) => g.parent.id));
+  const dueChildIds = new Set(openGroups.flatMap((g) => g.children.map((c) => c.id)));
   const ongoingGroups: { parent: GanttTask; children: GanttTask[] }[] = [];
   for (const parent of parentTasks) {
-    if (dueParentIds.has(parent.id)) continue;
-    const parentOngoing = !parent.closed && isOngoingThisWeek(parent);
     const childrenOngoing = (childMap.get(parent.id) ?? []).filter(
-      (c) => !c.closed && isOngoingThisWeek(c)
+      (c) => !c.closed && !dueChildIds.has(c.id) && isOngoingThisWeek(c)
     );
+    const parentOngoing = !dueParentIds.has(parent.id) && !parent.closed && isOngoingThisWeek(parent);
     if (parentOngoing || childrenOngoing.length > 0) {
       ongoingGroups.push({ parent, children: childrenOngoing });
     }
@@ -404,13 +404,13 @@ export function generateTextSummary(
 
   // Ongoing this week
   const dueIds = new Set(openGroups.map((g) => g.parent.id));
+  const dueChildIdsWA = new Set(openGroups.flatMap((g) => g.children.map((c) => c.id)));
   const ongoingWA: { parent: GanttTask; children: GanttTask[] }[] = [];
   for (const parent of parentTasks) {
-    if (dueIds.has(parent.id)) continue;
-    const parentOn = !parent.closed && isOngoing(parent);
     const childrenOn = (childMap.get(parent.id) ?? []).filter(
-      (c) => !c.closed && isOngoing(c)
+      (c) => !c.closed && !dueChildIdsWA.has(c.id) && isOngoing(c)
     );
+    const parentOn = !dueIds.has(parent.id) && !parent.closed && isOngoing(parent);
     if (parentOn || childrenOn.length > 0) {
       ongoingWA.push({ parent, children: childrenOn });
     }
