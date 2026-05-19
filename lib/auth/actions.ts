@@ -126,7 +126,7 @@ export async function inviteUser(prevState: any, formData: FormData) {
     });
 
   if (authError || !authUser.user) {
-    return { error: authError?.message ?? "Failed to send invitation." };
+    return { error: "Failed to send invitation. Please try again." };
   }
 
   // Insert portal_users row
