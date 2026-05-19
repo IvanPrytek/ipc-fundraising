@@ -11,12 +11,6 @@ export default function FinalCTA() {
           <h2 className="text-section text-white">Ready to talk?</h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <p className="mt-6 text-[17px] leading-relaxed text-white/40">
-            Every relationship starts the same way: a conversation. No pitch
-            decks. No pressure.
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.2}>
           <div className="mt-10">
             <Link
               href="/contact"
