@@ -5,17 +5,17 @@ export default function TokenInvalid() {
     <div className="flex min-h-screen items-center justify-center bg-dark">
       <div className="max-w-md px-6 text-center">
         <div className="mb-4 text-[48px] font-extralight text-white">
-          Link Expired
+          Access Denied
         </div>
         <p className="mb-8 text-[17px] leading-relaxed text-[#86868B]">
-          This portal link is no longer active. It may have been revoked or
-          expired. Please contact Ownera Capital for a new link.
+          You don't have access to this page, or your session has expired.
+          Please sign in to continue.
         </p>
         <Link
-          href="/"
+          href="/portal/login"
           className="inline-block rounded-lg bg-champagne px-6 py-3 text-[14px] font-medium text-[#1A1A1A] transition-colors hover:bg-champagne-light"
         >
-          Go to Homepage
+          Sign In
         </Link>
       </div>
     </div>

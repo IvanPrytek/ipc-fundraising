@@ -1,4 +1,4 @@
-import { supabase } from "./client";
+import { createClient } from "./client";
 
 const BUCKET = "portal-documents";
 
@@ -7,6 +7,7 @@ export async function uploadFile(
   folderId: string,
   file: File
 ): Promise<{ path: string; error: string | null }> {
+  const supabase = createClient();
   const timestamp = Date.now();
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const path = `${projectId}/${folderId}/${timestamp}-${safeName}`;
@@ -22,14 +23,17 @@ export async function uploadFile(
   return { path, error: null };
 }
 
-export function getPublicUrl(storagePath: string): string {
-  const { data } = supabase.storage
+export async function getSignedUrl(storagePath: string, expiresIn = 3600): Promise<string> {
+  const supabase = createClient();
+  const { data, error } = await supabase.storage
     .from(BUCKET)
-    .getPublicUrl(storagePath);
-  return data.publicUrl;
+    .createSignedUrl(storagePath, expiresIn);
+  if (error || !data?.signedUrl) return "";
+  return data.signedUrl;
 }
 
 export async function deleteFile(storagePath: string): Promise<boolean> {
+  const supabase = createClient();
   const { error } = await supabase.storage
     .from(BUCKET)
     .remove([storagePath]);

@@ -1,6 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
 import type {
-  PortalLink,
   Project,
   GanttTask,
   Milestone,
@@ -11,25 +10,6 @@ import type {
   DocumentVersion,
   MilestoneStatus,
 } from "./types";
-
-// --- Portal Links ---
-
-export async function validateToken(token: string): Promise<PortalLink | null> {
-  const { data } = await supabase
-    .from("portal_links")
-    .select("*")
-    .eq("token", token)
-    .eq("is_active", true)
-    .single();
-
-  if (!data) return null;
-
-  if (data.expires_at && new Date(data.expires_at) < new Date()) {
-    return null;
-  }
-
-  return data as PortalLink;
-}
 
 // --- Projects ---
 

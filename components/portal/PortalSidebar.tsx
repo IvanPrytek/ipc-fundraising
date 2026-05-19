@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import type { PortalType } from "@/lib/portal/types";
+import { logout } from "@/lib/auth/actions";
 
 interface NavItem {
   label: string;
@@ -14,7 +15,7 @@ interface NavItem {
 
 interface PortalSidebarProps {
   portalType: PortalType;
-  token: string;
+  projectId: string;
   projectName: string;
 }
 
@@ -36,13 +37,13 @@ const LP_NAV: NavItem[] = [
 
 export default function PortalSidebar({
   portalType,
-  token,
+  projectId,
   projectName,
 }: PortalSidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const basePath = `/portal/${portalType}/${token}`;
+  const basePath = `/portal/${portalType}/${projectId}`;
   const navItems = portalType === "team" ? TEAM_NAV : LP_NAV;
   const bottomItems = portalType === "team" ? TEAM_NAV_BOTTOM : [];
 
@@ -143,6 +144,23 @@ export default function PortalSidebar({
             </>
           )}
         </nav>
+
+        <div className="border-t border-white/[0.06] p-4 space-y-2">
+          <a
+            href="/portal/choose"
+            className="block text-[12px] text-[#86868B] hover:text-white/70"
+          >
+            ← Switch Portal
+          </a>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="text-[12px] text-[#86868B] hover:text-red-400"
+            >
+              Sign Out
+            </button>
+          </form>
+        </div>
       </aside>
 
       {mobileOpen && (

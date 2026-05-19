@@ -95,7 +95,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <Link
-              href="/portal/lp/lp-xyz98765"
+              href="/portal/login"
               className="hidden rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-white/70 transition-all duration-300 hover:border-white/30 hover:text-white md:block"
             >
               Investor Portal
@@ -142,7 +142,7 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="/portal/lp/lp-xyz98765"
+              href="/portal/login"
               onClick={() => setIsOpen(false)}
               className="text-[15px] text-champagne transition-colors duration-300 hover:text-champagne-light"
             >

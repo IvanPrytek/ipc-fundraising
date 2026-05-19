@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import type { Document } from "@/lib/portal/types";
 import { formatFileSize, formatDate, getFileTypeInfo } from "@/lib/portal/utils";
-import { getPublicUrl } from "@/lib/supabase/storage";
+import { getSignedUrl } from "@/lib/supabase/storage";
 import VersionHistory from "./VersionHistory";
 
 interface DocumentRowProps {
@@ -15,8 +15,12 @@ interface DocumentRowProps {
 
 export default function DocumentRow({ document: doc, editable, onReplace }: DocumentRowProps) {
   const [showVersions, setShowVersions] = useState(false);
+  const [url, setUrl] = useState("");
   const typeInfo = getFileTypeInfo(doc.mime_type);
-  const url = getPublicUrl(doc.storage_path);
+
+  useEffect(() => {
+    getSignedUrl(doc.storage_path).then(setUrl);
+  }, [doc.storage_path]);
 
   return (
     <>

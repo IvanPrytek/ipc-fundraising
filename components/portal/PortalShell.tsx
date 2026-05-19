@@ -3,14 +3,14 @@ import PortalSidebar from "./PortalSidebar";
 
 interface PortalShellProps {
   portalType: PortalType;
-  token: string;
+  projectId: string;
   projectName: string;
   children: React.ReactNode;
 }
 
 export default function PortalShell({
   portalType,
-  token,
+  projectId,
   projectName,
   children,
 }: PortalShellProps) {
@@ -18,7 +18,7 @@ export default function PortalShell({
     <div className="min-h-screen bg-dark text-[#e5e5e5]">
       <PortalSidebar
         portalType={portalType}
-        token={token}
+        projectId={projectId}
         projectName={projectName}
       />
       <div className="md:ml-[200px]">
