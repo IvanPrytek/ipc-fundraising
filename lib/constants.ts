@@ -87,5 +87,5 @@ export const NAV_LINKS = [
   { label: "For Teams", href: "/for-teams" },
   { label: "Track Record", href: "/track-record" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact Us", href: "/contact" },
 ];

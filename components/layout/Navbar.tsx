@@ -104,7 +104,7 @@ export default function Navbar() {
               href="/contact"
               className="hidden rounded-full bg-white px-4 py-1.5 text-[13px] font-medium text-[#0A0A0A] transition-opacity duration-300 hover:opacity-80 md:block"
             >
-              Contact
+              Contact Us
             </Link>
 
             <button
